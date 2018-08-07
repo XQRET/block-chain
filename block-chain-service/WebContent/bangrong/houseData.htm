@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    #parse("/common/common.htm")
+    
+    <body class="body-content">
+    #set($contractID=${request.getParameter("contractID")})
+    #set($house=${contractController.getHouseByContractID($contractID)})
+    #if($house.exists("img"))
+	#set($img=$house.getStringValue("img"))
+	<input type="hidden" id="hdImgs" value="$!img">
+	#end
+      <div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+      <div class="alltitle">
+        <p>房产数据</p>
+      </div>
+      <div class="allcenter">
+      <div class="allinfo img-border hd_data">
+        <div class="F16" id="divHouseCard">房产证</div>
+        <div class="F16" id="divMortgageContract">按揭合同</div>
+        <div class="F16" id="divConsultOrder">查档单</div>
+        </div>
+      </div>
+    </body>
+    <!-- 图片查看大图 -->
+    <div class="mask"></div>
+    <div class="big-img">
+      <img src="" /></div>
+
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="./js/constant.js"></script>
+<script type="text/javascript" src="./js/houseData.js"></script>

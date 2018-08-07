@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    #parse("/common/common.htm")
+    
+    <body class="body-content">
+      <div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+      <div class="alltitle">
+        <p id="confirmContractSigner"></p>
+      </div>
+      <div class="allcenter">
+        <div class="allinfo">
+          <form class="layui-form ic_form" id="confirmForm">
+            <ul class=" img-border clearfix" id="showImg">
+              
+            </ul>
+            <div class="audit_btn w222 mt10">
+              <label>&nbsp;</label>
+              <span class="bg44" onclick="showSupplementaryData()">补充文件</span>
+              <span class="bg44 ml15" onclick="relation()">关联数据</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </body>
+        <!-- 补充文件遮罩层 -->
+    <div class="e_st_dialog" id="relationDialog">
+      <form id="relationForm" class="layui-form">
+        <div class="dialog-header clearfix">
+          <span >补充文件</span>
+          <b class="close" onclick="closefbE()"></b>
+        </div>
+        <div class="add_apply  relation_upload overauto img-border" id="add_apply"></div>
+        <div class="dialog-footer">
+          <span class="active8" onclick="copyFile()">确认</span></div>
+      </form>
+    </div>
+    
+    <!-- 图片查看大图 -->
+    <div class="mask"></div>
+    <div class="big-img">
+      <img src="" /></div>
+
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="./js/importConfirm.js"></script>

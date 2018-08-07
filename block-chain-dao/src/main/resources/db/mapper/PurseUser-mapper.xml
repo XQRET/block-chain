@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.purse.user.PurseUserMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.purse.po.PurseUser">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="purseUserName" property="purseUserName" jdbcType="VARCHAR"/>
+        <result column="purseUserPassword" property="purseUserPassword" jdbcType="VARCHAR"/>
+        <result column="pursePrivateKey" property="pursePrivateKey" jdbcType="VARCHAR"/>
+        <result column="pursePublicKey" property="pursePublicKey" jdbcType="VARCHAR"/>
+        <result column="purseAddress" property="purseAddress" jdbcType="VARCHAR"/>
+        <result column="purseUserMobile" property="purseUserMobile" jdbcType="VARCHAR"/>
+        <result column="purseUserType" property="purseUserType" jdbcType="VARCHAR"/>
+        <result column="invitationCode" property="invitationCode" jdbcType="VARCHAR"/>
+        <result column="registerImei" property="registerImei" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        purseUserName,
+        purseUserPassword,
+        pursePrivateKey,
+        pursePublicKey,
+        purseAddress,
+        purseUserMobile,
+        purseUserType,
+        invitationCode,
+        registerImei,
+        createTime,
+        updateTime
+    </sql>
+
+
+    <!--添加用户-->
+    <insert id="insertPurseUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+            parameterType="cn.inbs.blockchain.dao.purse.po.PurseUser">
+        <!--<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">-->
+        <!--SELECT LAST_INSERT_ID()-->
+        <!--</selectKey>-->
+        insert into purse_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="purseUserName != null">
+                purseUserName,
+            </if>
+            <if test="purseUserPassword != null">
+                purseUserPassword,
+            </if>
+            <if test="pursePrivateKey != null">
+                pursePrivateKey,
+            </if>
+            <if test="pursePublicKey != null">
+                pursePublicKey,
+            </if>
+            <if test="purseAddress != null">
+                purseAddress,
+            </if>
+            <if test="purseUserMobile != null">
+                purseUserMobile,
+            </if>
+            <if test="purseUserType != null">
+                purseUserType,
+            </if>
+            <if test="invitationCode != null">
+                invitationCode,
+            </if>
+            <if test="registerImei != null">
+                registerImei,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="purseUserName != null">
+                #{purseUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="purseUserPassword != null">
+                #{purseUserPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="pursePrivateKey != null">
+                #{pursePrivateKey,jdbcType=VARCHAR},
+            </if>
+            <if test="pursePublicKey != null">
+                #{pursePublicKey,jdbcType=VARCHAR},
+            </if>
+            <if test="purseAddress != null">
+                #{purseAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="purseUserMobile != null">
+                #{purseUserMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="purseUserType != null">
+                #{purseUserType,jdbcType=VARCHAR},
+            </if>
+            <if test="invitationCode != null">
+                #{invitationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="registerImei != null">
+                #{registerImei,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!--查询用户相关信息-->
+    <select id="selectPurseUser" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.purse.po.PurseUser">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        purse_user
+        where
+        1=1
+        <if test="purseUserName != null">
+            AND purseUserName=#{purseUserName}
+        </if>
+        <if test="purseAddress != null">
+            AND purseAddress=#{purseAddress}
+        </if>
+    </select>
+
+    <!--更新用户相关信息-->
+    <update id="updatePurseUser" parameterType="cn.inbs.blockchain.dao.purse.po.PurseUser" >
+        update purse_user
+        <set >
+            <if test="purseUserPassword != null" >
+                purseUserPassword = #{purseUserPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="purseUserMobile != null" >
+                purseUserMobile = #{purseUserMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="purseUserType != null" >
+                purseUserType = #{purseUserType,jdbcType=VARCHAR},
+            </if>
+            <if test="pursePrivateKey != null" >
+                pursePrivateKey = #{pursePrivateKey,jdbcType=VARCHAR},
+            </if>
+            <if test="pursePublicKey != null" >
+                pursePublicKey = #{pursePublicKey,jdbcType=VARCHAR},
+            </if>
+            <if test="purseAddress != null" >
+                purseAddress = #{purseAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="invitationCode != null" >
+                invitationCode = #{invitationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="registerImei != null" >
+                registerImei = #{registerImei,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where
+            purseUserName = #{purseUserName,jdbcType=VARCHAR}
+
+    </update>
+</mapper>

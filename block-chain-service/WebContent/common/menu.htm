@@ -1,0 +1,84 @@
+<!DOCTYPE HTML  PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+<LINK href="../css/style.css" rel="stylesheet" type="text/css">
+#parse("/common/common.htm")
+</HEAD>
+<BODY>
+<div class="leftcontent clearfix scroll">
+	<div class="ht_inner1" id="menu_content_id">
+	#set($navigator=$headController.getNavigatorMenu($request))
+	#foreach($node in $navigator.getNode())
+		<div class="ht_Theme"><div class="ht_inner"><i class="right_delta"></i>$node.getTitle()</div></div>
+		#if($node.getNodeCount()>0)
+			<ul id="child$node.getId()" class="ht_c1">
+			#foreach($subNode in $node.getNode())
+			#set($urlPath = $subNode.getURLPath())
+				<li id="li_${velocityCount}$subNode.getId()" class="clearfix">
+					<a href="javascript:void(0);" onclick="javascript:loadTree('$subNode.getTargetURL()','${velocityCount}$subNode.getId()');" urlPath="$urlPath"><img src="$urlPath"/>$subNode.getTitle()</a>
+					<b style="display:none"></b>
+				</li>
+			#end
+			</ul>
+		#end
+	#end
+	</div>
+</div>
+</BODY>
+</HTML>
+
+<script type="text/javascript">
+$(".layui-layer-shade").hide();
+$(".layui-layer-loading").hide();
+$(".ht_Theme").click(function(){
+	if($(this).next(".ht_c1").hasClass("ht_check")){
+		//去掉二级菜单的选中
+		$(this).next().find(".row").removeClass("row");	
+		//当二级菜单为展开模式事，再次点击关闭
+		$(".ht_inner i").removeClass("i_check");
+		//关闭二级菜单
+		$(".ht_c1").removeClass("ht_check");
+	}
+	else{
+		//展开二级菜单
+		$(this).next(".ht_c1").addClass("ht_check").siblings(".ht_c1").removeClass("ht_check");
+		//切换三角箭头
+		$(".ht_inner i").removeClass("i_check");
+		$(this).find("i").addClass("i_check");
+		
+	}
+});
+
+//选中的Id
+var chooseId = 0;
+
+function loadTree(url,obj)
+{
+ 	var li_obj = document.getElementsByTagName("li");
+    for(var i=0; i< li_obj.length; i++ )
+    {
+        li_obj[i].className = "";
+    }
+
+	var liId = "li_"+obj;
+	var liDom = document.getElementById(liId);
+    liDom.className = "row";
+    if (url != "")
+    {
+    	if(url.indexOf("?")<0)
+    	{
+  			url=url+"?t="+new Date().getTime();
+    	}
+    	else
+    	{
+    		url=url+"&t="+new Date().getTime();
+    	}
+    	parent.rightFrame.location=url;
+    }
+
+	chooseId = liId;
+}
+</script>

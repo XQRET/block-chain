@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.contract.BlockContractMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.po.BlockContract">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="contractId" property="contractId" jdbcType="VARCHAR"/>
+        <result column="contractStatus" property="contractStatus" jdbcType="VARCHAR"/>
+        <result column="importType" property="importType" jdbcType="VARCHAR"/>
+        <result column="contractRegister" property="contractRegister" jdbcType="VARCHAR"/>
+        <result column="contractSigner" property="contractSigner" jdbcType="VARCHAR"/>
+        <result column="interestRate" property="interestRate" jdbcType="DECIMAL"/>
+        <result column="repaymentWay" property="repaymentWay" jdbcType="VARCHAR"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="term" property="term" jdbcType="INTEGER"/>
+        <result column="bank" property="bank" jdbcType="VARCHAR"/>
+        <result column="houseCode" property="houseCode" jdbcType="VARCHAR"/>
+        <result column="houseInfo" property="houseInfo" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="registDate" property="registDate" jdbcType="TIMESTAMP"/>
+        <result column="contractToDate" property="contractToDate" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="contractBlockId" property="contractBlockId" jdbcType="VARCHAR"/>
+        <result column="companyId" property="companyId" jdbcType="BIGINT"/>
+        <result column="registCompanyBlockId" property="registCompanyBlockId" jdbcType="VARCHAR"/>
+        <result column="contractName" property="contractName" jdbcType="VARCHAR"/>
+        <result column="refuseTimes" property="refuseTimes" jdbcType="INTEGER"/>
+        <result column="triggerCompanyBlockId" property="triggerCompanyBlockId" jdbcType="VARCHAR"/>
+        <result column="idNo" property="idNo" jdbcType="VARCHAR"/>
+        <result column="phoneNumber" property="phoneNumber" jdbcType="VARCHAR"/>
+        <result column="overdueAmount" property="overdueAmount" jdbcType="DECIMAL"/>
+        <result column="overdueNum" property="overdueNum" jdbcType="INTEGER"/>
+        <result column="creditOverdueNum" property="creditOverdueNum" jdbcType="INTEGER"/>
+        <result column="creditLoanNum" property="creditLoanNum" jdbcType="INTEGER"/>
+        <result column="importUniqueSign" property="importUniqueSign" jdbcType="VARCHAR"/>
+        <result column="attachInfoJson" property="attachInfoJson" jdbcType="VARCHAR"/>
+        <result column="contractType" property="contractType" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        contractId,
+        contractStatus,
+        importType,
+        contractRegister,
+        contractSigner,
+        interestRate,
+        repaymentWay,
+        amount,
+        term,
+        bank,
+        houseCode,
+        houseInfo,
+        remark,
+        registDate,
+        contractToDate,
+        updateTime,
+        contractBlockId,
+        companyId,
+        registCompanyBlockId,
+        contractName,
+        refuseTimes,
+        triggerCompanyBlockId,
+        idNo,
+        phoneNumber,
+        overdueAmount,
+        overdueNum,
+        creditOverdueNum,
+        creditLoanNum,
+        importUniqueSign,
+        attachInfoJson,
+        contractType
+    </sql>
+
+    <!--根据索引字段查询合约信息-->
+    <select id="selectBlockContractByIndex" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.po.BlockContract">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_block_contract
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="contractBlockId != null">
+            AND contractBlockId = #{contractBlockId,jdbcType=VARCHAR}
+        </if>
+        <if test="contractStatus != null">
+            AND contractStatus = #{contractStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="contractId != null">
+            AND contractId = #{contractId,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+    <!--分页查询-->
+    <select id="selectPageList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_block_contract
+        where 1=1
+        AND contractStatus IN
+        <foreach collection="contractStatus" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND registCompanyBlockId IN
+        <foreach collection="companyBlockId" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <if test="triggerCompanyBlockId != null">
+            AND ( triggerCompanyBlockId IN
+            <foreach collection="triggerCompanyBlockId" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            <if test="isInclude ==1">
+                OR triggerCompanyBlockId IS NULL
+            </if>
+            )
+        </if>
+        <if test="register != null">
+            AND contractRegister LIKE CONCAT(CONCAT('%',#{register}),'%')
+        </if>
+        <if test="signer != null">
+            AND contractSigner LIKE CONCAT(CONCAT('%',#{signer}),'%')
+        </if>
+        <if test="contractName != null">
+            AND contractName LIKE CONCAT(CONCAT('%',#{contractName}),'%')
+        </if>
+        <if test="startTime != null">
+            AND registDate <![CDATA[ > ]]> #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="stopTime != null">
+            AND registDate <![CDATA[ <= ]]> #{stopTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="importType != null">
+            AND importType = #{importType}
+        </if>
+        <if test="importUniqueSign != null  and importUniqueSign !=''">
+        	AND importUniqueSign LIKE CONCAT(CONCAT('%',#{importUniqueSign}),'%')
+        </if>
+        order by id DESC
+        limit #{startIndex},#{pageCount}
+    </select>
+
+    <!--总条数查询-->
+    <select id="selectTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_block_contract
+        where 1=1
+        <if test="contractStatus != null">
+        AND contractStatus IN
+        <foreach collection="contractStatus" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        </if>
+        <if test="companyBlockId != null">
+        AND registCompanyBlockId IN
+        <foreach collection="companyBlockId" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        </if>
+        <if test="triggerCompanyBlockId != null">
+            AND ( triggerCompanyBlockId IN
+            <foreach collection="triggerCompanyBlockId" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            <if test="isInclude ==1">
+                OR triggerCompanyBlockId IS NULL
+            </if>
+            )
+        </if>
+        <if test="register != null">
+            AND contractRegister LIKE CONCAT(CONCAT('%',#{register}),'%')
+        </if>
+        <if test="signer != null">
+            AND contractSigner LIKE CONCAT(CONCAT('%',#{signer}),'%')
+        </if>
+        <if test="contractName != null">
+            AND contractName LIKE CONCAT(CONCAT('%',#{contractName}),'%')
+        </if>
+        <if test="startTime != null">
+            AND registDate <![CDATA[ > ]]> #{startTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="stopTime != null">
+            AND registDate <![CDATA[ < ]]> #{stopTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="importType != null">
+            AND importType = #{importType}
+        </if>
+       <if test="importUniqueSign != null  and importUniqueSign !=''">
+            AND importUniqueSign LIKE CONCAT(CONCAT('%',#{importUniqueSign}),'%')
+        </if>
+    </select>
+
+    <!--插入合约信息-->
+    <insert id="insertBlockContract" parameterType="cn.inbs.blockchain.dao.po.BlockContract">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_block_contract
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">
+                contractId,
+            </if>
+            <if test="contractName != null">
+                contractName,
+            </if>
+            <if test="contractRegister != null">
+                contractRegister,
+            </if>
+            <if test="contractSigner != null">
+                contractSigner,
+            </if>
+            <if test="registDate != null">
+                registDate,
+            </if>
+            <if test="contractToDate != null">
+                contractToDate,
+            </if>
+            <if test="interestRate != null">
+                interestRate,
+            </if>
+            <if test="repaymentWay != null">
+                repaymentWay,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="term != null">
+                term,
+            </if>
+            <if test="bank != null">
+                bank,
+            </if>
+            <if test="houseInfo != null">
+                houseInfo,
+            </if>
+            <if test="houseCode != null">
+                houseCode,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="contractBlockId != null">
+                contractBlockId,
+            </if>
+            <if test="registCompanyBlockId != null">
+                registCompanyBlockId,
+            </if>
+            <if test="companyId != null">
+                companyId,
+            </if>
+            <if test="contractStatus != null">
+                contractStatus,
+            </if>
+            <if test="importType != null">
+                importType,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="refuseTimes != null">
+                refuseTimes,
+            </if>
+            <if test="triggerCompanyBlockId != null">
+                triggerCompanyBlockId,
+            </if>
+            <if test="idNo != null">
+                idNo,
+            </if>
+            <if test="phoneNumber != null">
+                phoneNumber,
+            </if>
+            <if test="overdueAmount != null">
+                overdueAmount,
+            </if>
+            <if test="overdueNum != null">
+                overdueNum,
+            </if>
+            <if test="creditOverdueNum != null">
+                creditOverdueNum,
+            </if>
+            <if test="creditLoanNum != null">
+                creditLoanNum,
+            </if>
+            <if test="importUniqueSign != null">
+                importUniqueSign,
+            </if>
+            <if test="attachInfoJson != null">
+                attachInfoJson,
+            </if>
+            <if test="contractType != null">
+                contractType,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">
+                #{contractId,jdbcType=VARCHAR},
+            </if>
+            <if test="contractName != null">
+                #{contractName,jdbcType=VARCHAR},
+            </if>
+            <if test="contractRegister != null">
+                #{contractRegister,jdbcType=VARCHAR},
+            </if>
+            <if test="contractSigner != null">
+                #{contractSigner,jdbcType=VARCHAR},
+            </if>
+            <if test="registDate != null">
+                #{registDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="contractToDate != null">
+                #{contractToDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="interestRate != null">
+                #{interestRate,jdbcType=DECIMAL},
+            </if>
+            <if test="repaymentWay != null">
+                #{repaymentWay,jdbcType=SMALLINT},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="term != null">
+                #{term,jdbcType=INTEGER},
+            </if>
+            <if test="bank != null">
+                #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="houseInfo != null">
+                #{houseInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="houseCode != null">
+                #{houseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="contractBlockId != null">
+                #{contractBlockId,jdbcType=VARCHAR},
+            </if>
+            <if test="registCompanyBlockId != null">
+                #{registCompanyBlockId,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="contractStatus != null">
+                #{contractStatus,jdbcType=SMALLINT},
+            </if>
+            <if test="importType != null">
+                #{importType,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="refuseTimes != null">
+                #{refuseTimes,jdbcType=INTEGER},
+            </if>
+            <if test="triggerCompanyBlockId != null">
+                #{triggerCompanyBlockId,jdbcType=VARCHAR},
+            </if>
+            <if test="idNo != null">
+                #{idNo,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="overdueAmount != null">
+                #{overdueAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="overdueNum != null">
+                #{overdueNum,jdbcType=INTEGER},
+            </if>
+            <if test="creditOverdueNum != null">
+                #{creditOverdueNum,jdbcType=INTEGER},
+            </if>
+            <if test="creditLoanNum != null">
+                #{creditLoanNum,jdbcType=INTEGER},
+            </if>
+            <if test="importUniqueSign != null">
+                #{importUniqueSign,jdbcType=VARCHAR},
+            </if>
+            <if test="attachInfoJson != null">
+                #{attachInfoJson,jdbcType=VARCHAR},
+            </if>
+            <if test="contractType != null">
+                #{contractType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--修改合约状态-->
+    <update id="updateStatusAndRefuseTimesById" parameterType="cn.inbs.blockchain.dao.po.BlockContract">
+        update t_block_contract
+        <set>
+            <if test="contractStatus != null">
+                contractStatus=#{contractStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="refuseTimes != null">
+                refuseTimes=#{refuseTimes,jdbcType=INTEGER},
+            </if>
+            <if test="triggerCompanyBlockId != null">
+                triggerCompanyBlockId=#{triggerCompanyBlockId,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark=#{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                updateTime=#{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="contractToDate != null">
+                contractToDate=#{contractToDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectDistinctHouseCode" resultType="string">
+        select
+        	DISTINCT houseCode
+        from
+        	t_block_contract
+        where 
+            contractStatus != 40
+    </select>
+
+    <select id="selectDistinctImportUniqueSign" resultType="string">
+        select
+        	DISTINCT importUniqueSign
+        from
+        	t_block_contract
+        where 
+            companyId = #{value} 
+    </select>
+
+
+    <update id="updateImportTypeSuccessBycontractId">
+        update t_block_contract
+       	set importType = #{importType}
+        where contractId = #{contractId}
+        and registCompanyBlockId = #{companyBlockId}
+    </update>
+
+    <delete id="deleteImportContract">
+	    delete from t_block_contract
+	    where contractId = #{contractId}
+	    and registCompanyBlockId = #{companyBlockId}
+    </delete>
+
+    <!--分页查询-->
+    <select id="selectPageListByFundsTrigger" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <foreach collection="relations" index="index" item="item" open=" ( " separator=" UNION " close=") a">
+            select
+            <include refid="Base_Column_List"/>
+            from
+            t_block_contract
+            WHERE 1=1
+            <if test="item.updateTime!=null">
+                AND registDate <![CDATA[ > ]]> #{item.updateTime,jdbcType=TIMESTAMP}
+            </if>
+            AND registCompanyBlockId =#{item.zcCompanyBlockId}
+            AND contractStatus IN
+            <foreach collection="contractStatus" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            <if test="triggerCompanyBlockId != null">
+                AND ( triggerCompanyBlockId IN
+                <foreach collection="triggerCompanyBlockId" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+                OR triggerCompanyBlockId IS NULL
+                )
+            </if>
+            <if test="register != null">
+                AND contractRegister LIKE CONCAT(CONCAT('%',#{register}),'%')
+            </if>
+            <if test="signer != null">
+                AND contractSigner LIKE CONCAT(CONCAT('%',#{signer}),'%')
+            </if>
+            <if test="contractName != null">
+                AND contractName LIKE CONCAT(CONCAT('%',#{contractName}),'%')
+            </if>
+            <if test="stopTime != null">
+                AND registDate <![CDATA[ <= ]]> #{stopTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="importType != null">
+                AND importType = #{importType}
+            </if>
+        </foreach>
+        order by a.id DESC
+        limit #{startIndex},#{pageCount}
+    </select>
+
+
+    <select id="selectTotalCountByFundsTrigger" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from
+        <foreach collection="relations" index="index" item="item" open=" ( " separator=" UNION " close=") a">
+            select
+            <include refid="Base_Column_List"/>
+            from
+            t_block_contract
+            WHERE 1=1
+            <if test="item.updateTime!=null">
+                AND registDate <![CDATA[ > ]]> #{item.updateTime,jdbcType=TIMESTAMP}
+            </if>
+            AND registCompanyBlockId =#{item.zcCompanyBlockId}
+            AND contractStatus IN
+            <foreach collection="contractStatus" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            <if test="triggerCompanyBlockId != null">
+                AND ( triggerCompanyBlockId IN
+                <foreach collection="triggerCompanyBlockId" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+                OR triggerCompanyBlockId IS NULL
+                )
+            </if>
+            <if test="register != null">
+                AND contractRegister LIKE CONCAT(CONCAT('%',#{register}),'%')
+            </if>
+            <if test="signer != null">
+                AND contractSigner LIKE CONCAT(CONCAT('%',#{signer}),'%')
+            </if>
+            <if test="contractName != null">
+                AND contractName LIKE CONCAT(CONCAT('%',#{contractName}),'%')
+            </if>
+            <if test="stopTime != null">
+                AND registDate <![CDATA[ <= ]]> #{stopTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="importType != null">
+                AND importType = #{importType}
+            </if>
+        </foreach>
+    </select>
+
+    <select id="selectTotalAmount" resultType="java.lang.String">
+        SELECT SUM(amount) FROM `t_block_contract`;
+    </select>
+
+    <select id="selectContractByContractType" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_block_contract WHERE importType=#{importType}
+        AND contractType=#{contractType}
+        ORDER BY registDate DESC limit #{pageCount}
+    </select>
+</mapper>

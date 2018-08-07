@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!--===============================控制台日志配置===============================-->
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p]-[%d{yyyy-MM-dd HH:mm:ss:SSS}]-[%C,%L]: %m%n"/>
+        </layout>
+    </appender>
+
+    <!--===============================正常日志文件配置===============================-->
+    <appender name="INFO-FILE" class="org.apache.log4j.DailyRollingFileAppender">
+        <!-- 设置日志信息输出文件全路径名 -->
+        <param name="File" value="${catalina.base}/logs/block-chain-purse-info.log"/>
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="Append" value="true"/>
+        <!-- 设置保存备份回滚日志的最大个数 -->
+        <param name="MaxBackupIndex" value="10"/>
+        <!-- 设置日志每分钟回滚一次，即产生一个新的日志文件 -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p]-[%d{yyyy-MM-dd HH:mm:ss:SSS}]-[%C,%L]: %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="DEBUG"/>
+            <param name="levelMax" value="INFO"/>
+            <param name="acceptOnMatch" value="true"/>
+        </filter>
+    </appender>
+
+    <!--===============================错误日志文件配置===============================-->
+    <appender name="ERROR-FILE" class="org.apache.log4j.DailyRollingFileAppender">
+        <!-- 设置日志信息输出文件全路径名 -->
+        <param name="File" value="${catalina.base}/logs/block-chain-purse-error.log"/>
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="Append" value="true"/>
+        <!-- 设置保存备份回滚日志的最大个数 -->
+        <param name="MaxBackupIndex" value="10"/>
+        <!-- 设置日志每分钟回滚一次，即产生一个新的日志文件 -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p]-[%d{yyyy-MM-dd HH:mm:ss:SSS}]-[%C,%L]: %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="WARN"/>
+            <param name="levelMax" value="FATAL"/>
+            <param name="acceptOnMatch" value="true"/>
+        </filter>
+    </appender>
+    <root>
+        <!--日志级别-->
+        <level value="info"/>
+
+        <!--控制台输出开关-->
+        <appender-ref ref="STDOUT"/>
+
+        <!--warn及以上日志文配置-->
+        <!--<appender-ref ref="ERROR-FILE"/>-->
+
+        <!--debug及info级别日志-->
+        <!--<appender-ref ref="INFO-FILE"/>-->
+    </root>
+</log4j:configuration>

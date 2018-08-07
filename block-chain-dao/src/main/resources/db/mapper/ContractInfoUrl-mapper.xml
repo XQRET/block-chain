@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.contract.ContractInfoUrlMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.po.ContractInfoUrl">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="contractId" property="contractId" jdbcType="VARCHAR"/>
+        <result column="urlType" property="urlType" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="orderCode" property="orderCode" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        contractId,
+        urlType,
+        url,
+        orderCode,
+        createTime,
+        updateTime
+    </sql>
+
+    <insert id="insertContractInfoUrl" parameterType="cn.inbs.blockchain.dao.po.ContractInfoUrl">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_contract_info_url
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">
+                contractId,
+            </if>
+            <if test="urlType != null">
+                urlType,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="orderCode != null">
+                orderCode,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">
+                #{contractId,jdbcType=VARCHAR},
+            </if>
+            <if test="urlType != null">
+                #{urlType,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="orderCode != null">
+                #{orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!--分页查询-->
+    <select id="selectContractInfoUrlListByContractBlockId" parameterType="cn.inbs.blockchain.dao.po.ContractInfoUrl"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_contract_info_url
+        where
+        contractId=#{contractId}
+    </select>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_contract_info_url
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_contract_info_url
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="cn.inbs.blockchain.dao.po.ContractInfoUrl">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_contract_info_url (contractBlockId, urlType, url,
+        orderCode, createTime, updateTime
+        )
+        values (#{contractBlockId,jdbcType=VARCHAR}, #{urlType,jdbcType=SMALLINT}, #{url,jdbcType=VARCHAR},
+        #{orderCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.inbs.blockchain.dao.po.ContractInfoUrl">
+        update t_contract_info_url
+        <set>
+            <if test="contractBlockId != null">
+                contractBlockId = #{contractBlockId,jdbcType=VARCHAR},
+            </if>
+            <if test="urlType != null">
+                urlType = #{urlType,jdbcType=SMALLINT},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="orderCode != null">
+                orderCode = #{orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.inbs.blockchain.dao.po.ContractInfoUrl">
+    update t_contract_info_url
+    set contractBlockId = #{contractBlockId,jdbcType=VARCHAR},
+      urlType = #{urlType,jdbcType=SMALLINT},
+      url = #{url,jdbcType=VARCHAR},
+      orderCode = #{orderCode,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

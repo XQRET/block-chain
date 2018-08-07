@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    #parse("/common/common.htm")
+    
+    <body class="body-content">
+    <!-- 查询 赋值 隐藏域 -->
+	#set($contractID=${request.getParameter("contractID")})
+    #set($person=${contractController.getPersonByContractID($contractID)})
+    #if($person.exists("contractSigner"))
+	#set($contractSigner=$person.getStringValue("contractSigner"))
+	#end
+	#if($person.exists("idNo"))
+	#set($idNo=$person.getStringValue("idNo"))
+	<input type="hidden" id="hdIDNo" value="$!{idNo}">
+	#end
+	#if($person.exists("phoneNumber"))
+	#set($phoneNumber=$person.getStringValue("phoneNumber"))
+	#end
+	#if($person.exists("term"))
+	#set($term=$person.getStringValue("term"))
+	#end
+	#if($person.exists("registDate"))
+	#set($registDate=$person.getStringValue("registDate"))
+	#end
+	#if($person.exists("img"))
+	#set($img=$person.getStringValue("img"))
+	<input type="hidden" id="hdImg" value="$!img">
+	#end
+      <div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+      <div class="alltitle">
+        <p>个人数据
+          <span>报告时间：$!{registDate}</span></p>
+      </div>
+      <div class="allcenter">
+        <div class="pd_title">基本信息</div>
+        <div class="pd_data">
+          <ul class="overauto">
+            <li>
+              <p>姓名</p>
+              <label class="c6b F16">$!{contractSigner}</label></li>
+            <li>
+              <p>身份证号</p>
+              <label>$!{idNo}</label></li>
+            <li>
+              <p>手机号码</p>
+              <label>$!{phoneNumber}</label></li>
+            <li>
+              <p>租赁权</p>
+              <label class="cGray">
+                <b id="bTerm">$!{term}</b></label>
+                <input type="hidden" id="hdTerm" value="$!term">
+            </li>
+            <li>
+              <p>性别</p>
+              <label id="lblSex"></label></li>
+            <li>
+              <p>年龄</p>
+              <label class="cGray">
+                <b id="bAge"></b></label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="allcenter overauto">
+        <div class="pd_tab">
+          <p class="pdcheck">人行征信</p>
+          <p>身份证</p>
+          <p>手机实名</p>
+        </div>
+       <!-- 人行征信pdf显示 -->
+        <div class="tabinfo" id="divPDF">
+        </div>
+		<div class="tabinfo img-border dn" id="divID">
+		</div>
+        <div class="tabinfo img-border dn" id="divPhone">
+        </div>
+      </div>
+    </body>
+    <!-- 图片查看大图 -->
+    <div class="mask"></div>
+    <div class="big-img">
+      <img src="" /></div>
+
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="./js/constant.js"></script>
+<script type="text/javascript" src="./js/personalData.js"></script>

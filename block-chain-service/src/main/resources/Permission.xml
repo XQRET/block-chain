@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/Permission.xsd">
+	<PermissionItem Name="系统管理" Permission="xt">
+		<PermissionItem Name="机构审核" Permission="xt.f"/>
+		<PermissionItem Name="定时任务管理" Permission="xt.s"/>
+		<PermissionItem Name="应用审核" Permission="xt.g"/>
+		<PermissionItem Name="角色管理" Permission="xt.r">
+			<PermissionItem Name="添加角色" Permission="xt.r.a" />
+			<PermissionItem Name="编辑角色" Permission="xt.r.u" />
+			<PermissionItem Name="删除角色" Permission="xt.r.d" />
+		</PermissionItem>
+		<PermissionItem Name="员工管理" Permission="xt.e">
+			<PermissionItem Name="添加员工" Permission="xt.e.a" />
+			<PermissionItem Name="编辑员工" Permission="xt.e.u" />
+			<PermissionItem Name="重置密码" Permission="xt.e.r" />
+			<PermissionItem Name="设定角色" Permission="xt.e.s" />
+			<PermissionItem Name="删除员工" Permission="xt.e.d" />
+		</PermissionItem>
+	</PermissionItem>
+	<PermissionItem Name="用户中心" Permission="yh">
+		<PermissionItem Name="基本信息" Permission="yh.a"/>
+		<!--<PermissionItem Name="认证信息" Permission="yh.b"/>-->
+		<!--<PermissionItem Name="关联机构" Permission="yh.e"/>-->
+		<PermissionItem Name="我的应用" Permission="yh.c"/>
+		<PermissionItem Name="我的节点" Permission="yh.d"/>
+	</PermissionItem>
+	<!--<PermissionItem Name="合约管理" Permission="hg">-->
+		<!--<PermissionItem Name="合约注册" Permission="hg.a"/>-->
+		<!--<PermissionItem Name="合约触发" Permission="hg.d"/>-->
+		<!--<PermissionItem Name="合约执行" Permission="hg.b"/>-->
+		<!--<PermissionItem Name="合约注销" Permission="hg.c"/>-->
+	<!--</PermissionItem>-->
+	<!--<PermissionItem Name="合约交易" Permission="hj">-->
+		<!--<PermissionItem Name="合约触发" Permission="hj.a"/>-->
+		<!--<PermissionItem Name="合约执行" Permission="hj.b"/>-->
+		<!--<PermissionItem Name="合约注销" Permission="hj.c"/>-->
+	<!--</PermissionItem>-->
+</PermissionList>

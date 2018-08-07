@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     #parse("/common/common.htm")
+  <body class="body-content">
+    <div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+    #set($lEmployeeId = $cdoLoginer.getStringValue("lEmployeeId"))
+    <input id="lEmployeeId" value="$!{lEmployeeId}" style="display: none"/>
+    <!-- 认证提示 -->
+    #parse("/common/authtips.htm")
+    <div class="alltitle" style="display: none">
+      <p>我的节点</p>
+    </div>
+    <div class="allcenter">
+      <div class="allinfo">
+        <div class="F16">我的节点
+          <span class="operate-employee ma0 fr" onclick="showDialog('addNodeDialog')">添加节点</span></div>
+        <table class="all_table mt20">
+          <thead>
+            <tr>
+              <td>应用名称</td>
+              <td>服务器IP</td>
+              <td>服务器带宽</td>
+              <td>系统</td>
+              <td>CPU</td>
+              <td>内存</td>
+              <td>磁盘</td>
+              <td>状态</td></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>某某应用名称</td>
+              <td>192.185.3.8</td>
+              <td>1000M</td>
+              <td>W10</td>
+              <td>英特尔</td>
+              <td>2000G</td>
+              <td>10t</td>
+              <td class="true">正常运转</td></tr>
+            <tr>
+              <!-- 没有添加节点时显示这部分内容 -->
+              <!-- <td colspan="8">
+                <img class="pr5" src="../images/userCenter/icon_ts.png" />若已添加过正式应用，立刻
+                <a class="c1f" onclick="showDialog('addNodeDialog')">添加节点&gt;&gt;</a>
+              </td> -->
+              <!-- 没有添加应用时显示这部分内容 --></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <!-- 添加节点遮罩层 -->
+  <div class="e_st_dialog" id="addNodeDialog">
+    <div class="dialog-header clearfix">
+      <span>添加节点</span>
+      <b class="close" onclick="closefbE()"></b>
+    </div>
+    <form class="layui-form">
+     <div class="add_apply add_node">
+      <div class="layui-form-item">
+        <label>名称：</label>
+        <div class="layui-input-block">
+          <select name="city" lay-verify="required">
+            <option value="0">---</option></select>
+        </div>
+      </div>
+        <div class="add_group">
+          <label>服务器IP：</label>
+          <input/>
+        </div>
+        <div class="add_group">
+          <label>带宽：</label>
+          <input/>
+        </div>
+        <div class="add_group">
+          <label>系统：</label>
+          <input/>
+        </div>
+        <div class="add_group">
+          <label>CPU：</label>
+          <input/>
+        </div>
+        <div class="add_group">
+          <label>内存：</label>
+          <input/>
+        </div>
+        <div class="add_group">
+          <label>磁盘：</label>
+          <input/>
+        </div>
+      </div>
+      
+      
+    </form>
+    <div class="dialog-footer">
+      <span class="active8" id="">提交确认</span></div>
+  </div>
+
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" >
+    $(function () {
+        var lEmployeeId = $("#lEmployeeId").val();
+        $.ajax({
+            type: "POST",
+            url: strRootPath + "/company/queryCertifiedInfo.do",
+            data: {"lEmployeeId":lEmployeeId},
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    if (data.resultCode == 0) {
+                        var status=data.resultDate.companyStatus;
+                        if(status!=0){
+                            $(".auth_tips").remove();
+                            $(".alltitle").css("display","block");
+                        }
+                    }
+                }
+            }
+        });
+    })
+</script>

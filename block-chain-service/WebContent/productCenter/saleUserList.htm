@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+	#parse("/common/common.htm")
+</head>
+
+<body class="body-content">
+    <!-- 当前位置开始 -->
+    <div class="alltitle">
+        #set($name=${request.getParameter("name")})
+        <input type="hidden" name="name" id="name" value="$name" />
+        <form id="agencyForm" class="layui-form">
+            #set($id=${request.getParameter("id")})
+            <input type="hidden" name="productId" id="productId" value="$id" />
+            <input type="hidden" id="pageIndex" name="pageIndex" value="1"/>
+        </form>
+    <p>预售列表</p>
+	</div>
+    <!-- 当前位置结束 -->
+    <div class="allcenter">
+    <div class="loan_list">
+        <div  id="table_view"></div>
+        <div id="pageTool" style="text-align:center"></div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="../notLogged/js/common.js" ></script>
+
+<script type="text/javascript" src="js/saleUserList.js" ></script>

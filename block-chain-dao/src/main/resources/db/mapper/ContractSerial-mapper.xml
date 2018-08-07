@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.contract.ContractSerialMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.po.ContractSerial">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="contractId" property="contractId" jdbcType="VARCHAR"/>
+        <result column="contractBlockId" property="contractBlockId" jdbcType="VARCHAR"/>
+        <result column="contractStatus" property="contractStatus" jdbcType="VARCHAR"/>
+        <result column="companyBlockId" property="companyBlockId" jdbcType="VARCHAR"/>
+        <result column="contractRemark" property="contractRemark" jdbcType="VARCHAR"/>
+        <result column="executeRemark" property="executeRemark" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="repaymentTrem" property="repaymentTrem" jdbcType="INTEGER"/>
+        <result column="repaymentStatus" property="repaymentStatus" jdbcType="VARCHAR"/>
+        <result column="remark3" property="remark3" jdbcType="VARCHAR"/>
+        <result column="remark4" property="remark4" jdbcType="VARCHAR"/>
+        <result column="remark5" property="remark5" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        contractId,
+        contractBlockId,
+        contractStatus,
+        companyBlockId,
+        contractRemark,
+        executeRemark,
+        createTime,
+        updateTime,
+        repaymentTrem,
+        repaymentStatus,
+        remark3,
+        remark4,
+        remark5
+    </sql>
+
+    <!--插入语句-->
+    <insert id="insertContractSerial" parameterType="cn.inbs.blockchain.dao.po.ContractSerial">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_contract_serial
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyBlockId != null">
+                companyBlockId,
+            </if>
+            <if test="contractId != null">
+                contractId,
+            </if>
+            <if test="contractBlockId != null">
+                contractBlockId,
+            </if>
+            <if test="contractRemark != null">
+                contractRemark,
+            </if>
+            <if test="contractStatus != null">
+                contractStatus,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="executeRemark != null">
+                executeRemark,
+            </if>
+            <if test="repaymentTrem != null">
+                repaymentTrem,
+            </if>
+            <if test="repaymentStatus != null">
+                repaymentStatus,
+            </if>
+            <if test="remark3 != null">
+                remark3,
+            </if>
+            <if test="remark4 != null">
+                remark4,
+            </if>
+            <if test="remark5 != null">
+                remark5,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyBlockId != null">
+                #{companyBlockId,jdbcType=VARCHAR},
+            </if>
+            <if test="contractId != null">
+                #{contractId,jdbcType=VARCHAR},
+            </if>
+            <if test="contractBlockId != null">
+                #{contractBlockId,jdbcType=VARCHAR},
+            </if>
+            <if test="contractRemark != null">
+                #{contractRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="contractStatus != null">
+                #{contractStatus,jdbcType=SMALLINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="executeRemark != null">
+                #{executeRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="repaymentTrem != null">
+                #{repaymentTrem,jdbcType=INTEGER},
+            </if>
+            <if test="repaymentStatus != null">
+                #{repaymentStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                #{remark3,jdbcType=VARCHAR},
+            </if>
+            <if test="remark4 != null">
+                #{remark4,jdbcType=VARCHAR},
+            </if>
+            <if test="remark5 != null">
+                #{remark5,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectContractSerialsByStatusAndContractId" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_contract_serial
+        where
+        1=1
+        AND
+        contractId=#{contractId}
+        <if test="contractStatus != null">
+            AND contractStatus IN
+            <foreach collection="contractStatus" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+
+    <select id="selectContractSerialsByStatusAndContractIdAndCompanyBlock" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.po.ContractSerial">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_contract_serial
+        where
+        1=1
+        <if test="contractStatus != null">
+            AND contractStatus=#{contractStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="contractId != null">
+            AND contractId=#{contractId,jdbcType=VARCHAR}
+        </if>
+        <if test="companyBlockId != null">
+            AND companyBlockId=#{companyBlockId}
+        </if>
+    </select>
+
+    <select id="selectSerialIsExist" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.po.ContractSerial">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_contract_serial
+        where
+        1=1
+        <if test="contractStatus != null">
+            AND contractStatus=#{contractStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="contractId != null">
+            AND contractId=#{contractId,jdbcType=VARCHAR}
+        </if>
+        <if test="repaymentTrem != null">
+            AND
+            repaymentTrem=#{repaymentTrem,jdbcType=INTEGER}
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/ServiceBus.xsd">
+
+	<DataServiceEngine>com.cdoframework.cdolib.database.BigDataEngine</DataServiceEngine>
+
+	<DataGroup Id="writeCompany" ClassPath="com.cdoframework.cdolib.database.DataEngine" Driver="com.mysql.jdbc.Driver">
+		<Database URI="jdbc:mysql://192.168.2.233:3306/blockChain_leijian?Unicode=true&amp;characterEncoding=utf8&amp;useSSL=false" LoadLevel="100">
+			<User UserName="root" Password="000000" />
+			<!--<Database URI="jdbc:mysql://rm-wz9k10wll9bc2m70j.mysql.rds.aliyuncs.com:3306/blockchain?Unicode=true&amp;characterEncoding=utf8&amp;useSSL=false" LoadLevel="100">-->
+			<!--<User UserName="credit" Password="eHEyMDE2" />-->
+			<ConnectionPool>
+				<MinConnectionCount>1</MinConnectionCount>
+				<MaxConnectionCount>50</MaxConnectionCount>
+			</ConnectionPool>
+		</Database>
+	</DataGroup>
+
+	<Plugin Resource="cn/inbs/blockchain/plugin/employee/plugin.xml" Encoding="utf-8" />
+	<Plugin Resource="cn/inbs/blockchain/service/cdo/user/userPlugin.xml" Encoding="utf-8" />
+	<Plugin Resource="cn/inbs/blockchain/service/cdo/usercenter/userCenterPlugin.xml" Encoding="utf-8" />
+
+	<LocalNode Id="bossUserService"></LocalNode>
+	<NodeList Resource="NodeList.xml" Encoding="utf-8"/>
+
+</ServiceBus>

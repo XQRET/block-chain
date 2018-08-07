@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+	#parse("/common/common.htm")
+</head>
+<body class="body-content">
+	<!-- 查询 赋值 隐藏域 -->
+	#set($id=${request.getParameter("id")})
+	#set($company=${agencyController.getCompanyByID($id)})
+	<input type="hidden" name="id" id="id" value="$id" />
+	#set($employeeId=${request.getParameter("employeeId")})
+	<input type="hidden" name="employeeId" id="employeeId" value="$employeeId" />
+    <!-- 当前位置开始 -->
+    <div class="alltitle">
+    <p>机构审核 &gt; 待审核</p>
+	</div>
+    <!-- 当前位置结束 -->
+    <div class="allcenter">
+    <div class="allinfo">
+        <div class="F16">
+        	#if($company.exists("companyName"))
+           	#set($name=$company.getStringValue('companyName'))
+           		$name<input type="hidden" name="companyName" id="companyName" value="$name" />
+           	#end
+            #if($company.exists("companyType"))
+       		#set ($companyType = $company.getIntegerValue('companyType'))
+            	#if($companyType==0)
+                	<span class="auth_icon icon_no">资产端</span>
+                #elseif($companyType==1)
+                	<span class="auth_icon icon_no">资金端</span>
+                #else
+                	<span class="auth_icon icon_no">待认证</span>
+                #end
+			#end
+        </div>
+        <div class="auth_info">
+            <ul>
+                <li id="interview">
+                    <label>公司地址：</label>
+                 	<span>
+                 		#if($company.exists("companyAddress"))
+                 		#set ($addresss = $company.getStringValue('companyAddress'))
+                 			$addresss
+                 		#end
+                 	</span>
+                </li>
+                <li>
+                    <label>营业执照：</label>
+                    <div class="app_logo img-border">
+                    	#if($company.exists("url"))
+                 		#set ($url = $company.getStringValue('url'))
+                 			<img class="thumbnail" src="$url">
+                 		#end
+                    </div>
+                </li>
+                <li>
+                    <label>联系人姓名：</label>
+                    <span>
+                    	#if($company.exists("companyLinkman"))
+                 		#set ($linkman = $company.getStringValue('companyLinkman'))
+                 			$linkman
+                 		#end
+                    </span>                   
+                </li>
+                <li>
+                    <label>联系人电话：</label>
+                    <span>
+                    	#if($company.exists("companyLinkmanPhone"))
+                 		#set ($phone = $company.getStringValue('companyLinkmanPhone'))
+                 			$phone
+                 		#end
+                 	</span>
+                </li>
+                <li>
+                    <label>认证时间：</label>
+                    <span>
+                    	#if($company.exists("updateTime"))
+                 		#set ($updateTime = $company.getStringValue('updateTime'))
+                 			$updateTime
+                 		#end
+                    </span>
+                </li>
+                <li class="audit_btn">
+                    <label>&nbsp;</label>
+                    <span class="bg44">通过</span>
+                    <span class="bgf0 ml15">拒绝</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<!--图片查看大图-->
+<div class="mask"></div>
+<div class="big-img">
+    <img src="" />
+</div>
+</html>
+<script type="text/javascript" src="../audit/js/agencyAudit.js"></script>

@@ -1,0 +1,162 @@
+<div id="empDialog_fullbg" class="e_st_fullbg" onclick="closefbE()" style="width: 100%; height: 100%; display: none;"></div>
+<div class="e_st_dialog" id="empDialog" title="创建员工" style="display:none">
+	<p class="close" id="close">
+		<a href="javascript:void(0)"><img alt="关闭" src="../images/jcxx_service_03.jpg"></a>
+	</p>
+	<p class="record_top" id="empDialog_title_id">添加员工</p>
+	<form class="money ">
+
+			<div class="m-group">
+				<lable>姓名:</lable>
+				<input type="text" name="" id="strName" placeholder="">
+			</div>
+
+			<div class="m-group">
+				<lable>手机号:</lable>
+				<input type="text" name="" id="strMobile" placeholder="" maxlength="11">
+			</div>
+
+			<div class="m-group">
+				<lable>员工状态:</lable>
+				<select id="nWorkState">
+					<option value="1">在职</option>
+					<option value="2">离职</option>
+					<option value="0">未入职</option>
+				</select>
+			</div>
+
+		</form>
+		<div class="dialog-footer">
+			<a href="javascript:void(0)"  id="sure">确定</a>
+		</div>
+</div>
+
+<script type="text/javascript">
+var _empinfo = {};
+	_empinfo.lId=0;
+
+	_empinfo.init = function(){
+		$('#sure').bind('click', function() {
+			_empinfo.save();
+		})
+
+		$('.close').bind('click', function() {
+			_empinfo.cancel();
+		})
+	}
+	_empinfo.openAdd = function(){
+		_empinfo.lId = 0;
+		$("#empDialog_title_id").text("添加员工");
+
+		//清除数据
+		$("#strName").val('').removeAttr("readonly").removeAttr("disabled","disabled");
+		$("#strMobile").val('').removeAttr("readonly").removeAttr("disabled","disabled");
+		$("#nWorkState").children("option").attr("selected",false);
+
+		_empinfo.show();
+	}
+
+	_empinfo.openEdit = function(lId){
+		$("#empDialog_title_id").text("编辑员工");
+		_empinfo.lId = lId;
+		var flag = _empinfo.getDetail(lId);
+		if(flag == true){
+			_empinfo.show();
+		}
+	}
+
+	_empinfo.save = function(){
+		var strName = _public.getVal("strName");
+		var strMobile = _public.getVal("strMobile");
+		var nWorkState = _public.getVal("nWorkState");
+		if(!strName){
+			layer.alert("姓名不能为空");
+			return ;
+		}
+		if(!strMobile){
+			layer.alert("手机号码不能为空");
+			return ;
+		}
+		if(false == _public.isMobile(strMobile)){
+			layer.alert("手机号码格式不正确");
+			return ;
+		}
+
+		var codReq = new CDO();
+		var cdoRes = new CDO();
+		codReq.setStringValue("strServiceName","EmployeeService");
+	   	codReq.setIntegerValue("nWorkState", nWorkState);
+
+	   	if(_empinfo.lId && _empinfo.lId >0){//表示是编辑
+	   		codReq.setStringValue("strTransName", "updateEmployee");
+	   		codReq.setLongValue("lId", Number(_empinfo.lId));
+	   	}else{//表示是添加
+	   		codReq.setStringValue("strName", strName);
+	   		codReq.setStringValue("strTransName", "createEmployee");
+	   		codReq.setStringValue("strMobile", strMobile);
+	   	}
+
+		var ret = httpClient.handleTrans(codReq,cdoRes);
+		if(ret){
+			var code = ret.getCode();
+			if(code == 0){
+				window.location.replace("list.htm");
+			}else{
+				layer.alert(ret.getText());
+				if(code == -2 || code == -3){
+
+				}else{
+					_empinfo.cancel();
+				}
+			}
+		}else{
+			layer.alert("执行异常");
+		}
+	}
+
+	_empinfo.cancel = function(){
+		$("#empDialog").hide();
+		$("#empDialog_fullbg").hide();
+	}
+
+	_empinfo.show = function(){
+		$("#empDialog").show();
+		$("#empDialog_fullbg").show();
+	}
+
+	//获取员工详情
+	_empinfo.getDetail = function(lId){
+		if(!lId){
+			layer.alert("打开编辑失败");
+			return ;
+		}
+		var codReq = new CDO();
+		var cdoRes = new CDO();
+		codReq.setStringValue("strServiceName","EmployeeService");
+	   	codReq.setStringValue("strTransName", "employeeDetail");
+	   	codReq.setLongValue("lId", Number(lId));
+		var ret = httpClient.handleTrans(codReq,cdoRes);
+		if(ret){
+			if(ret.getCode()==0){
+				//给编辑赋值
+				var cdoData = cdoRes.getCDOValue("cdoEmployee");
+				var strMobile = cdoData.getStringValue("strMobile");
+				var strName = cdoData.getStringValue("strName");
+				var nWorkState = cdoData.getIntegerValue("nWorkState");
+
+				$("#strName").val(strName).attr("readonly","readonly").attr("disabled","disabled");;
+				$("#strMobile").val(strMobile).attr("readonly","readonly").attr("disabled","disabled");
+				$("#nWorkState").children("option").attr("selected",false);
+				$("#nWorkState").children("option[value="+nWorkState+"]").attr("selected",true);
+
+				return true;
+			}else{
+				layer.alert(ret.getText());
+				return false;
+			}
+		}else{
+			layer.alert("执行异常");
+			return false;
+		}
+	}
+</script>

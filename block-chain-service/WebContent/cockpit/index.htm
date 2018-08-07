@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>ECharts</title>
+    #parse("/common/common.htm")
+</head>
+<body>
+<div class="alltitle">
+    <p>合约概况</p>
+</div>
+<div class="copit_count clearfix mt2b mb20">
+<ul id="contractInfo">
+<li>
+<h1>合约数总览(个)</h1>
+<div class="h120">
+<label>总个数</label>
+<span></span>
+</div>
+<div>
+<p>
+<label><em></em>当月新增数</label>
+<span></span>
+</p>
+<p class="c4dd">
+<label><em></em>生效合约数</label>
+<span></span>
+</p>
+</div>
+</li>
+<li class="mlr2b">
+<h1>合约金额总览(万元)</h1>
+<div class="h120">
+<label>总金额</label>
+<span></span>
+</div>
+<div>
+<p>
+<label><em></em>当月新增合约金额</label>
+<span></span>
+</p>
+<p class="c4dd">
+<label><em></em>生效合约金额</label>
+<span></span>
+</p>
+</div>
+</li>
+<li>
+<h1>平台用户总览(人)</h1>
+<div class="h120">
+<label>总用户数</label>
+<span></span>
+</div>
+<div>
+<p class="cea">
+<label><em></em>资金的用户数</label>
+<span></span>
+</p>
+<p class="c6b9">
+<label><em></em>资产端数</label>
+<span></span>
+</p>
+</div>
+</li>
+</ul>
+<!-- <ul id="contractInfo">
+<li><label>当月新增合约数（个）</label><p></p></li>
+<li><label>当月新增合约金额（万元）</label><p></p></li>
+<li><label>资产端用户数（个）</label><p></p></li>
+<li><label>资金端用户数（个）</label><p></p></li>
+<li><label>平台生效合约数（个）</label><p></p></li>
+<li><label>平台生效合约金额（万元）</label><p></p></li>
+<li><label>平台合约总数（个）</label><p></p></li>
+<li><label>平台合约总金额（万元）</label><p></p></li>
+</ul> -->
+</div>
+<div class="numsum w96b">
+<div class="ns_btn">
+<a class="nscheck" onclick="showNumSum(1)">新增</a><a onclick="showNumSum(2)">总量</a>
+</div>
+<div id="conNumsum" onclick="openView('numsum.htm','合约数量及金额')"  class="myechars"></div>
+</div>
+<div class="w96b  mb1d5">
+<div id="capital" onclick="openView('capital.htm','资金端top5')" class="indexechars"></div>
+<div id="assets" onclick="openView('assets.htm','资产端top5')" class="indexechars fr"></div>
+<div id="conRegion" onclick="openView('region.htm','合约地区分布')" class="indexechars"></div>
+<div id="forecastIncome" onclick="openView('income.htm','近六月预测收入')" class="indexechars fr"></div>
+</div>
+<input id="indexfloat" type="hidden" value="1"/>
+</body>
+</html>
+<script src="../js/echarts/echarts.min.js" type="text/javascript"></script>
+<script src="../js/echarts/china.js" type="text/javascript"></script>
+<script src="../js/echarts/shine.js" type="text/javascript"></script>
+<script src="cockpit-echarts.js"></script>
+<script>
+    $(function () {
+        //合约信息
+        showContractInfo();
+        //近六月预测收入
+        showIncome();
+        //合约地区分布
+        showRegion();
+        //合约数量及金额
+        showNumSum(1);
+        //资金端top5
+        showCapital()
+        //资产端top5
+        showAssets();
+    })
+</script>

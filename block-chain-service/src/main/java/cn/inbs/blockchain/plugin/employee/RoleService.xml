@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/DataService.xsd">
+    
+    <!-- 添加角色 -->
+	<SQLTrans TransFlag="1" TransName="addRole" DataGroupId="writeCompany">
+		<SelectField OutputId="{roleCount}">
+			<OutputSQL>select count(0) nCount from tb_role where strName={strName}</OutputSQL>
+		</SelectField>
+		<If Value2="0" Value1="{roleCount}" Type="Long" Operator=">">
+			<Then>
+				<Return Code="1" Text="角色已经存在" Info="RoleService.addRole.Existed" />
+			</Then>
+		</If>
+		<If Type="String" Value1="{strRoleCode}" Operator="!=" Value2="">
+			<Then>
+				<SelectField OutputId="{roleCount}">
+			       <OutputSQL>select count(*) nCount from tb_role where strRoleCode={strRoleCode}</OutputSQL>
+		        </SelectField>
+		       <If Value2="0" Value1="{roleCount}" Type="Long" Operator=">">
+			      <Then>
+				     <Return Code="1" Text="角色编码不可重复" Info="RoleService.addRole.Error" />
+			      </Then>
+		        </If>
+			</Then>
+		</If>		
+		<Insert>
+			<OutputSQL>insert into tb_role (strName,strRoleCode,strPermission,dtCreateTime,dtUpdateTime) values ({strName},{strRoleCode},{strPermission},now(),now())</OutputSQL>
+		</Insert>
+		<SelectField OutputId="{nId}"> 
+		    <OutputSQL>select LAST_INSERT_ID() nId</OutputSQL>
+		</SelectField>
+        <OnException>
+            <Return Info="RoleService.addRole.Error" Code="-1" Text="数据库操作发生异常"></Return>
+        </OnException>
+        <Return Info="OK" Code="0" Text="RoleService.addRole.OK">
+        	<ReturnItem FieldId="{nId}" ValueId="{nId}"></ReturnItem>
+        </Return>
+    </SQLTrans>
+    
+    <!-- 删除角色 -->
+	<SQLTrans TransFlag="1" TransName="deleteRole" DataGroupId="writeCompany">
+		<SelectField OutputId="{nCount}">
+			<OutputSQL>select count(0) as nCount from tb_employee_role where lRoleId = {nId}</OutputSQL>
+		</SelectField>
+		<If Type="Integer" Operator="!=" Value1="{nCount}" Value2="0">
+			<Then>
+				<Return Info="RoleService.deleteRole.Error" Code="-1" Text="该角色下存在员工，请删除员工后再试。"></Return>
+			</Then>
+		</If>
+		<Delete> 
+			<OutputSQL>delete from tb_role where nId={nId}</OutputSQL>
+		</Delete>
+        <OnException>
+            <Return Info="RoleService.deleteRole.Error" Code="-1" Text="数据库操作发生异常"></Return>
+        </OnException>
+        <Return Info="OK" Code="0" Text="OK">
+        </Return>      
+    </SQLTrans>
+     
+    <!-- 修改角色 -->
+	<SQLTrans TransFlag="1" TransName="modifyRole" DataGroupId="writeCompany">
+	  <If Type="String" Value1="{strRoleCode}" Operator="!=" Value2="">
+			<Then>
+				<SelectField OutputId="{roleCount}">
+			       <OutputSQL>select count(0) nCount from tb_role where strRoleCode={strRoleCode} AND nId!= {nId}</OutputSQL>
+		        </SelectField>
+		       <If Value2="0" Value1="{roleCount}" Type="Long" Operator=">">
+			      <Then>
+				     <Return Code="1" Text="角色编码不可重复" Info="RoleService.Error" />
+			      </Then>
+		        </If>
+			</Then>
+		</If>
+		<Update>
+			<OutputSQL>update tb_role set strName={strName},strRoleCode={strRoleCode|''},strPermission={strPermission},dtUpdateTime = NOW() where nId={nId}</OutputSQL>
+		</Update>	
+	    <OnException>
+            <Return Info="RoleService.modifyRole.Error" Code="-1" Text="数据库操作发生异常"></Return>
+        </OnException>
+        <Return Info="OK" Code="0" Text="RoleService.modifyRole.OK">
+        </Return>      
+    </SQLTrans>
+
+    <!-- 获取指定角色信息 -->
+	<SQLTrans TransFlag="0" TransName="getRoleById" DataGroupId="writeCompany">
+		<SelectRecord OutputId="{cdoRole}" RecordCountId="{nCount}">
+			<OutputSQL>select nId,strName,strRoleCode,strPermission,dtCreateTime from tb_role where nId={nId}</OutputSQL>
+		</SelectRecord>
+		<If Type="Integer" Value1="{nCount}" Operator="!=" Value2="1">
+			<Then>
+				<Return Code="1" Text="角色不存在" Info="RoleService.getRoleById.RoleNotExist" />
+			</Then>
+		</If>
+	    <OnException>
+            <Return Info="RoleService.getRoleById.Error" Code="-1" Text="数据库操作发生异常"></Return>
+        </OnException>
+        <Return Info="OK" Code="0" Text="OK">
+           <ReturnItem FieldId="{cdoRole}" ValueId="{cdoRole}"></ReturnItem>
+           <ReturnItem FieldId="{nCount}" ValueId="{nCount}"></ReturnItem>
+        </Return>      
+    </SQLTrans> 
+
+    <!-- 获取角色列表 -->
+	<SQLTrans TransFlag="0" TransName="findRoleList" DataGroupId="writeCompany">
+		<SelectRecordSet OutputId="{cdosRoleList}">
+			<OutputSQL>select nId,strName,strRoleCode,strPermission,dtCreateTime,dtUpdateTime from tb_role where 1=1 and isDisplay={isDisplay} </OutputSQL>
+			<SQLIf Type="String" Operator="EXIST" Value1="{strName}">
+				<SQLThen>
+					<OutputSQL> and strName like {strName}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			<OutputSQL> order by nId</OutputSQL>
+		 	<OutputSQL> limit {nPageCount},{nPageSize}</OutputSQL>
+		</SelectRecordSet>
+		
+		<SelectField OutputId="{nRecordCount}">
+			<OutputSQL>select count(0) from tb_role where 1=1 and isDisplay={isDisplay} </OutputSQL>
+			<SQLIf Type="String" Operator="EXIST" Value1="{strName}">
+				<SQLThen>
+					<OutputSQL> and strName like {strName}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+		</SelectField>
+		
+	    <OnException>
+            <Return Info="RoleService.findRoleList.Error" Code="-1" Text="数据库操作发生异常"></Return>
+        </OnException>
+        <Return Info="RoleService.findRoleList.OK" Code="0" Text="OK">
+           <ReturnItem FieldId="{cdosRoleList}" ValueId="{cdosRoleList}"/>
+           <ReturnItem FieldId="{nRecordCount}" ValueId="{nRecordCount}"/>
+        </Return>
+    </SQLTrans>
+    
+</DataService>	

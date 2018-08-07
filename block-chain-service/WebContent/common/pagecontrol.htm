@@ -1,0 +1,69 @@
+<!-- 分页组件使用说明
+1.必需事先定义nPageCount,nRecordCount这2个vm变量
+2.当前页索引从0开始，在url中有pageindex参数代表当前页的索引，如果没有则认为是0
+ -->
+#set ($nPageIndex=$pageController.getPageIndex($request))
+#if ($nPageIndex >= $nPageCount)
+	#set($nPageIndex = ${nPageCount} - 1)
+	#set ($strNewURL=$pageController.getPageURL($request, $nPageIndex))
+	<script>
+		location.replace("$strNewURL");
+	</script>
+#else
+
+
+
+<div  class="last-right" style="padding-top: 7px; text-align: center;">
+	<div class="layui-box layui-laypage layui-laypage-default">
+		<span align="right" class="layui-laypage-count">$nRecordCount条记录，共$nPageCount页</span>
+		#if ($nPageIndex > 0)
+			<a href="$pageController.getPageURL($request,0)" class="color21">首页</a>
+		#else
+			<a "javascript:;"  class="layui-laypage-prev layui-disabled">首页</a>
+		#end
+		#if ($nPageIndex > 0)
+			#set ($nPreviousPageIndex = $nPageIndex - 1)
+			<a href="$pageController.getPageURL($request, $nPreviousPageIndex)" class="layui-laypage-prev">上页</a>
+		#else
+			<a "javascript:;" class="layui-laypage-next layui-disabled">上页</a>
+		#end
+		#set ($nFromIndex = $nPageIndex - 5)
+		#set ($nToIndex = $nPageIndex + 5)
+		#if ($nFromIndex < 0)
+			#set ($nToIndex = $nToIndex - $nFromIndex)
+			#set ($nFromIndex = 0)
+		#end
+
+		#if ($nToIndex >= $nPageCount)
+			#set ($nFromIndex = $nFromIndex - $nToIndex + $nPageCount)
+			#set ($nToIndex = $nPageCount - 1)
+			#if ($nFromIndex < 0)
+				#set ($nFromIndex = 0)
+			#end
+		#end
+
+		#foreach ($i in [$nFromIndex .. $nToIndex])
+			#if ($i == $nPageIndex)
+				#set ($nPageNo = $nPageIndex + 1)
+				<a href="javascript:void(0)" class="active">$nPageNo</a>>
+			#else
+				#set ($nPageNo = $i + 1)
+				<a href="$pageController.getPageURL($request, $i)">$nPageNo</a>
+			#end
+		#end
+
+		#if ($nPageIndex >= ($nPageCount - 1))
+			<a href="javascript:;" class="layui-laypage-next layui-disabled">下页</a>
+		#else
+			#set ($nNextPageIndex = $nPageIndex + 1)
+			<a href="$pageController.getPageURL($request,$nNextPageIndex)" class="layui-laypage-next">下页</a>
+		#end
+		#if ($nPageIndex >= ($nPageCount - 1))
+			<a class="layui-laypage-next layui-disabled">尾页</a>
+		#else
+			#set ($nLastPageIndex = $nPageCount - 1)
+			<td width="8"><nobr><a href="$pageController.getPageURL($request,$nLastPageIndex)"  class="layui-laypage-next">尾页</a></nobr></td>
+		#end
+	</div>
+</div>
+#end

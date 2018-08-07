@@ -1,0 +1,129 @@
+*{font-family:"Microsoft Yahei",Microsoft YaHei,SourceHanSans-Normal,-apple-system,BlinkMacSystemFont,Neue Haas Grotesk Text Pro,Arial Nova,Segoe UI,Helvetica Neue,\.PingFang SC,PingFang SC,Microsoft JhengHei,Source Han Sans SC,Noto Sans CJK SC,Source Han Sans CN,Noto Sans SC,Source Han Sans TC,Noto Sans CJK TC,Hiragino Sans GB,sans-serif,Verdana,Arial,Helvetica}
+body,div,p,h1,h2,h3,h4,h5,h6,span,ul,ol,li,dl,dd,dt,a,i,strong,b,em img,form,input{ margin:0; padding:0;}
+ul li,ol li{ list-style-type:none;}
+/*body{line-height:100%; font-size:12px;}
+h1,h2,h3,h4,h5,h6{line-height:100%; font-size:100%; font-weight: normal;}*/
+html,body{font-size:12px;height:100% !important;overflow:hidden;}
+h1,h2,h3,h4,h5,h6{font-weight: normal;}
+a{text-decoration:none; }
+img,input,select{ vertical-align:top; resize:none;}
+a img{ border:none;}
+b,strong{ font-weight:normal;}
+i,em{ font-style:normal;}
+
+@font-face {
+	font-family: "RBNo2 Light";
+	src: url("../font/RBNo2Light.woff")/*tpa=http://gongshi.bumeng.cn/font/RBNo2Light.woff*/,
+		 url("../font/RBNo2Light.otf")/*tpa=http://gongshi.bumeng.cn/font/RBNo2Light.otf*/,
+		 url("../font/RBNo2Light.ttf")/*tpa=http://gongshi.bumeng.cn/font/RBNo2Light.ttf*/,
+		 url("../font/RBNo2Light.eot")/*tpa=http://gongshi.bumeng.cn/font/RBNo2Light.eot*/;
+}
+@font-face {
+	font-family: "SourceHanSans-Light";
+	src: url("../font/SourceHanSansCN-ExtraLight_0.otf")/*tpa=http://gongshi.bumeng.cn/font/SourceHanSansCN-ExtraLight_0.otf*/;
+}
+/*@font-face {
+	font-family: "MSYHL";
+	src: url(../font/MSYHL.TTC);
+}*/
+@font-face {
+	font-family:"helvetica-light";
+	src: url("../font/helvetica-light.otf")/*tpa=http://gongshi.bumeng.cn/font/helvetica-light.otf*/;
+}
+
+.fl{float:left;}
+.fr{float:right;}
+.content {width: 1000px; margin: 0 auto; padding-bottom: 30px}
+.content-wrap {background: #ECECEC;}
+.clear-fix:after {content: ""; display:block; height:0; clear:both}
+
+/********* 头部 *********/
+/*.bm-header, .bm-header *{box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;font-family:SourceHanSans-Normal,-apple-system,BlinkMacSystemFont,Neue Haas Grotesk Text Pro,Arial Nova,Segoe UI,Helvetica Neue,\.PingFang SC,PingFang SC,Microsoft YaHei,Microsoft JhengHei,Source Han Sans SC,Noto Sans CJK SC,Source Han Sans CN,Noto Sans SC,Source Han Sans TC,Noto Sans CJK TC,Hiragino Sans GB,sans-serif,"Microsoft Yahei",Verdana, Arial, Helvetica;} 
+.bm-header .clearfix{zoom:1;}
+.bm-header .clearfix:after{clear:both; display:block; content:'';}
+.bm-header .btn{cursor:pointer; user-select:none;-moz-user-select:none; -webkit-user-select:none;-ms-user-select:none;}
+.bm-header .btn:hover, .btn-login:hover{background:#22ac91;}
+.bm-wrap{position:relative; z-index:0; width:1000px; height:100%; margin:0 auto; font-weight:100;}
+.bm-header{position:absolute; top:30px; z-index:9999; width:100%; height:60px;}
+.bm-header .wrap{width:800px; height:60px;}
+
+.bm-header .link{color:#fff; font-size:13px;}
+.bm-header .logo img{margin-top:8px; width:180px;}
+.bm-header .list-item:hover .sub-menu{display:block;}
+.bm-header .list-item .link{padding:10px 5px; color:#fff; font-size:14px; border-bottom:1px solid transparent; letter-spacing:2px; font-weight:400;}
+.bm-header .list-item.active .link{border-color:#fff;}
+.bm-header .list-item .beta{position: absolute; top:10px; right: -19px;}*/
+
+/*登录注册*/
+.bm-header .passport-group{float:right; line-height:60px; margin-left:20px;}
+.bm-header .passport-group a{display:inline-block; width:80px; height:26px; padding:4px 15px; line-height:16px; font-size:14px; font-weight:400; text-align:center; letter-spacing:2px;}
+.bm-header .passport-group .btn-login{margin-right:20px; color:#fff; border:1px solid #fff; border-radius:4px;}
+.bm-header .passport-group .btn-login:hover{color:#30b89e; background:#fff;}
+.bm-header .passport-group .btn-reg{border:1px solid #fff; border-radius:4px; color:#30b89e; background:#fff;}
+.bm-header .passport-group .btn-reg:hover{color:#fff; background:transparent;}
+
+/*fixed*/
+.bm-header.fixed{position:fixed; top:0px; z-index:9999; background:#fff; box-shadow:0 4px 8px rgba(0,0,0,.1);}
+.bm-header.fixed .list-item .link{color:#30b89e;}
+.bm-header.fixed .list-item.active .link{border-color:#30b89e;}
+.bm-header.fixed .passport-group .btn-login{color:#30b89e; border:1px solid #30b89e;}
+.bm-header.fixed .passport-group .btn-login:hover{color:#fff; background:#30b89e;}
+.bm-header.fixed .passport-group .btn-reg{border:1px solid #30b89e; color:#fff; background:#30b89e;}
+.bm-header.fixed .passport-group .btn-reg:hover{color:#30b89e; background:transparent;}
+
+/*二级菜单*/
+/*.nav-group{float: right; display: inline;}
+.nav-group .list-item{float:left; position:relative; height:60px; line-height:60px; margin:0px 15px;}
+.nav-group .sub-menu{position:absolute; top:60px; left:-13px; z-index:2; display:none; width:99px; padding:12px 20px 12px; background:#fff; border-radius:3px; border:1px solid #eeeeee;}
+.nav-group .sub-menu:before{content:''; position:absolute; top:-8px; left:-1px; width:100%; height:8px; background:url(../images/sprites.png); background-position:-145px -256px;}
+.nav-group .sub-menu li{height:24px; line-height:24px;}
+.nav-group .sub-menu .unactivated a{cursor:default; color:#999;}
+.nav-group .sub-menu .unactivated a:hover{cursor:default; color:#999;}
+.nav-group .sub-menu li a{display:block; font-size:12px; color:#333; font-weight:400; text-align:center;}
+.nav-group .sub-menu li a:hover{color:#33bba0;}
+.nav-group .devdoc .sub-menu{left:-5px;}
+
+.header-height{height:60px;}*/
+/********* 头部 End *********/
+
+
+/******** 尾部 **********/
+/*.bm-footer, .bm-footer *{box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;font-family:SourceHanSans-Normal,-apple-system,BlinkMacSystemFont,Neue Haas Grotesk Text Pro,Arial Nova,Segoe UI,Helvetica Neue,\.PingFang SC,PingFang SC,Microsoft YaHei,Microsoft JhengHei,Source Han Sans SC,Noto Sans CJK SC,Source Han Sans CN,Noto Sans SC,Source Han Sans TC,Noto Sans CJK TC,Hiragino Sans GB,sans-serif,"Microsoft Yahei",Verdana, Arial, Helvetica;}
+.bm-footer{position:relative; width:100%; margin-top:100px;
+	background:-webkit-linear-gradient(top right, #13ae67, #248f7a);
+	background:-moz-linear-gradient(top right, #13ae67, #248f7a);
+	background:-ms-linear-gradient(top right, #13ae67, #248f7a);
+	background:-o-linear-gradient(top right, #13ae67, #248f7a);
+	background:linear-gradient(top right, #13ae67, #248f7a);
+}
+.bm-footer img{width:100%; height:100%; position:absolute; left:0; top:0; z-index:0;}
+.bm-footer .bm-wrap{height:264px;}
+.bm-footer .about{width:800px; height:264px; padding-top:80px; margin:0 auto;}
+.bm-footer .about .column{float:left;}
+.bm-footer .about h2{margin-bottom:30px; color:#fff; font-size:22px; letter-spacing:2px; font-weight:100;}
+.bm-footer .about a, .bm-footer .about p{font-size:14px; color:#fff; line-height:26px; letter-spacing:1px;}
+.bm-footer .column.first{width:198px; margin-left:40px;}
+.bm-footer .column.first a{display:inline-block; width:96px;}
+.bm-footer .column.second{width:125px; margin-left:102px;}
+.bm-footer .column.second a{display:block;}
+.bm-footer .column.third{width:220px; margin-left:115px;}
+.bm-footer .copyright{position:relative; z-index:0; width:100%; height:40px; line-height:40px; font-size:12px; text-align:center; color:#fff; background:#036439; background:rgba(3, 100, 57, 0.5);}/*url(../images/bm-footer.png) */*/
+/******** 尾部 End **********/
+
+/******** 手机版适配 **********/
+.wap, .wap *{box-sizing:border-box; -webkit-box-sizing:border-box;}
+.wap .wrap{width:100%;}
+.wap .bm-wrap{width: 100%; padding: 0px 30px;}
+.wap .content{width:100%; padding:0 15px; overflow: hidden;}
+.wap .canvas-box{float:right; width:650px;}
+.wap .canvasBg{top:8px; left:0px; width:668px; }
+.wap .canvas-wrap {margin-left: 118px;}
+.wap .tradeMesg-content{word-break: break-all;}
+/******** 手机版适配 End **********/
+
+
+/*数字滚动插件的CSS可调整样式*/
+.mt-number-animate{ line-height:100px; height: 100px;/*设置数字显示高度*/; font-size: 60px;/*设置数字大小*/ font-family: "RBNo2 Light"; overflow: hidden; display: inline-block; position: relative; }
+.mt-number-animate .mt-number-animate-dot{ width: 15px;/*设置分割符宽度*/ line-height: 40px; float: left; text-align: center;}
+.mt-number-animate .mt-number-animate-dom{ width: 20px;/*设置单个数字宽度*/ text-align: center; float: left; position: relative; top: 0;}
+.mt-number-animate .mt-number-animate-dom .mt-number-animate-span{ width: 100%; font-family: "RBNo2 Light"; float: left;}

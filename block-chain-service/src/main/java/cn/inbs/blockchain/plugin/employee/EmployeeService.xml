@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/DataService.xsd">
+
+	<!-- 新建员工 -->
+	<SQLTrans TransName="createEmployee" TransFlag="1" DataGroupId="writeCompany">
+		<SelectField OutputId="{nExistCount}">
+			<OutputSQL>
+				SELECT COUNT(0) FROM tb_employee  WHERE strMobile={strMobile}
+			</OutputSQL>
+		</SelectField>
+		<If Value1="{nExistCount}" Operator="&gt;" Type="Integer" Value2="0">
+			<Then>
+				<Return Code="-2" Info="EmployeeService.CreateEmployee.Exists" Text="员工手机号已经被占用"></Return>
+			</Then>
+		</If>
+
+		<SelectField OutputId="{nExistCount2}">
+			<OutputSQL>
+				SELECT COUNT(0) FROM tb_employee WHERE strName={strName}
+			</OutputSQL>
+		</SelectField>
+		<If Value1="{nExistCount2}" Operator="&gt;" Type="Integer" Value2="0">
+			<Then>
+				<Return Code="-3" Info="EmployeeService.CreateEmployee.Exists" Text="员工姓名已经存在"></Return>
+			</Then>
+		</If>
+
+		<!-- 插入tb_employee表，初始密码手机号码后六位，盐随机生成 -->
+		<SelectField OutputId="{strSalt}">
+			<OutputSQL>
+			SELECT REPLACE(UUID(),'-','') strSalt
+			</OutputSQL>
+		</SelectField>
+
+		<!-- 使用手机号码后六位作为密码 -->
+		<SelectField OutputId="{strRight6CharsFromMobile}">
+			<OutputSQL>
+				SELECT RIGHT({strMobile},6) strRight6CharsFromMobile;
+			</OutputSQL>
+		</SelectField>
+
+		<!-- 扰码 -->
+		<SelectField OutputId="{strPassword}">
+			<OutputSQL>
+			SELECT MD5( CONCAT( {strSalt}, MD5({strRight6CharsFromMobile}) ) ) strPassword
+			</OutputSQL>
+		</SelectField>
+
+		<SelectField OutputId="{id}">
+			<OutputSQL>
+				select nextval("tb_employee")
+			</OutputSQL>
+		</SelectField>
+
+		<Insert>
+			<OutputSQL>
+				insert into tb_employee(lId,strMobile,strSalt,strName,strPassword,nWorkState,dtCreateTime,dtUpdateTime)
+				values({id},{strMobile},{strSalt},{strName},{strPassword},{nWorkState|1},now(),now())
+			</OutputSQL>
+		</Insert>
+		<OnException>
+			<Return Info="EmployeeService.createEmployee.Error" Code="-1" Text="数据库错误"/>
+		</OnException>
+		<Return Code="0" Info="EmployeeService.createEmployee.OK" Text="创建成功">
+		</Return>
+	</SQLTrans>
+
+	<!-- 查询员工列表 -->
+	<SQLTrans TransFlag="1" TransName="queryEmployee" DataGroupId="writeCompany">
+		<SelectRecordSet OutputId="{cdosEmployee}">
+			<OutputSQL>
+				select lId,strMobile,strName,nWorkState,dtCreateTime,dtUpdateTime,tt1.strRoleNames,isAdmin from tb_employee tt0
+				left join
+				(
+					select t0.lEmployeeId,GROUP_CONCAT(t1.strName) strRoleNames from tb_employee_role t0
+					left join tb_role t1 on t1.nId=t0.lRoleId
+					group by t0.lEmployeeId
+				)tt1 on tt0.lId=tt1.lEmployeeId
+				where 1=1
+				and tt0.employeeType=0
+				and tt0.isAdmin!=1
+			</OutputSQL>
+			<SQLIf Value1="{lId}" Type="Long" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL> and tt0.lId={lId}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			<SQLIf Value1="{strMobile}" Type="String" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL> and tt0.strMobile={strMobile}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			<SQLIf Value1="{strName}" Type="String" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL> and tt0.strName like {strName}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			<OutputSQL>
+				order by tt0.lId desc limit {nPageCount},{nPageSize}
+			</OutputSQL>
+		</SelectRecordSet>
+
+		<SelectField OutputId="{nRecordCount}">
+			<OutputSQL>
+				select count(0) from tb_employee where 1=1
+				and  employeeType=0
+				and  isAdmin!=1
+			</OutputSQL>
+			<SQLIf Value1="{lId}" Type="Long" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL> and lId={lId}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			<SQLIf Value1="{strMobile}" Type="String" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL> and strMobile={strMobile}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			<SQLIf Value1="{strName}" Type="String" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL> and strName like {strName}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+		</SelectField>
+		<OnException>
+			<Return Info="EmployeeService.queryEmployee.Error" Code="-1" Text="数据库错误"/>
+		</OnException>
+		<Return Code="0" Info="EmployeeService.queryEmployee.OK" Text="查询员工列表成功">
+			<ReturnItem FieldId="{nRecordCount}" ValueId="{nRecordCount}"/>
+			<ReturnItem FieldId="{cdosEmployee}" ValueId="{cdosEmployee}"/>
+		</Return>
+	</SQLTrans>
+
+	<!-- 更新员工信息 -->
+	<SQLTrans TransFlag="1" TransName="updateEmployee" DataGroupId="writeCompany">
+		<Update>
+			<OutputSQL>
+				update tb_employee set dtUpdateTime=now()
+			</OutputSQL>
+			<!-- 员工姓名不能更改
+			<SQLIf Value1="{strName}" Type="String" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL>,strName={strName}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			 -->
+			<SQLIf Value1="{nWorkState}" Type="Integer" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL>,nWorkState={nWorkState}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			<OutputSQL>
+				where lId={lId}
+			</OutputSQL>
+		</Update>
+		<OnException>
+			<Return Info="EmployeeService.updateEmployee.Error" Code="-1" Text="数据库错误"/>
+		</OnException>
+		<Return Code="0" Info="EmployeeService.updateEmployee.OK" Text="更新员工信息成功">
+		</Return>
+	</SQLTrans>
+
+	<!-- 删除员工 -->
+	<SQLTrans TransFlag="1" TransName="delEmployee" DataGroupId="writeCompany">
+		<SelectRecord OutputId="{cdoEmployee}">
+			<OutputSQL>
+				select lId,nWorkState,isAdmin from tb_employee where lId={lId}
+			</OutputSQL>
+		</SelectRecord>
+		<If Value1="{cdoEmployee.isAdmin}" Type="Integer" Operator="=" Value2="1">
+			<Then>
+				<Return Code="-1" Info="EmployeeService.delEmployee.Error" Text="超级管理员不能删除"></Return>
+			</Then>
+		</If>
+		<Delete>
+			<OutputSQL>
+				delete from tb_employee where lId={lId}
+			</OutputSQL>
+		</Delete>
+
+		<Delete>
+			<OutputSQL>
+				delete from tb_employee_role where lEmployeeId={lId}
+			</OutputSQL>
+		</Delete>
+		<OnException>
+			<Return Info="EmployeeService.delEmployee.Error" Code="-1" Text="数据库错误"/>
+		</OnException>
+		<Return Code="0" Info="EmployeeService.delEmployee.OK" Text="删除员工信息成功">
+		</Return>
+	</SQLTrans>
+
+	<!-- 根据Id查询用户详情 -->
+	<SQLTrans TransFlag="1" TransName="employeeDetail" DataGroupId="writeCompany">
+		<SelectRecord OutputId="{cdoEmployee}">
+			<OutputSQL>
+				select lId,strMobile,strName,nWorkState,dtCreateTime,dtUpdateTime from tb_employee where lId={lId}
+			</OutputSQL>
+		</SelectRecord>
+		<OnException>
+			<Return Info="EmployeeService.employeeDetail.Error" Code="-1" Text="数据库错误"/>
+		</OnException>
+		<Return Code="0" Info="EmployeeService.employeeDetail.OK" Text="获取员工详情信息成功">
+			<ReturnItem FieldId="{cdoEmployee}" ValueId="{cdoEmployee}"/>
+		</Return>
+	</SQLTrans>
+
+	<!-- 重置用户密码 -->
+	<SQLTrans TransFlag="1" TransName="resetPassword" DataGroupId="writeCompany">
+		<SelectRecord OutputId="{cdoEmployee}">
+			<OutputSQL>
+				select strMobile,strSalt from tb_employee where lId={lId}
+			</OutputSQL>
+		</SelectRecord>
+
+		<!-- 使用手机号码后六位作为密码 -->
+		<SelectField OutputId="{strRight6CharsFromMobile}">
+			<OutputSQL>
+				SELECT RIGHT({cdoEmployee.strMobile},6) strRight6CharsFromMobile;
+			</OutputSQL>
+		</SelectField>
+
+		<!-- 扰码 -->
+		<SelectField OutputId="{strPassword}">
+			<OutputSQL>
+			SELECT MD5( CONCAT( {cdoEmployee.strSalt}, MD5({strRight6CharsFromMobile}) ) ) strPassword
+			</OutputSQL>
+		</SelectField>
+
+		<Update>
+			<OutputSQL>
+				update tb_employee set strPassword={strPassword},dtUpdateTime=now() where lId={lId}
+			</OutputSQL>
+		</Update>
+		<OnException>
+			<Return Info="EmployeeService.resetPassword.Error" Code="-1" Text="数据库错误"/>
+		</OnException>
+		<Return Code="0" Info="EmployeeService.resetPassword.OK" Text="重置密码成功">
+		</Return>
+	</SQLTrans>
+
+	<!-- 登陆前获取用户信息 -->
+	<SQLTrans TransFlag="0" TransName="bossLoginVerify" DataGroupId="writeCompany">
+		<SelectRecord OutputId="{cdoEmployee}" RecordCountId="{nRecordCount}">
+			<OutputSQL>
+				select lId,strMobile,strPassword,strName,nWorkState,strSalt,employeeType from tb_employee where strMobile={strMobile}
+			</OutputSQL>
+		</SelectRecord>
+		<If Value1="{nRecordCount}" Type="Integer" Operator="=" Value2="0">
+			<Then>
+				<Return Code="-1" Info="EmployeeService.bossLoginVerify.Error" Text="该员工不存在"/>
+			</Then>
+		</If>
+		<If Value1="{cdoEmployee.nWorkState}" Type="Integer" Operator="!=" Value2="1">
+			<Then>
+				<Return Code="-2" Info="EmployeeService.bossLoginVerify.Error" Text="该员工不在职"/>
+			</Then>
+		</If>
+		<OnException>
+			<Return Info="EmployeeService.bossLoginVerify.Error" Code="-1" Text="数据库错误"/>
+		</OnException>
+		<Return Code="0" Info="EmployeeService.bossLoginVerify.OK" Text="获取登陆前数据成功">
+			<ReturnItem FieldId="{cdoEmployee}" ValueId="{cdoEmployee}"/>
+		</Return>
+	</SQLTrans>
+
+	<!-- 通过lId获取员工信息 -->
+	<SQLTrans TransFlag="1" TransName="getEmployeeById" DataGroupId="writeCompany">
+		<SelectRecord OutputId="{cdoEmployee}" RecordCountId="{nRecordCount}">
+			<OutputSQL>
+				select lId,strName,strPassword,strSalt from tb_employee where lId={lId}
+			</OutputSQL>
+		</SelectRecord>
+		<If Value1="{nRecordCount}" Type="Integer" Operator="=" Value2="0">
+			<Then>
+				<Return Code="-1" Info="EmployeeService.getEmployeeById.Error" Text="该员工不存在"/>
+			</Then>
+		</If>
+		<OnException>
+			<Return Info="EmployeeService.getEmployeeById.Error" Code="-2" Text="数据库错误"/>
+		</OnException>
+		<Return Code="0" Info="EmployeeService.getEmployeeById.OK" Text="获取员工信息成功">
+			<ReturnItem FieldId="{cdoEmployee}" ValueId="{cdoEmployee}"/>
+		</Return>
+	</SQLTrans>
+
+	<!-- 修改密码 -->
+	<SQLTrans TransFlag="1" TransName="updatePwd" DataGroupId="writeCompany">
+		<Update>
+			<OutputSQL>
+				update tb_employee set strPassword={strPassword},dtUpdateTime=now() where lId={lId}
+			</OutputSQL>
+		</Update>
+		<OnException>
+			<Return Info="EmployeeService.updatePwd.Error" Code="-1" Text="数据库错误"/>
+		</OnException>
+		<Return Code="0" Info="EmployeeService.updatePwd.OK" Text="修改密码成功">
+		</Return>
+	</SQLTrans>
+
+	<!-- 获取员工列表 -->
+	<SQLTrans TransFlag="0" TransName="getEmployeeInfoList" DataGroupId="writeCompany">
+		<SelectRecordSet OutputId="{employeeCdos}">
+			<OutputSQL>
+				select lId,strMobile,strName from tb_employee where nWorkState=1 order by lId
+			</OutputSQL>
+		</SelectRecordSet>
+		<OnException>
+			<Return Info="EmployeeService.getEmployeeInfoList.Error" Code="-1" Text="数据库错误"/>
+		</OnException>
+		<Return Code="0" Info="EmployeeService.getEmployeeInfoList.OK" Text="查询成功">
+			<ReturnItem FieldId="{employeeCdos}" ValueId="{employeeCdos}"/>
+		</Return>
+	</SQLTrans>
+
+</DataService>

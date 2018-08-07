@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.purse.product.PurseProductReservationNoticeMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.purse.po.PurseProductReservationNotice">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="purseUserId" property="purseUserId" jdbcType="BIGINT"/>
+        <result column="productId" property="productId" jdbcType="BIGINT"/>
+        <result column="sendMessageMobile" property="sendMessageMobile" jdbcType="VARCHAR"/>
+        <result column="reservationNoticeName" property="reservationNoticeName" jdbcType="VARCHAR"/>
+        <result column="sendMessageStatus" property="sendMessageStatus" jdbcType="VARCHAR"/>
+        <result column="reservationNoticeStatus" property="reservationNoticeStatus" jdbcType="VARCHAR"/>
+        <result column="reservationNoticeTime" property="reservationNoticeTime" jdbcType="TIMESTAMP"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        purseUserId,
+        productId,
+        sendMessageMobile,
+        reservationNoticeName,
+        sendMessageStatus,
+        reservationNoticeStatus,
+        reservationNoticeTime,
+        createTime,
+        updateTime
+    </sql>
+
+    <!--插入语句-->
+    <insert id="insertPurseProductReservationNotice"
+            parameterType="cn.inbs.blockchain.dao.purse.po.PurseProductReservationNotice">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into purse_product_reservation_notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="purseUserId != null">
+                purseUserId,
+            </if>
+            <if test="productId != null">
+                productId,
+            </if>
+            <if test="sendMessageMobile != null">
+                sendMessageMobile,
+            </if>
+            <if test="reservationNoticeName != null">
+                reservationNoticeName,
+            </if>
+            <if test="sendMessageStatus != null">
+                sendMessageStatus,
+            </if>
+            <if test="reservationNoticeStatus != null">
+                reservationNoticeStatus,
+            </if>
+            <if test="reservationNoticeTime != null">
+                reservationNoticeTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="purseUserId != null">
+                #{purseUserId,jdbcType=BIGINT},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=BIGINT},
+            </if>
+            <if test="sendMessageMobile != null">
+                #{sendMessageMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="reservationNoticeName != null">
+                #{reservationNoticeName,jdbcType=VARCHAR},
+            </if>
+            <if test="sendMessageStatus != null">
+                #{sendMessageStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="reservationNoticeStatus != null">
+                #{reservationNoticeStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="reservationNoticeTime != null">
+                #{reservationNoticeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectPurseProductReservationNoticeByIndex" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.purse.po.PurseProductReservationNotice">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        purse_product_reservation_notice
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+    </select>
+
+    <select id="selectPurseProductReservationNoticePageList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from purse_product_reservation_notice
+        where 1=1
+        <if test="productId != null">
+            AND productId = #{productId}
+        </if>
+        order by reservationNoticeTime DESC
+        limit #{startIndex},#{pageCount}
+    </select>
+
+    <select id="selectPurseProductReservationNoticeTotalCount" parameterType="java.util.Map"
+            resultType="java.lang.Integer">
+        select count(*)
+        from purse_product_reservation_notice
+        where 1=1
+        <if test="productId != null">
+            AND productId = #{productId}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.codehaus.castor:castor:1.0.1.RELEASE">
+    <CLASSES>
+      <root url="jar://D:/maven-jar/block-chain/org/codehaus/castor/castor/1.0.1.RELEASE/castor-1.0.1.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/maven-jar/block-chain/org/codehaus/castor/castor/1.0.1.RELEASE/castor-1.0.1.RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/maven-jar/block-chain/org/codehaus/castor/castor/1.0.1.RELEASE/castor-1.0.1.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

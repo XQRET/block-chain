@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<title>用户登录</title>
+<link href="login.css" rel="stylesheet" type="text/css" />
+<link href="notLogged/all.css" rel="stylesheet" type="text/css"/>
+<link href="js/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+#parse("/common/common.htm")
+</head>
+
+<body class="bgff">
+<body>
+<!-- 头部导航栏 -->
+<div class="header clearfix"></div>
+<!-- 登录中间部分 -->
+<div class="login_center">
+<form class="loginForm w65b layui-form" id="loginForm" name="loginForm" action="user/login.do" method="post">
+	<div class="login_slogan dn">
+	<span>资产端合约报备方案</span>
+	<p>租赁权合约资产可通过平台完成在线报备登记，报备通过后</p>
+	<p>的合约，资金端可直接查看并锁定投资。</p>
+	<p><a href="notLogged/AssetsDemo.htm">接入场景示范</a></p>
+	</div>
+	
+	<div class="login_slogan dn">
+	<span>资金端资产对接方案</span>
+	<p>资金端可以通过平台查看所有租赁权报备合约对应的资产信</p>
+	<p>息,了解合约的资产属性及收益情况，确认是否进行投资。</p>
+	<p><a href="notLogged/capitalDemo.htm">接入场景示范</a></p>
+	</div>
+	<div class="login_slogan dn">
+	<span>背书端数据认证方案</span>
+	<p>背书端可以加入平台后，为平台内机构提供数据背书</p>
+	<p>业务,确保资产端数据的真实性。</p>
+	</div>
+	<div class="login_box">
+	<div class="login_title">用户登录</div>
+	<div class="login_title dn">资产端账户登录</div>
+	<div class="login_title dn">资金端账户登录</div>
+	<div class="login_title dn">背书端账户登录</div>
+	<div class="login_input">
+	<p>
+	<img class="login_userbg" src="./images/login/right_user.png">
+	<input  id=idMobile maxlength="32" size="20" type="text" placeholder=""/>
+	</p>
+
+	<p class="placeie">
+	<img class="login_userbg" src="./images/login/right_mima.png">
+	<input class="log_pwd" type="password"  id="idPassword" maxlength="32" size="20"  placeholder=""/>
+	</p>
+	<p>
+	<input class="verifyCode" type="text" id="verifyCode" maxlength="4" size="10" placeholder="">
+	<span class="loginimg">
+	<img id="loginimg" height="20" width="60" src="./servlet/verifyCode.svl"  onclick="changeCheckIMG();"/>
+	</span>
+	</p>
+	<!-- <div class="layui-unselect layui-form-checkbox forget_pwd" lay-skin="primary">
+	<input  class="layui-bg-blue" type="checkbox" checked lay-skin="primary">
+	<span>记住账号<a href="notLogged/retrievePwd.htm">忘记密码？</a></span>
+	</div> -->
+	<div class="log_btn" id="imageField"  onclick="onLogin()">登 录</div>
+	<div class="skip_reg"><a href="register.htm">立即注册<img src="images/login/skip_reg.png"/></a>
+	<a href="notLogged/retrievePwd.htm" class="fr">忘记密码？</a>
+	</div>
+	</div>
+	</div>
+	</form>
+	</div>
+	<!-- 1.资产端流程 -->
+	<div class="login_flow w70b dn">
+	<ul class="w20b">
+	<li>
+	<div>
+	<img src="./images/login/icon_rzzc.png"/>
+	<label>注册认证</label>
+	<p>加入区块链</p>
+	</div>
+	</li>
+	<li>
+	<div>
+	<img src="./images/login/icon_hyzc.png"/>
+	<label>合约注册</label>
+	<p>验证唯一性</p>
+	</div>
+	</li>
+	<li>
+	<div>
+	<img src="./images/login/icon_hycf.png"/>
+	<label>合约触发</label>
+	<p>资方对接资金</p>
+	</div>
+	</li>
+	<li>
+	<div>
+	<img src="./images/login/icon_hyzx1.png"/>
+	<label>合约执行</label>
+	<p>追踪履约数据</p>
+	</div>
+	</li>
+	<li>
+	<div>
+	<img src="./images/login/icon_hyzx.png"/>
+	<label>合约注销</label>
+	<p>释放房产信息</p>
+	</div>
+	</li>
+	</ul>
+	</div>
+	<!-- 2.资产端流程 -->
+	<div class="login_flow w70b dn">
+	<ul class="w25b">
+	<li>
+	<div>
+	<img src="./images/login/icon_rzzc.png"/>
+	<label>注册认证</label>
+	<p>加入区块链<br/>&nbsp;</p>
+	</div>
+	</li>
+	<li>
+	<div>
+	<img src="./images/login/icon_hycf.png"/>
+	<label>合约触发</label>
+	<p>查看合约详情<br/>锁定合约资产</p>
+	</div>
+	</li>
+	<li>
+	<div>
+	<img src="./images/login/icon_hyzx1.png"/>
+	<label>合约执行</label>
+	<p>追踪履约数据<br/>&nbsp;</p>
+	</div>
+	</li>
+	<li>
+	<div>
+	<img src="./images/login/icon_hyzx.png"/>
+	<label>合约注销</label>
+	<p>确认收益到账<br/>&nbsp;</p>
+	</div>
+	</li>
+	</ul>
+	</div>
+	<!-- 3.背书端流程 -->
+	<div class="login_flow w70b dn">
+	<ul class="w50b">
+	<li>
+	<div>
+	<img src="./images/login/icon_rzzc.png"/>
+	<label>注册认证</label>
+	<p>加入区块链<br/>&nbsp;</p>
+	</div>
+	</li>
+	<li>
+	<div>
+	<img src="./images/login/icon_hycf.png"/>
+	<label>合约背书</label>
+	<p>认证资产数据<br/>真实性</p>
+	</div>
+	</li>
+	</ul>
+	</div>
+	
+<!-- 底部导航栏 -->
+<div class="footer"></div>
+</body>
+</body>
+</html>
+<script type="text/javascript" src="js/layui/layui.all.js"></script>
+<script type="text/javascript" src="js/login.js"></script>

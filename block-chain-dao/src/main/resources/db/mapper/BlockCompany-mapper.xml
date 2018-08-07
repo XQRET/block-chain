@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.company.BlockCompanyMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.po.BlockCompany">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="companyName" property="companyName" jdbcType="VARCHAR"/>
+        <result column="companyType" property="companyType" jdbcType="VARCHAR"/>
+        <result column="provinceName" property="provinceName" jdbcType="VARCHAR"/>
+        <result column="cityName" property="cityName" jdbcType="VARCHAR"/>
+        <result column="companyAddress" property="companyAddress" jdbcType="VARCHAR"/>
+        <result column="businessLicenseUrl" property="businessLicenseUrl" jdbcType="VARCHAR"/>
+        <result column="businessLicenseCode" property="businessLicenseCode" jdbcType="VARCHAR"/>
+        <result column="companyLinkman" property="companyLinkman" jdbcType="VARCHAR"/>
+        <result column="companyLinkmanPhone" property="companyLinkmanPhone" jdbcType="VARCHAR"/>
+        <result column="identityUrl" property="identityUrl" jdbcType="VARCHAR"/>
+        <result column="companyStatus" property="companyStatus" jdbcType="VARCHAR"/>
+        <result column="checkRemark" property="checkRemark" jdbcType="VARCHAR"/>
+        <result column="companyEmail" property="companyEmail" jdbcType="VARCHAR"/>
+        <result column="companyBlockId" property="companyBlockId" jdbcType="VARCHAR"/>
+        <result column="nodeId" property="nodeId" jdbcType="BIGINT"/>
+        <result column="companyPrivateKey" property="companyPrivateKey" jdbcType="VARCHAR"/>
+        <result column="companyPublicKey" property="companyPublicKey" jdbcType="VARCHAR"/>
+        <result column="employeeId" property="employeeId" jdbcType="BIGINT"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+          id,
+          companyName,
+          companyType,
+          provinceName,
+          cityName,
+          companyAddress,
+          businessLicenseUrl,
+          businessLicenseCode,
+          companyLinkman,
+          companyLinkmanPhone,
+          identityUrl,
+          companyStatus,
+          checkRemark,
+          companyEmail,
+          companyBlockId,
+          nodeId,
+          companyPrivateKey,
+          companyPublicKey,
+          employeeId,
+          createTime,
+          updateTime
+    </sql>
+
+    <!--根据索引字段查询公司信息-->
+    <select id="selectBlockCompanyByIndex" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.po.BlockCompany">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_company
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="companyBlockId != null">
+            AND companyBlockId = #{companyBlockId,jdbcType=VARCHAR}
+        </if>
+        <if test="employeeId != null">
+            AND employeeId = #{employeeId,jdbcType=BIGINT}
+        </if>
+        <if test="companyStatus != null">
+            AND companyStatus = #{companyStatus,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+
+    <!--根据索引修改用户信息-->
+    <update id="updateBlockCompanyByIndex" parameterType="cn.inbs.blockchain.dao.po.BlockCompany">
+        update t_company
+        <set>
+            <if test="companyName != null">
+                companyName = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="companyType != null">
+                companyType = #{companyType,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceName != null">
+                provinceName = #{provinceName,jdbcType=VARCHAR},
+            </if>
+            <if test="cityName != null">
+                cityName = #{cityName,jdbcType=VARCHAR},
+            </if>
+            <if test="companyAddress != null">
+                companyAddress = #{companyAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLicenseUrl != null">
+                businessLicenseUrl = #{businessLicenseUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="businessLicenseCode != null">
+                businessLicenseCode = #{businessLicenseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="companyLinkman != null">
+                companyLinkman = #{companyLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="companyLinkmanPhone != null">
+                companyLinkmanPhone = #{companyLinkmanPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="identityUrl != null">
+                identityUrl = #{identityUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="companyStatus != null">
+                companyStatus = #{companyStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="checkRemark != null">
+                checkRemark = #{checkRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="companyEmail != null">
+                companyEmail = #{companyEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="companyBlockId != null">
+                companyBlockId = #{companyBlockId,jdbcType=VARCHAR},
+            </if>
+            <if test="nodeId != null">
+                nodeId = #{nodeId,jdbcType=BIGINT},
+            </if>
+            <if test="companyPrivateKey != null">
+                companyPrivateKey = #{companyPrivateKey,jdbcType=VARCHAR},
+            </if>
+            <if test="companyPublicKey != null">
+                companyPublicKey = #{companyPublicKey,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeId != null">
+                employeeId = #{employeeId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="companyBlockId != null">
+            AND companyBlockId = #{companyBlockId,jdbcType=VARCHAR}
+        </if>
+        <if test="employeeId != null">
+            AND employeeId = #{employeeId,jdbcType=BIGINT}
+        </if>
+    </update>
+
+    <!--根据索引字段查询公司信息-->
+    <select id="selectBlockCompanysByStatusAndType" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.po.BlockCompany">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_company
+        where 1=1
+        <if test="companyStatus != null">
+            AND companyStatus = #{companyStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="companyType != null">
+            AND companyType = #{companyType,jdbcType=VARCHAR}
+        </if>
+    </select>
+    
+
+    
+</mapper>

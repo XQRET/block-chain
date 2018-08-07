@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    #parse("/common/common.htm")
+<body class="body-content">
+<div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+#set($lEmployeeId = $cdoLoginer.getStringValue("lEmployeeId"))
+<input id="lEmployeeId" value="$!{lEmployeeId}" style="display: none"/>
+<input id="companyStatus"  style="display: none"/>
+<!-- 认证提示 -->
+#parse("/common/authtips.htm")
+<div class="allcenter">
+    <div class="allinfo">
+        <div class="F16">关联机构
+            <span class="operate-employee ma0 fr" onclick="addaffiliate()">添加资金端</span>
+        </div>
+        <table class="all_table mt20">
+            <thead>
+            <tr>
+                <td>序号</td>
+                <td>资金端机构</td>
+                <td>协议日期</td>
+                <td>协议到期日期</td>
+                <td>关联结果</td>
+            </tr>
+            </thead>
+            <tbody id="AffiliateTbody">
+             <!-- 没有添加关联机构时显示这部分内容 -->
+        	<!-- <td colspan="4">
+       		 <img class="pr5" src="../images/userCenter/icon_ts.png"/>若您需要使用接口服务，立刻
+         	<a class="c1f" onclick="addaffiliate()">添加资金端&gt;&gt;</a>
+            </td>  -->
+        <!-- 没有添加关联机构时显示这部分内容 -->
+            </tbody>
+        </table>
+        <div id="pageTool" style="text-align:center"></div>
+    </div>
+</div>
+</body>
+<!-- 添加资金端遮罩层 -->
+<div class="e_st_dialog" id="addaffiliateDialog">
+    <div class="dialog-header clearfix">
+        <span>添加资金端</span>
+        <b class="close" onclick="closefbE()"></b>
+    </div>
+    <form class="layui-form w70b">
+        <div class="layui-form-item capital" lay-skin="primary">
+            <label class="layui-form-label">资金端：</label>
+            <ul id="affiliateUl">
+
+            </ul>
+        </div>
+    </form>
+    <div class="dialog-footer">
+        <span class="active8" onclick="comfireAffiliate()">提交确认</span>
+    </div>
+</div>
+</html>
+<script type="text/javascript" src="./js/affiliate.js"></script>

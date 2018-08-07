@@ -1,0 +1,168 @@
+##查询条件回显
+#set($strNameCx = $request.getParameter("strNameCx"))
+#set($lIdCx = $request.getParameter("lIdCx"))
+#set($strMobileCx = $request.getParameter("strMobileCx"))
+
+
+##获取分页参数,用户分页组件
+#set($strPageIndex = $request.getParameter("pageindex"))
+#set($strPageSize = "10")
+
+##请求数据
+#set($cdoResponse = $employeeController.queryEmployeeList($request,$lIdCx,$strMobileCx,$strNameCx,$strPageIndex,$strPageSize))
+
+
+##查看登录人是否有某个按钮权限
+#set($rolep = $permissionController.hasPermission($request,"xt.e.s"))
+#set($addp = $permissionController.hasPermission($request,"xt.e.a"))
+#set($delp = $permissionController.hasPermission($request,"xt.e.d"))
+#set($editp = $permissionController.hasPermission($request,"xt.e.u"))
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>员工列表</title>
+    <meta content="IE=11.0000" http-equiv="X-UA-Compatible" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="GENERATOR" content="MSHTML 11.00.9600.17344" />
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    #parse("/common/common.htm")
+</head>
+<body class="body-content">
+		<!-- 当前位置开始 -->
+    <div class="alltitle">
+    <p>员工管理</p>
+	</div>
+    <!-- 当前位置结束 -->
+
+	<div class="Listzk">
+		<div class="loan_wallet searchInput clearfix">
+		  <form id="search_id">
+		    <input type="hidden" id="currentpage" name="pageNum" value="1">
+		    <div class=" loan_form ">
+		      <div class="overauto">
+		        <span>员工编号：
+		          <input type="text"  placeholder=""  id="lIdCx" value="$!{lIdCx}">
+		         </span>
+		         <span>员工姓名：
+		          <input type="text"  placeholder=""  id="strNameCx" value="$!{strNameCx}">
+		         </span>
+		         <span>手机号：
+		          <input type="text"  placeholder=""  id="strMobileCx" value="$!{strMobileCx}">
+		         </span>
+		         <div id="doSearch" pid="search_id" class="seach_btn newseach_btn FL" style="margin-left:20px;">查 找</div>
+		         <div id="doReset"  pid="search_id" class="seach_btn newseach_btn yellow-bg FL" style="margin-left:20px;">重 置</div>
+		       </div>
+		    </div>
+		  </form>
+	  </div>
+	       <div class="loan_list">
+				<div style="margin-bottom:20px;" class="clearfix">
+					<div style="margin-bottom:20px;" class="clearfix">
+						#if($addp == true)
+						<a href="javascript:void(0);" class="fr operate-employee" id="aDomAddEmp">添加员工</a>
+						#end
+						#if($editp == true)
+						<a href="javascript:void(0);" class="fr operate-employee" id="aDomModEmp">编辑员工</a>
+						#end
+						<a href="javascript:void(0);" class="fr operate-employee" id="aDomResetPwd">重置密码</a>
+						#if($rolep == true)
+						<a href="javascript:void(0);" class="fr operate-employee" id="aDomSetRole">设定角色</a>
+						#end
+						#if($delp == true)
+						<a href="javascript:void(0);" class="fr operate-employee" id="aDelEmployee">删除员工</a>
+						#end
+					</div>
+	        	</div>
+		         <table class="loan_talbe w tc into_pieces" id="empDataTable">
+					<thead>
+						<tr class="taHead">
+							<td>选择</td>
+							<td>员工编号</td>
+							<td>姓名</td>
+							<td >手机号</td>
+							<td >创建时间</td>
+							<td >员工状态</td>
+							<td>是否是超级管理员</td>
+							<td class="wb33">所属角色</td>
+						</tr>
+					</thead>
+					<tbody id="checkApplys" class="layui-form">
+		            #set($cdoEmplManages = $cdoResponse.getCDOArrayValue("cdosEmployee"))
+		            #foreach($cdoEmplManage in $cdoEmplManages)
+		            	#set($lId=$cdoEmplManage.getLongValue("lId"))
+		            	#set($isAdmin=$cdoEmplManage.getIntegerValue("isAdmin"))
+			            <tr>
+			                <td  style="width:4%">
+						         <div class="layui-input-block">
+								      <input type="radio" id="list_${lId}"  name="radio" value="${lId}" isAdmin="${isAdmin}"/>
+								  </div>
+			                </td>
+			                <td >
+			                	$lId
+			                </td>
+			                <td >
+			                    $!cdoEmplManage.getStringValue('strName')
+			                </td>
+			                <td >
+					         	$!cdoEmplManage.getStringValue('strMobile')
+			                </td>
+			                <td >
+					         	$!cdoEmplManage.getStringValue('dtCreateTime')
+			                </td>
+			                <td >
+			                #if($cdoEmplManage.exists("nWorkState"))
+			                #set ($nWorkState = $cdoEmplManage.getIntegerValue('nWorkState'))
+			                	#if($nWorkState==0)
+			                		未入职
+			                	#elseif($nWorkState==1)
+			                		在职
+		                		#elseif($nWorkState==2)
+		                			离职
+		                		#elseif($nWorkState==3)
+		                			挂职
+			                	#else
+			                		停薪留职
+			                	#end
+			                #end
+			                </td>
+			                <td>
+			                	#if($isAdmin == 1)
+			                		是
+			                	#else
+			                		否
+								#end
+			                </td>
+			                <td>
+			                	#if($cdoEmplManage.exists("strRoleNames"))
+									$!cdoEmplManage.getStringValue('strRoleNames')
+			                	#end
+			                </td>
+			              </tr>
+			            #end
+			     	</tbody>
+		       </table>
+
+		       <!-- 分页组件 -->
+				#set($nRecordCount = $cdoResponse.getIntegerValue("nRecordCount"))
+				#set($nPageCount = $cdoResponse.getIntegerValue("nPageCount"))
+				#parse("/common/pagecontrol.htm")
+		</div>
+
+		#parse("/employeeManage/empinfo.htm")
+		#parse("/employeeManage/setrole.htm")
+	</div>
+</body>
+</html>
+<script  type="text/javascript"  src="../js/layui/layui.js"></script>
+<script type="text/javascript" src="../js/layui/lay/modules/layer.js"></script>
+<script type="text/javascript" src="../js/jqgrid.js"></script>
+<script type="text/javascript" src="./js/list.js"></script>
+<script>
+//调用layui表单样式：单选框
+layui.use('form', function(){
+  var form = layui.form;
+  //各种基于事件的操作，下面会有进一步介绍
+});
+</script>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="format-detection" content="telephone=no" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<meta name="author" content="星桥" >
+		<meta name="copyright" content="星桥">
+		<link rel="stylesheet" href="css/reset.css?v=1.0" />
+		<link rel="stylesheet" href="css/publicity.css?v=1.0"  />
+   		 #parse("/common/common.htm")
+		<title>星桥区块链数字资产网络</title>
+	</head>
+	<body>
+	<div class="webPage-wrap">
+		<div class="main-animate-bg">
+			<div class="main-animate-content">
+				<div class="sub-total-wrap clear-fix">
+					<div class="sub-menu-wrap">
+						<div class="sub-ledger-wrap">
+							<div class="recent-ledger-content"></div>
+							<div class="recent-ledger-box">
+								<div class="recent-ledger"></div>
+							</div>
+							<h3 class="ledger-tit">交易总金额(元)</h3>
+						</div>
+						<div class="sub-userNum-wrap clear-fix">
+							<div class="userNum-tit">合约申请数</div>
+							<div class="userNum-wrap">
+								<div class="userNum-curTotal"></div>
+							</div>
+						</div>
+						<div class="sub-userNum-wrap clear-fix">
+							<div class="userNum-tit">用户总数</div>
+							<div class="userNum-wrap">
+								<div class="userNum-total"></div>
+							</div>
+						</div>
+						<div class="sub-tradeNum-wrap clear-fix">
+							<div class="tradeNum-tit">合约对接数</div>
+							<div class="userNum-wrap">
+								<div class="tradeNum-24h"></div>
+							</div>
+						</div>
+					</div>
+					<div class="community-wrap">
+						<ul class="nodeStatus-wrap">
+							<li class="nodeStatus-group">
+								<div class="node-group" style="top: -3px; left: -9px;">
+									<div class="node node-dot"></div>
+									<div class="node node-10"></div>
+									<div class="node node-20"></div>
+								</div>
+								<span class="nodeStatus-msg">激活</span>
+							</li>
+							<li class="nodeStatus-group">
+								<div class="node-group nodeStatus-wran" style="top: -3px; left: 79px;">
+									<div class="node node-dot" style="background: #f54855;"></div>
+									<div class="node node-10"></div>
+									<div class="node node-20"></div>
+								</div>
+								<span class="nodeStatus-msg">告警</span>
+							</li>
+							<li class="nodeStatus-group">
+								<div class="node-group nodeStatus-leave" style="top: -3px; left: 169px;">
+									<div class="node node-dot" style="background: #fff;"></div>
+									<div class="node node-10"></div>
+									<div class="node node-20"></div>
+								</div>
+								<span class="nodeStatus-msg">离线</span>
+							</li>
+						</ul>
+						<div class="animate-wrap">
+							<div class="nodeInfo-bg">
+								<div class="nodeInfo">
+									<div class="nodeInfo-img"></div>
+									<img src="logo/loading.gif"  class="node-logo" />
+									<div class="node-content app-name"></div>
+								</div>
+							</div>
+							<canvas id="community-node-line" width="704" height="415"></canvas>
+						</div>
+					</div>
+				</div>
+				<div class="community-result-wrap clear-fix">
+					<div class="node-total-wrap">
+						<div class="node-total-num"></div>
+					</div>
+					<div class="community-app-wrap">
+						<h4 class="node-total-tit">当前节点数</h4>
+						<div class="community-app-bg">
+							<div class="community-app-opacity-left"></div>
+							<div class="community-app-opacity-right"></div>
+							<div class="community-appLogo-bg">
+								<div class="community-appLogo-wrap">
+									<img src="images/br_logo.png"  class="community-app-logo" alt="" />
+									<img src="images/gzed_logo.png"  class="community-app-logo" alt="" />
+									<img src="images/hf_logo.png"  class="community-app-logo" alt="" />
+									<img src="images/pg_Logo.png"  class="community-app-logo" alt="" />
+									<img src="images/xw_logo.png"  class="community-app-logo" alt="" />
+									<img src="images/ybd_logo.png"  class="community-app-logo" alt="" />
+									<img src="images/zr_logo.png"  class="community-app-logo" alt="" />
+									<img src="images/ax_icon.png"  class="community-app-logo" alt="" />
+								</div>
+							</div>
+							<div class="community-pro-wrap">
+								<img src="images/publicity-gongshi.png"  class="community-pro community-pro-1" />
+								<img src="images/publicity-gongshi.png"  class="community-pro community-pro-2" />
+								<img src="images/publicity-gongshi.png"  class="community-pro community-pro-3" />
+								<img src="images/publicity-gongshi.png"  class="community-pro community-pro-4" />
+								<img src="images/publicity-gongshi.png"  class="community-pro community-pro-5" />
+								<img src="images/publicity-gongshi.png"  class="community-pro community-pro-6" />
+								<img src="images/publicity-gongshi.png"  class="community-pro community-pro-7" />
+								<img src="images/publicity-gongshi.png"  class="community-pro community-pro-8" />
+							</div>
+						</div>
+						<img src="images/publicity-line.png"  class="community-app-line" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<script type="text/javascript" src="js/jquery.js"  ></script>
+	<!--[if lte IE 9]>
+		<script type="text/javascript" src="js/jquery.xdomainrequest.min.js" ></script>
+	<![endif]-->
+	<script type="text/javascript" src="js/config.js"  ></script>
+	<script type="text/javascript" src="js/dataAnimation.js"  ></script>
+	<script type="text/javascript" src="js/publicity-viewMoudle.js" ></script>
+	<script type="text/javascript" src="js/publicity-data.js"  ></script>
+	</body>
+</html>

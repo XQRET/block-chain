@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <link rel="shortcut icon" href="../images/bitbug_favicon.ico" />
+  <title>我是房东</title>
+  <link href="all.css" rel="stylesheet" type="text/css" />
+  #parse("/common/common.htm")
+  </head>
+
+
+<body>
+<!-- 头部导航栏 -->
+<div class="header clearfix"></div>
+<!-- 中间部分 -->
+<div class="index_center lanlord_center">
+<div class="fullwidthbanner-container">
+		<div class="fullwidthbanner">
+			<ul>
+				<li data-transition="3dcurtain-horizontal" data-slotamount="15" data-masterspeed="300">
+					<img src="../images/notlogged/room_banner.png"/>	
+					<div class="banner_txt sft">
+				 	<p>要用钱  有房出租</p>
+				    <p>好房 帮你来搞定</p>
+				    <div class="lan_protype">
+				    <ul>
+				    <li>长租公寓</li>
+				    <li>短租酒店/民宿</li>
+				    <li>海外房产</li>
+				    <li>小产权房</li>
+				    </ul>
+				    </div>
+				    </div>								
+				</li>
+			</ul>
+		</div>
+	</div>
+<div class="lanlord_bottom">
+<div class="lanlord_down clearfix">
+<div class="landown_left">
+<p>租赁让生活更美好</p>
+<p>好房APP，房产租赁信贷工具</p>
+<div class="down_btn">
+<div class="select"><img src="../images/notlogged/iphone_icon.png"/>iphone</div>
+<div><img src="../images/notlogged/Android_icon.png"/>android</div>
+</div>
+<div class="down_code">
+<img src="../images/notlogged/iphone_code.png"/>
+<img class="dn" src="../images/notlogged/Android_code.png"/>
+</div>
+</div>
+<div class="landown_right">
+<img src="../images/notlogged/room_gestures.png"/>
+</div>
+</div>
+<div class="down_solan">按照月租金公允价值12-36倍对房产进行授信的信贷类产品</div>
+</div>
+</div>
+<!-- 底部导航栏 -->
+<div class="footer"></div>
+</body>
+</html>
+<input id="check" type="hidden" value="0" />
+<script type="text/javascript" src="./js/common.js"></script>
+<script>
+$(".down_btn div").on("click",function(){
+	var downNumber=$(this).index();
+	$(this).addClass("select").siblings().removeClass("select");
+	$(".down_code img").eq(downNumber).removeClass("dn").siblings().addClass("dn");
+});
+</script>

@@ -1,0 +1,128 @@
+@CHARSET "UTF-8";
+/* 合约概要部分 */
+.con-flow{}
+.con-flow span{display: contents !important;}
+.con-flow b{width:34px;height:34px;padding: 0 10px 0 0 !important;display: inline-block;vertical-align: middle;}
+.con-flow img{margin: 0 20px !important;}
+.flow1{background: url(../../../images/contract/flow1-no.png) no-repeat;}
+.flow2{background: url(../../../images/contract/flow2-no.png) no-repeat;}
+.flow3{background: url(../../../images/contract/flow3-no.png) no-repeat;}
+.flow4{background: url(../../../images/contract/flow4-no.png) no-repeat;}
+.flow5{background: url(../../../images/contract/flow5-no.png) no-repeat;}
+@font-face {font-family:fzcqjt;src:url(./font/fzcqjt.eot);src:url(./font/fzcqjt.eot#iefix) format('embedded-opentype'),url(./font/fzcqjt.svg#iconfont) format('svg'),url(./font/fzcqjt.woff)format('woff'),url(./font/fzcqjt.ttf) format('truetype')}
+.newcon {font-family:'微软雅黑';width:1120px;margin:0 auto;border:2px solid #d4dde6;box-sizing: border-box;border-radius:5px;/* margin-top:20px; */}
+.newcon_center {background:url(./img/nc_bg.png) 6px 6px no-repeat;font-size:14px;background-size:99%;width:1100px;margin:10px auto;border:1px solid #dfe7ef;}
+.nc_logo {margin:40px 0 0 20px;}
+.nc_title {font-size:30px;font-family:fzcqjt;margin:5px 0;}
+.nc_title span {border:1px solid #ff6f6c;position:relative;top:-4px;left:0;display:inline-block;border-radius:18px;}
+.nc_title b {font-family:'微软雅黑';font-size:16px;background:#ff6f6c;display:inline-block;width:26px;margin:2px;border-radius:14px;height:26px;line-height:26px;color:#fff;}
+.nc_top p {text-align:center;color:#666;margin-bottom:35px;}
+.nc_info {width:600px;margin:0 auto 30px auto;}
+.ncinfo_left {width:248px;float:left;}
+.ncinfo_right {float:left;margin:3px 0 0 40px;width:312px;}
+.ncinfo_left img {width:242px;height:182px;padding:2px;border:1px solid #dbe6ef;}
+.ncinfo_right label {width:160px;display:inline-block;}
+.ncinfo_right em {font-size:28px;padding-right:5px;}
+.nc_cp {background:url(./img/cpline.png) no-repeat;width:700px;margin:0 auto;margin-top:40px;}
+.nc_cp img {position:relative;left:34%;top:-12px;padding-right:10px;}
+.ass_btn{background: #62a5f8;cursor:pointer;color: #fff;width: 110px;height: 30px;line-height: 30px;text-align: center;font-size: 14px;margin: 0 auto 20px auto;}
+/* 四个切换页面 */
+.nc_nav{border-bottom:1px solid #e6e6e6;font-size:16px;text-align:center;color:#666;}
+.nc_nav ul{width:400px;margin:0 auto;}
+.nc_nav li{width:25%;float:left;padding:18px 0;margin:0  17px;border-bottom:2px solid #fff;max-width:65px;cursor:pointer;transition: all 1s;}
+.nc_item{display:none;/* padding:0 18px; */}
+.nc_liactive{display:block;color:#2c66ab;border-color:#2c66ab !important;}
+.nc_active{display:block;}
+
+/* 合约概要 */
+.nc_outline {width:100%;margin-bottom:10px;color:#333;}
+.nc_outline td {padding:20px 30px 20px 0;}
+.nc_outline tr:nth-child(even) {background:#fafafa;}
+.nc_outline tr td:first-child {color:#999;text-align:right;width:120px;}
+.nc_outline p em{color:#ff6364;}
+.nc_outline span img{vertical-align: bottom;margin-left:10px;}
+
+/* 合约监控 */
+.main {width:50%;margin:30px auto;}
+.time-axis {margin:0;padding:0;position:relative;}
+.time-axis:before {content:'';position:absolute;left:120px;top:-61px;height:115%;border-right:1px dashed #c2c2c2;}
+.time-axis-item {list-style:none;padding-left:150px;position:relative;line-height:30px;font-size:14px;color:#333;margin-top:20px;}
+.time-axis-achievement {margin:0;font-size:14px;}
+.time-axis-date {position:absolute;left:0;top:0;color:#666;line-height: 22px;text-align: right;}
+.time-axis-date p:first-child{width:90px;height:45px;font-size:16px;color:#666;padding-top: 4px;}
+.time-axis-date p em{color:#999;}
+.time-title .time-axis-title{color: #333;font-weight: bold;}
+.time-title .time-axis-achievement{color: #666;}
+.time-title span{border:2px solid #999;width: 25px !important;height: 25px !important;right: -45px !important;top: 7% !important;}
+.time-axis-title{font-size:16px;}
+.time-title{margin-top:60px;}
+.time-axis-date span {position:absolute;right:-34px;top:22%;display:block;width:9px;height:9px;border-radius:100%;background-color:#fff;}
+.time-axis-date span:after {content:'';position:absolute;left:0;top:0;right:0;bottom:0;width:9px;height:9px;margin:auto;background-color:#999;border:1px solid #999;border-radius:100%;}
+.tim-axis-check .time-axis-date span{border-color:#ff6364;}
+.tim-axis-check .time-axis-date span:after {background-color:#ff6364;border-color:#ff6364;}
+
+/* 房屋信息 */
+.house_info{width: 90%;margin: 0 auto;padding: 0 10px;}
+.photo-list{position:relative;}
+.photo-list p {float:left;margin-right:5px;}
+#b-map2 {width:500px;height:400px;}
+.evaluate h3 {color:#3a3e46;margin:40px 0px 10px 0px;font-size:16px;font-weight:bold;}
+.evaluate>div label {display:inline-block;color:#686e7e;font-size:16px;font-weight:bold;width:100px;text-align:left;line-height:21px;height:21px;}
+.evaluate>div .eva-bg {width:390px;height:10px;background:#e7e9f1;border-radius:5px;margin:6px 15px 0px 10px;}
+.m-group .money {display:inline-block;width:240px;height:100px;}
+.m-group .money a {display:inline-block;border:1px solid #dedede;color:#333333;width:60px;height:34px;line-height:34px;text-align:center;border-radius:4px;margin:0 15px 6px 0;}
+.m-group .money a.active {background:#279df5;color:white;}
+/*弹出框样式*/#scheme_dialog {width:500px;border:2px solid #2cd3ff;margin-left:-250px;}
+#scheme_dialog h1 {color:#333333;font-size:18px;text-align:center;margin-bottom:45px;}
+.money {width:330px;margin:0 auto;}
+.m-group {margin-bottom:29px;position:relative;}
+.m-group h2 {height:32px;line-height:32px;font-weight:bold;}
+.m-group label {color:#333333;width:80px;display:inline-block;line-height:32px;}
+.m-group .operation,.m-group select,.m-group input {width:240px;float:right;display:inline-block;height:32px;line-height:32px;}
+.m-group select,.m-group input {border:1px solid #d2d2d2;padding-left:10px;}
+.m-group input {width:230px;}
+.m-group .operation a {display:inline-block;border:1px solid #d2d2d2;text-align:center;width:50%;box-sizing:border-box;float:left;}
+.m-group .operation .active {background:#279df5;color:white;}
+.dialog-footer {background:#ececee !important;width:100%;height:80px;text-align:center;}
+.dialog-footer a {width:160px;height:40px;line-height:40px;display:inline-block;background-color:#279df5;color:white;border-radius:5px;margin-top:20px;}
+/*星级评分样式*/.title-star {font-size:14px;display:inline-block;line-height:21px;height:21px;margin-right:15px;}
+.star a {display:inline-block;width:22px;height:21px;background:url(./img/starky.png) no-repeat center;margin-right:6px;}
+.star a.active {background:url(./img/starsy.png) no-repeat center;}
+.star-content {width:100%;margin-bottom:15px;}
+.star {display:inline-block;}
+.layui-layer-imgbar{text-align:center;}
+.thumbnail {cursor:pointer;width:260px;height:200px;}
+.b-map {height:454px;margin-top:20px;}
+.house_title {color:#272d2f;font-size:22px;padding:40px 0 20px 0;}
+.house_info ul {overflow:auto;}
+.house_info li {padding-top:20px;}
+.house_info li label {color:#999;width:90px;display:inline-block;}
+.land_basic li label{width:150px;}
+.house_info li p {display:inline-block;color:#333;}
+.house_basic li,.land_basic li{width:50%;float:left;}
+.house_con li {width:33%;float:left;}
+.photo-list span {display:inline-block;position:absolute;width:50px;height:30px;background:#636261;text-align:center;line-height:30px;color:#fff;left:0px;top:170px;opacity:0.8;}
+/*价值评估公共表格样式 开始*/
+.lineone{height:1px; width:100%;background-color:#e6e6e6;margin:50px 0;}
+.left-title-table{
+	width: 700px;
+	margin: 0 auto;
+	margin-top:20px;
+}
+.left-title-table th,.left-title-table td{
+	font-weight: normal;
+	height: 50px;
+	line-height: 50px;
+	color: #595c63;
+	border: 1px solid #e5e5e5;
+	background-color: white;
+	text-align: center;
+}
+.left-title-table .table-title{
+	background-color: #f8f9fb;
+	color: #384345;
+	font-weight: bold;
+	width: 150px;
+}
+
+/*价值评估公共表格样式 结束*/

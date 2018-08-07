@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+       default-lazy-init="false">
+
+    <!--配置文件加载bean-->
+    <bean id="propertyLoader" class="cn.inbs.blockchain.common.property.PropertyLoader">
+        <constructor-arg index="0">
+            <list>
+                <value>classpath*:config/errorcode/*-ERRMES.properties</value>
+                <value>classpath:config/common/common-config.properties</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!--spring通过beanName获取bean-->
+    <bean class="cn.inbs.blockchain.common.utils.SpringContextUtil"/>
+
+    <!--前端返回拦截器-->
+    <context:component-scan base-package="cn.inbs.blockchain" use-default-filters="false">
+        <!-- base-package 如果多个，用“,”分隔 -->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <!--控制器增强，使一个Contoller成为全局的异常处理类，类中用@ExceptionHandler方法注解的方法可以处理所有Controller发生的异常-->
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <!-- 定时任务工厂 -->
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+          depends-on="propertyLoader">
+        <property name="configLocation" value="classpath:quartz.properties"/>
+    </bean>
+</beans>

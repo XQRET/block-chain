@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <link rel="shortcut icon" href="../images/bitbug_favicon.ico" />
+  <title>我是投资人</title>
+  <link href="all.css" rel="stylesheet" type="text/css" />
+  #parse("/common/common.htm")
+  </head>
+
+
+<body>
+<!-- 头部导航栏 -->
+<div class="header clearfix"></div>
+<!-- 中间部分 -->
+<div class="index_center invest_center">
+<div class="fullwidthbanner-container">
+		<div class="fullwidthbanner">
+			<ul>
+				<li data-transition="3dcurtain-horizontal" data-slotamount="15" data-masterspeed="300">
+					<img src="../images/notlogged/wallet_banner.png"/>	
+					<div class="banner_txt sft">
+				    <p>全球不动产数字资产配置</p>
+				    <p>中证钱包，为你实现合理资产配置</p>
+				    <div class="lan_protype">
+				    <ul>
+				    <li>国内</li>
+				    <li>澳洲</li>
+				    <li>英国</li>
+				    <li>美国</li>
+				    </ul>
+				    </div>
+				    </div>								
+				</li>
+			</ul>
+		</div>
+	</div>
+<div class="lanlord_bottom">
+<div class="lanlord_down clearfix">
+<div class="landown_left">
+<p>钱包，让资产更清晰</p>
+<p>中证钱包，让你的不动产资产流动性起来</p>
+<div class="down_btn">
+<div class="select"><img src="../images/notlogged/iphone_icon.png"/>iphone</div>
+<div><img src="../images/notlogged/Android_icon.png"/>android</div>
+</div>
+<div class="down_code">
+<img src="../images/notlogged/invest_iphone_code.png"/>
+<img class="dn" src="../images/notlogged/invest_Android_code.png"/>
+</div>
+</div>
+<div class="landown_right">
+<img src="../images/notlogged/wallet_gestures.png"/>
+</div>
+</div>
+<div class="down_solan">管理区块链上所有不动产数字合约资产</div>
+</div>
+</div>
+<!-- 底部导航栏 -->
+<div class="footer"></div>
+</body>
+</html>
+<input id="check" type="hidden" value="0" />
+<script type="text/javascript" src="./js/common.js"></script>
+<script>
+$(".down_btn div").on("click",function(){
+	var downNumber=$(this).index();
+	$(this).addClass("select").siblings().removeClass("select");
+	$(".down_code img").eq(downNumber).removeClass("dn").siblings().addClass("dn");
+});
+</script>

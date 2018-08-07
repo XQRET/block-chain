@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    #parse("/common/common.htm")
+
+<body class="body-content">
+  <!-- 认证提示 -->
+  <div class="alltitle">
+    <p>预售列表</p>
+  </div>
+  <div class="allcenter">
+    <div class="allinfo">
+      <div class="F16">添加预售</div>
+      <div class="addpro layui-form">
+        <div class="layui-inline">
+          <label class="layui-form-label">产品类型：</label>
+          <div class="layui-input-inline">
+            <select id="productType" lay-verify="required" name="productType">
+              <option value="1">固收资产</option>
+              <option value="2">非固收资产</option>
+            </select>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">项目名称：</label>
+          <div class="layui-input-inline">
+            <input type="text" id="productName" name="productName"/>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">Banner：</label>
+          <div class="addsale_logo" onclick="updateImg('productBanner')">
+				<!-- 当图片上传以后，这一段替换掉 -->
+				<img src="../images/productCenter/addsale.png" id="productBannerImg"
+                     style="width: 195px;height: 145px">
+				<!-- 当图片上传以后，这一段替换掉 end -->
+          </div>
+          <input id="productBanner" name="productBanner" type="file"
+                 style="display: none;" accept="image/gif, image/jpeg , image/png">
+
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">项目详情：</label>
+          <div class="addsale_logo" onclick="updateImg('productDetails')">
+				<!-- 当图片上传以后，这一段替换掉 -->
+				<img src="../images/productCenter/addsale.png" id="productDetailsImg"
+                     style="width: 195px;height: 145px">
+				<!-- 当图片上传以后，这一段替换掉 end -->
+				</div>
+        </div>
+        <input id="productDetails" name="productDetails" type="file"
+               style="display: none;" accept="image/gif, image/jpeg , image/png">
+
+
+        <div class="layui-inline">
+          <label class="layui-form-label">&nbsp;</label>
+          <div class="layui-input-inline">
+          <div class="addpro_btn">确定</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="js/addSale.js" ></script>

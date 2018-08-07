@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />#parse("/common/common.htm")
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    
+    <body class="body-content">
+    #set($contractID=${request.getParameter("contractID")})
+    #set($person=${contractController.getPersonByContractID($contractID)})
+    #if($person.exists("img"))
+	#set($imgPerson=$person.getStringValue("img"))
+	<input type="hidden" id="hdImgPerson" value="$!{imgPerson}">
+	#end
+    
+    #set($house=${contractController.getHouseByContractID($contractID)})
+    #if($house.exists("img"))
+	#set($imgHouse=$house.getStringValue("img"))
+	<input type="hidden" id="hdImgHouse" value="$!{imgHouse}">
+	#end
+      <div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+      <div class="alltitle">
+        <p>分期租赁合约</p>
+      </div>
+      <div class="allcenter">
+        <div class="allinfo">
+          <form class="layui-form con-down">
+            <ul>
+              <li>
+                <label>个人数据</label>
+                <dl>
+                  <dt class="layui-unselect layui-form-checkbox" lay-skin="primary">
+                    <span>
+                      <input type="checkbox" lay-skin="primary" lay-filter="allChoose">全选</span></dt>
+                  <dt class="bdd1 mb1d5"></dt>
+                  <dt class="layui-unselect layui-form-checkbox" lay-skin="primary" id="dtPerson">
+                  </dt>
+                </dl>
+              </li>
+              <li>
+                <label>房产数据</label>
+                <dl>
+                  <dt class="layui-unselect layui-form-checkbox" lay-skin="primary">
+                    <span>
+                      <input type="checkbox" lay-skin="primary" lay-filter="allChoose">全选</span></dt>
+                  <dt class="bdd1 mb1d5"></dt>
+                  <dt class="layui-unselect layui-form-checkbox" lay-skin="primary" id="dtHouse">
+                  </dt>
+                </dl>
+              </li>
+              <li>
+              <label>&nbsp;</label>
+              <div class="condown_btn active8" onclick="">下载</div></li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </body>
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="../bangrong/js/constant.js"></script>
+<script type="text/javascript" src="./js/contractdownload.js"></script>

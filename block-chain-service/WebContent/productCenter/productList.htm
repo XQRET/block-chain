@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+	#parse("/common/common.htm")
+</head>
+
+<body class="body-content">
+    <!-- 当前位置开始 -->
+    <div class="alltitle">
+    <p>产品列表</p>
+	</div>
+    <!-- 当前位置结束 -->
+  <div class="Listzk">
+    <div class="loan_wallet searchInput">
+      <form id="agencyForm" class="layui-form">
+        <div class="loan_form">
+            <input type="hidden" id="pageIndex" name="pageIndex" value="1"/>
+          <div class="clearfix">
+            <span class="layui-inline">
+              <label class="layui-form-label">类型：</label>
+              <div class="layui-input-inline">
+                <select id="" name="contractProductType" lay-verify="required">
+                  <option value="">全部</option>
+                  <option value="0">固收资产</option>
+                  <option value="1">非固收资产</option>
+              	</select>
+              </div>
+            </span>
+            <span class="layui-inline">
+              <label class="layui-form-label">状态：</label>
+              <div class="layui-input-inline">
+              	<select id="" name="raiseStatus" lay-verify="required">
+                	<option value="">全部</option>
+                  	<option value="1">待募集</option>
+                  	<option value="2">募集中</option>
+                  	<option value="3">募集完成</option>
+              	</select>
+              </div>
+            </span>
+            <div  id="query" class="seach_btn newseach_btn FL ml80">查 询</div>
+            <div onclick="window.location.href='addProduct.htm'" class="seach_btn newseach_btn FL" style="margin-left:20px;">添加产品</div>
+            </div>
+        </div>
+      </form>
+    </div>
+    <div class="loan_list">
+        <div  id="table_view"></div>
+        <div id="pageTool" style="text-align:center"></div>
+    </div>
+  </div>
+</body>
+<!-- 查看合约遮罩层 -->
+#parse("/common/contractDetail.htm")
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="../notLogged/js/common.js" ></script>
+<script type="text/javascript" src="js/productList.js" ></script>

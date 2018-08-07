@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.purse.user.PurseAmountMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.purse.po.PurseAmount">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="purseUserId" property="purseUserId" jdbcType="BIGINT"/>
+        <result column="totalAmount" property="totalAmount" jdbcType="DECIMAL"/>
+        <result column="fixedAssetsAmount" property="fixedAssetsAmount" jdbcType="DECIMAL"/>
+        <result column="unFixedAssetsAmount" property="unFixedAssetsAmount" jdbcType="DECIMAL"/>
+        <result column="transferAmount" property="transferAmount" jdbcType="DECIMAL"/>
+        <result column="availableAmount" property="availableAmount" jdbcType="DECIMAL"/>
+        <result column="currency" property="currency" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+       id,
+       purseUserId,
+       totalAmount,
+       fixedAssetsAmount,
+       unFixedAssetsAmount,
+       transferAmount,
+       availableAmount,
+       currency,
+       createTime,
+       updateTime
+    </sql>
+
+    <!--添加用户-->
+    <insert id="insertPurseAmount" parameterType="cn.inbs.blockchain.dao.purse.po.PurseAmount">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into purse_amount
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="purseUserId != null">
+                purseUserId,
+            </if>
+            <if test="totalAmount != null">
+                totalAmount,
+            </if>
+            <if test="fixedAssetsAmount != null">
+                fixedAssetsAmount,
+            </if>
+            <if test="unFixedAssetsAmount != null">
+                unFixedAssetsAmount,
+            </if>
+            <if test="transferAmount != null">
+                transferAmount,
+            </if>
+            <if test="availableAmount != null">
+                availableAmount,
+            </if>
+            <if test="currency != null">
+                currency,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="purseUserId != null">
+                #{purseUserId,jdbcType=BIGINT},
+            </if>
+            <if test="totalAmount != null">
+                #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="fixedAssetsAmount != null">
+                #{fixedAssetsAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="unFixedAssetsAmount != null">
+                #{unFixedAssetsAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="transferAmount != null">
+                #{transferAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="availableAmount != null">
+                #{availableAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="currency != null">
+                #{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+
+    <!--查询用户余额-->
+    <select id="queryPurseAmountByUserId" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.purse.po.PurseAmount">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        purse_amount
+        where
+        1=1
+        <if test="purseUserId != null">
+            AND purseUserId=#{purseUserId}
+        </if>
+    </select>
+</mapper>

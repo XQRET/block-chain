@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+	#parse("/common/common.htm")
+</head>
+
+<body class="body-content">
+    <!-- 当前位置开始 -->
+    <div class="alltitle">
+    <p>预售列表</p>
+	</div>
+    <!-- 当前位置结束 -->
+  <div class="Listzk">
+    <div class="loan_wallet searchInput">
+      <form id="agencyForm" class="layui-form">
+        <input type="hidden" id="pageIndex" name="pageIndex" value="1"/>
+        <div class="loan_form">
+          <div class="clearfix">
+            <span class="layui-inline">
+              <label class="layui-form-label">类型：</label>
+              <div class="layui-input-inline">
+                <select  lay-verify="required" name="productType" >
+                  <option value="">全部</option>
+                  <option value="0">固收资产</option>
+                  <option value="1">非固收资产</option>
+              	</select>
+              </div>
+            </span>
+            <span class="layui-inline">
+              <label class="layui-form-label">状态：</label>
+              <div class="layui-input-inline">
+              	<select id="productStatus" lay-verify="required" name="productStatus">
+                	<option value="">全部</option>
+                  	<option value="1">待预售</option>
+                  	<option value="2">预售中</option>
+                  	<option value="3">预售完成</option>
+              	</select>
+              </div>
+            </span>
+            <div id="query" class="seach_btn newseach_btn FL ml80">查 询</div>
+            <div onclick="window.location.href='addSale.htm'" class="seach_btn newseach_btn FL" style="margin-left:20px;">添加预售</div>
+            </div>
+        </div>
+      </form>
+    </div>
+
+
+      <div class="loan_list">
+        <div  id="table_view"></div>
+        <div id="pageTool" style="text-align:center"></div>
+      </div>
+     </div>
+</body>
+
+<!-- 查看合约遮罩层 -->
+<div class="e_st_dialog scroll" id="contractDialog">
+    <div class="clearfix con-header">
+        <b class="close" onclick="closefbE()"></b>
+    </div>
+    <div class="con-info">
+            <div class="allinfo">
+                <div class="F16">查看预售</div>
+                <div class="addpro layui-form">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">产品类型：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="productType" name="productType" disabled/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">项目名称：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="productName" name="productName" disabled/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">Banner：</label>
+                        <div class="addsale_logo" >
+                            <!-- 当图片上传以后，这一段替换掉 -->
+                            <img src="../images/productCenter/addsale.png" id="productBannerImg"
+                                 style="width: 195px;height: 145px">
+                            <!-- 当图片上传以后，这一段替换掉 end -->
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">项目详情：</label>
+                        <div class="addsale_logo" >
+                            <!-- 当图片上传以后，这一段替换掉 -->
+                            <img src="../images/productCenter/addsale.png" id="productDetailsImg"
+                                 style="width: 195px;height: 145px">
+                            <!-- 当图片上传以后，这一段替换掉 end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+
+
+
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="js/saleList.js" ></script>
+<script type="text/javascript" src="../notLogged/js/common.js" ></script>

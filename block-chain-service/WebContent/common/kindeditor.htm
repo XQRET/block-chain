@@ -1,0 +1,31 @@
+<!--KindEditor Begin-->
+#set ($strStaticURL = $utilityController.getStaticCenterURL())
+<script charset="utf-8" src="http://${strStaticURL}/common/kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="http://${strStaticURL}/common/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript">
+	// KindEditor初始化
+	var editor;
+	var self = this;
+	KindEditor.ready(function(K) {
+		editor = K.create('textarea[name="content"]', {
+			cssPath : 'http\:\/\/${strStaticURL}\/common\/kindeditor\/plugins\/code\/prettify.css',
+			uploadJson : '/uploadImage.svl',
+			allowFileManager : true,
+			resizeType : 2,
+			allowPreviewEmoticons : false,
+			allowImageUpload : true,
+			newlineTag : "br",
+			items : ['source', '|', 'undo', 'redo', '|', 'preview', 'cut', 'copy', 'paste',
+			         'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+			         'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+			         'superscript', 'clearhtml', 'selectall', '|', 'fullscreen', '/',
+			         'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+			         'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+			         'table', 'hr',  'pagebreak', 'link', 'unlink', '|', 'about'],
+			afterCreate : function() {
+				self = this;
+			}
+		});
+	});
+</script>
+<!--KindEditor End-->

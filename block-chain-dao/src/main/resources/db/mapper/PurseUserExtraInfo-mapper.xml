@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.purse.user.PurseUserExtraInfoMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.purse.po.PurseUserExtraInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="purseUserId" property="purseUserId" jdbcType="BIGINT"/>
+        <result column="purseTransactionPassword" property="purseTransactionPassword" jdbcType="VARCHAR"/>
+        <result column="purseMnemonic" property="purseMnemonic" jdbcType="VARCHAR"/>
+        <result column="purseDigitalCertificate" property="purseDigitalCertificate" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        purseUserId,
+        purseTransactionPassword,
+        purseMnemonic,
+        purseDigitalCertificate,
+        createTime,
+        updateTime
+    </sql>
+
+    <!--添加用户-->
+    <insert id="insertPurseUserExtraInfo" parameterType="cn.inbs.blockchain.dao.purse.po.PurseUserExtraInfo">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into purse_user_extra_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="purseUserId != null">
+                purseUserId,
+            </if>
+            <if test="purseTransactionPassword != null">
+                purseTransactionPassword,
+            </if>
+            <if test="purseMnemonic != null">
+                purseMnemonic,
+            </if>
+            <if test="purseDigitalCertificate != null">
+                purseDigitalCertificate,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="purseUserId != null">
+                #{purseUserId,jdbcType=BIGINT},
+            </if>
+            <if test="purseTransactionPassword != null">
+                #{purseTransactionPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="purseMnemonic != null">
+                #{purseMnemonic,jdbcType=VARCHAR},
+            </if>
+            <if test="purseDigitalCertificate != null">
+                #{purseDigitalCertificate,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!--查询用户余额-->
+    <select id="selectPurseUserExtraInfoByUserId" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.purse.po.PurseUserExtraInfo">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        purse_user_extra_info
+        where
+        1=1
+        <if test="purseUserId != null">
+            AND purseUserId=#{purseUserId}
+        </if>
+        <if test="id != null">
+            AND id=#{id}
+        </if>
+    </select>
+
+    <!--修改用户附加信息-->
+    <update id="updatePurseUserExtraInfoById" parameterType="cn.inbs.blockchain.dao.purse.po.PurseUserExtraInfo">
+        update purse_user_extra_info
+        <set>
+            <if test="purseTransactionPassword != null">
+                purseTransactionPassword=#{purseTransactionPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="purseMnemonic != null">
+                purseMnemonic=#{purseMnemonic,jdbcType=INTEGER},
+            </if>
+            <if test="purseDigitalCertificate != null">
+                purseDigitalCertificate=#{purseDigitalCertificate,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                updateTime=#{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+</mapper>

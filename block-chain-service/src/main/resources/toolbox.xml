@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolbox>
+	<tool>
+		<key>pageController</key>
+		<scope>application</scope>
+		<request-path>/*</request-path>
+		<class>cn.inbs.blockchain.controller.boss.PageController</class>
+	</tool>
+	<tool>
+	     <key>utilityController</key>
+	     <scope>application</scope>
+	     <request-path>/*</request-path>
+	     <class>cn.inbs.blockchain.controller.boss.UtilityController</class>
+  	</tool>
+  	<tool>
+	     <key>baseController</key>
+	     <scope>application</scope>
+	     <request-path>/*</request-path>
+	     <class>cn.inbs.blockchain.controller.boss.BaseController</class>
+  	</tool>
+  	<tool>
+		<key>headController</key>
+		<scope>application</scope>
+		<request-path>/*</request-path>
+		<class>cn.inbs.blockchain.controller.boss.HeadController</class>
+	</tool>
+
+  	<tool>
+	     <key>employeeController</key>
+	     <scope>application</scope>
+	     <request-path>/*</request-path>
+	     <class>cn.inbs.blockchain.controller.boss.EmployeeController</class>
+  	</tool>
+  	<tool>
+	     <key>roleController</key>
+	     <scope>application</scope>
+	     <request-path>/*</request-path>
+	     <class>cn.inbs.blockchain.controller.boss.RoleController</class>
+  	</tool>
+	<tool>
+		<key>userBasicInfoController</key>
+		<scope>application</scope>
+		<request-path>/*</request-path>
+		<class>cn.inbs.blockchain.controller.usercenter.UserBasicInfoController</class>
+	</tool>
+
+	<tool>
+		<key>permissionController</key>
+		<scope>application</scope>
+		<request-path>/*</request-path>
+		<class>cn.inbs.blockchain.controller.boss.PermissionController</class>
+	</tool>
+	
+	<tool>
+		<key>contractController</key>
+		<scope>application</scope>
+		<request-path>/*</request-path>
+		<class>cn.inbs.blockchain.controller.boss.ContractController</class>
+	</tool>
+	
+	<tool>
+		<key>agencyController</key>
+		<scope>application</scope>
+		<request-path>/*</request-path>
+		<class>cn.inbs.blockchain.controller.boss.AgencyController</class>
+	</tool>
+</toolbox>

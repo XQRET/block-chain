@@ -1,0 +1,268 @@
+/*---------------------------------------------------------通用CSS开始----------------------------------------------- */
+@charset "utf-8";
+/* ------------------------------------全局定义---------------------------------------- */
+/* 将具有默认margin和padding的标记置零，所有标记的margin、padding都在使用时具体定义 */
+*{ margin:0;padding:0;}
+
+/* 修正IE5.x和IE6的斜体溢出bug */
+* html body{ overflow:visible;}
+* html iframe, * html frame,.overauto{ overflow:auto;}
+* html frameset{ overflow:hidden;}
+
+/* 常用标签，基本标签默认样式取消，HTML标签，取消基本标签默认样式，防止不同浏览器显示效果不同，text-align:center; 解决不同浏览器居中问题 */
+body{color:#000; background:#FFF; font:14px Verdana,Arial,sans-serif,"Times New Roman",微软雅黑; text-align:center;}
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,tr{ margin:0; padding:0;}
+input,select{ font-size:12px; vertical-align:middle;}
+table{border-collapse:collapse;border-spacing:0;} 
+td{word-break: break-all;word-wrap: break-word;}
+/* 设置内容左对齐，恢复因BODY设置剧中产生的继承 */
+body div{ text-align:left;}
+em{font-style:normal;}
+
+/* 标签属性，textarea,input 强制输入时内容超出时换行 */
+textarea,input{ word-wrap:break-word; word-break:break-all; padding:0px;}
+
+/* 清除ul列表标记的样式，ul列表更多的用在不需要列表前置符号的样式里 */
+ol,ul,li {list-style:none;}
+
+/* 定义图片边框，当图片作为链接内容被填充时，会有默认边框出现，重定义掉 */
+img{ border:0 none;}
+
+/* 去掉链接的虚线框 */
+a { outline:none; star:expression(this.onFocus=this.blur());cursor:pointer;display: inline-block;}
+
+/* 定义H系列标签，覆盖H系列标签默认属性 */
+h1{ font-size:22px;}
+h2{ font-size:20px;}
+h3{ font-size:18px;}
+h4{ font-size:16px;}
+h5{ font-size:14px;}
+h6{ font-size:12px;}
+
+/* ------------------------------------通用属性定义---------------------------------------- */
+/* active效果 */
+.active8:active{
+	opacity: 0.8;
+}
+/* 鼠标样式 */
+.pointer{ cursor:pointer;}
+
+/* 取消边框 */
+.NoBorder{ border:0 none;}
+
+/* 文本对齐方式 */
+.t_l{ text-align:left;}
+.t_c{ text-align:center;}
+.t_r{ text-align:right;}
+/* 垂直对齐方式 */
+.vatop{vertical-align:top !important;}
+/* 字母和单词换行设置，强制内容换行，强制内容不换行 */
+.Break{ word-break:break-all; word-wrap:break-word;}
+.Nobreak{ word-break:keep-all; word-wrap:normal;}
+
+/* 浮动定义 */
+.FL{ float:left;}
+.FR{ float:right;}
+/* 定义文本下划线 */
+.UnLine{ text-decoration:underline;}
+.DisunLine{ text-decoration:none;}
+/* 定位关系 */
+.absolute{ position:absolute;}
+.relative{ position:relative;}
+
+/* ul列表 */
+.ul-fl li{
+float:left; height:23px; line-height:23px; padding-left:20px;
+}
+.ul-fl-d li{
+float:left; height:23px; line-height:23px; background:url(../images/dot/dot3-3.jpg) no-repeat 8px 10px; padding-left:20px;
+}
+.ul-no-f li{
+height:23px; width:100%; overflow:hidden; line-height:23px; background:url(../images/dot/dot3-3.jpg) no-repeat 8px 10px; padding-left:20px;
+}
+
+/* ------------------------------------通用容器定义---------------------------------------- */
+
+/* 容器 */
+.wrapper{ clear:both; overflow:hidden;}
+
+/* 隐藏元素，当元素内容内容超出元素height 或 width 时，隐藏之 */
+.o-hidden{ overflow:hidden;}
+/*
+* 隐藏元素，visibility可以隐藏元素，但是还是会在布局中占位 */
+.invisible{ visibility:hidden;}
+/* 从页面布局上隐藏元素，从布局上隐藏元素 */
+.hidden{ display:none !important;}
+.dn{display:none;}
+.block{ display:block;}
+/* ------------------------------------清理元素--------------------------------------- */
+
+/* 清理浮动元素,当浮动换行时后面元素不希望浮动，添加此属性，防止IE BUG */
+.clearfix:after {content: " ";display: block;clear: both;height: 0;}
+/* ------------------------------------常用样式定义---------------------------------------- */
+
+/* 边框定义，由大写B开头,表示系统公用边框样式 */
+.BTW{ border-top-width:1px;}
+.BRW{ border-right-width:1px;}
+.BLW{ border-left-width:1px;}
+.BBW{ border:0px; border-bottom-width:1px;}
+.Bord1{ border:1px solid #999;}
+.Bord2{ border:2px solid #999;}
+.bdd1{border-top:1px solid #ddd;}
+.bte1{border-top:1px solid #eee;}
+.bbe8{border-bottom:1px solid #e8e8e8;}
+/* 下划线 */
+.BotLine{ border-bottom:1px solid #CFCFCF; overflow:hidden;}
+.BotDotLine{ background: url(../image/dot01.gif) repeat-x left bottom;}
+.BotDotLine01{ width:95%; margin:0 auto; background: url(../image/dot01.gif) repeat-x; height:1px; line-height:1px; overflow:hidden;}
+.BotDasLine{ border-bottom:1px dashed #CFCFCF; overflow:hidden; height:1px; line-height:1px;}
+.border-r-dot{ background:url(../image/dot02.gif) repeat-y right top;}
+
+/* 宽度定义*/
+.W1024,.W786,.W975,.W972,.mauto{margin:0 auto;}
+.W1024{ width:1024px;}
+.wauto{width:auto !important;}
+.MW1200{max-width:1200px;margin:0 auto;}
+.W786{ width:786px;}
+.W975{ width:975px;}
+.W972{ width:972px;}
+.w212{width:212px;margin:0 auto;}
+.w222{width:222px;margin:0 auto;}
+.w30b{width:30%;}
+.w33bl{width:33%;margin:0 auto;float:left;}
+.w350{width:350px;}
+.w45b{width:45%;}
+.w50b .add_group{width:50%;float:left;}
+.w60b{width:60%;margin:0 auto;min-width:555px;}
+.w65b{width:65%;margin:0 auto;min-width:830px;}
+.w70b{width:70%;margin:0 auto;}
+.w80b{width:80%;margin:0 auto;}
+.w90b{width:90%;margin:0 auto;}
+.w96b{width:96%;margin:0 auto;}
+.w100b{width:100% !important;}
+.w450{width: 450px;margin: 0 auto;}
+.w640{width: 662px;margin: 0 auto;}
+.imgw30 img{width:30px;height:31px;}
+/* 颜色功能定义，由小写C开头,表示color */
+.cRed{ color:#F00;}
+.cWhite{ color:#FFF;}
+.cGreen{ color:#0F0;}
+.cGray{ color:#666;}
+.c99{ color:#999;}
+.cBlue{ color:#00F;}
+.cblack{ color:#000;}
+.c1f{color:#1fa6f3;}
+.true{color:#5ecb41;}
+.cf2{color:#f25151;}
+.c4a{color:#4ada81;}
+.cff{color:#ffab17;}
+.c6b{color:#0086db;}
+.c18{color:#181b1e;}
+.cee{color:#ee5455;}
+.cf8{color:#f84949 !important;}
+/* 背景颜色功能定义，由小写bg开头,表示color */
+.bgff{background:#fff;}
+.bg1f{background:#1fa6f3;}
+.bgf1{background:#f1f2f3;}
+.bgc1{background:#c1c1c1;}
+.bg44{background:#4492ff;}
+.bgf0{background:#f05050;}
+.bgfa{background:#fafafa;}
+.bgf6{background:#f6f7f8;}
+/* 定义某个项目常用颜色 */
+.c001{ color:#663;}
+ /* padding */
+ .pm0{padding:0 !important;margin:0 !important;}
+ .p0{padding:0 !important;}
+ .pt20{padding-top:20px;}
+ .pb20{padding-bottom:20px;}
+ .pb60{padding-bottom:60px;}
+ .pl5{padding-left:5px;}
+ .plr25{padding:0 25px;}
+ .pr5{padding-right:5px;}
+  /* margin */
+ .m0auto{margin:0 auto;}
+ .ma0{margin:0 !important;}
+ .mt2b{margin-top:2%;}
+ .mt4b{margin-top:4%;}
+ .mt10{margin-top:10px;}
+ .mt20{margin-top:20px;}
+ .mt30{margin-top:30px;}
+ .mt80{margin-top:80px;}
+ .ml15{margin-left:15px;}
+ .ml30{margin-left:30px;}
+ .ml80{margin-left:80px !important;}
+ .ml117{margin-left:127px !important;}
+ .mb1d5{margin-bottom:1.5%;}
+ .mb20{margin-bottom:20px;}
+ .mlr2b{margin:0 2%;}
+/* 定义字体样式，由大写字母F开头,表示FONT */
+
+/* 字体样式 */
+.FB{ font-weight:bold;}
+.FN{ font-weight:normal;}
+.FI{ font-style:italic;}
+
+/* 字体大小 */
+.F10{ font-size:10px;}
+.F11{ font-size:11px;}
+.F12{ font-size:12px;}
+.F13{ font-size:13px;}
+.F14{ font-size:14px !important;}
+.F16{ font-size:16px;}
+.F18{ font-size:18px;}
+.F20{ font-size:20px;}
+.F24{ font-size:24px;}
+.F30{ font-size:30px;}
+.F50{ font-size:50px;}
+.F58{ font-size:42px;}
+
+/* 定义间距,上下2个DIV间距，用DIVH开头。上下DIV有间距时使用,尽量不使用margin/padding值,防止不同浏览器出现BUG。使用下面属性可兼容大多浏览器。*/
+.DivH5,.DivH10,.DivH15,.DivH20,.DivH25,.DivH30,DivH1,.DivH40{ width:100%; overflow:hidden;}
+.DivH1{ height:1px;}
+.DivH5{ height:5px;}
+.DivH8{ height:8px;}
+.DivH10{ height:10px;}
+.DivH15{ height:15px;}
+.DivH20{ height:20px;}
+.DivH25{ height:25px;}
+.DivH30{ height:30px;}
+.DivH40{ height:40px;}
+.hauto{height:auto !important;}
+.h100i{height:100% !important;}
+.mH55{ min-height:55px;}
+/* 定义行高，LH 使用较少,主要定义line-height属性 */
+.LH1{ line-height:1px;}
+.LH10{ line-height:10px;}
+.LH15{ line-height:15px;}
+.LH18{ line-height:18px;}
+.LH20{ line-height:20px;}
+.LH25{ line-height:25px;}
+.LH30{ line-height:30px;}
+.LH35{ line-height:35px;}
+
+/* 标题样式定义 PTit 在定义p标签元素或其它元素时,需要同时定义行高和高度,一般使用在标题显示中. */
+
+.PTit25,.PTit20,.PTit18,.PTit30,.PTit,.PTit1,.PTit22{ width:100%; overflow:hidden;}
+.PTit30{ line-height:30px; height:30px;}
+.PTit25{ line-height:25px; height:25px;}
+.PTit22{ line-height:22px; height:22px;}
+.PTit20{ line-height:20px; height:20px;}
+.PTit18{ line-height:18px; height:18px;}
+.PTit15{ line-height:15px; height:15px;}
+.PTit10{ line-height:10px; height:10px;}
+.PTit1{ line-height:1px; height:1px;}
+/* 修改Chrome表单文本框自动填充黄色背景色样式 */
+input:-webkit-autofill {-webkit-box-shadow:0 0 0px 1000px white inset;border:1px solid #CCC!important;}
+/* layui样式重新定义 */
+.layui-this{
+	background:#1fa6f3 !important;
+}
+.layui-form-checkbox[lay-skin="primary"]:hover i{
+	border-color: #62a5f8 !important;
+}
+.layui-form-checked[lay-skin="primary"] i{
+	border-color: #00aaee !important;
+	background-color: #00aaee !important;
+}
+/*----------------------------------------------------------------通用CSS结束----------------------------------------- */

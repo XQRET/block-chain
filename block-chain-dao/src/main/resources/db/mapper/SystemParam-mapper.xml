@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.inbs.blockchain.dao.system.SystemParamMapper">
+
+  <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.po.SystemParam">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="employeeId" jdbcType="BIGINT" property="employeeId" />
+    <result column="paramKey" jdbcType="VARCHAR" property="paramKey" />
+    <result column="paramValue" jdbcType="VARCHAR" property="paramValue" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, employeeId, paramKey, paramValue, createTime, updateTime, remark
+  </sql>
+  
+  <select id="selectParamValue" resultType="string">
+    select 
+   		paramValue
+    from t_system_param
+    where employeeId = #{employeeId,jdbcType=BIGINT}
+    and paramKey = #{paramKey,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectListByEmployeeIdAndType" resultMap="BaseResultMap">
+    select 
+    	paramKey,paramValue
+    from t_system_param
+    where employeeId = #{employeeId}
+    and type=#{type}
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_system_param
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_system_param
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+	
+  <delete id="deleteByType" >
+    delete from t_system_param
+    where employeeId = #{employeeId}
+    and type=#{type}
+  </delete>	
+	
+  <insert id="insertSelective" parameterType="cn.inbs.blockchain.dao.po.SystemParam">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_system_param
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="employeeId != null">
+        employeeId,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="paramKey != null">
+        paramKey,
+      </if>
+      <if test="paramValue != null">
+        paramValue,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=BIGINT},
+      </if>
+       <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="paramKey != null">
+        #{paramKey,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue != null">
+        #{paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="cn.inbs.blockchain.dao.po.SystemParam">
+    update t_system_param
+    <set>
+      <if test="employeeId != null">
+        employeeId = #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="paramKey != null">
+        paramKey = #{paramKey,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue != null">
+        paramValue = #{paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.product.ProductSaleMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.po.ProductSale">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="productType" property="productType" jdbcType="VARCHAR"/>
+        <result column="productName" property="productName" jdbcType="VARCHAR"/>
+        <result column="productBanner" property="productBanner" jdbcType="VARCHAR"/>
+        <result column="productDetails" property="productDetails" jdbcType="VARCHAR"/>
+        <result column="productStatus" property="productStatus" jdbcType="VARCHAR"/>
+        <result column="releaseTime" property="releaseTime" jdbcType="TIMESTAMP"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        productType,
+        productName,
+        productBanner,
+        productDetails,
+        productStatus,
+        releaseTime,
+        createTime,
+        updateTime
+    </sql>
+
+    <!--插入语句-->
+    <insert id="insertProductSale" parameterType="cn.inbs.blockchain.dao.po.ProductSale">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_product_sale
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productType != null">
+                productType,
+            </if>
+            <if test="productName != null">
+                productName,
+            </if>
+            <if test="productBanner != null">
+                productBanner,
+            </if>
+            <if test="productDetails != null">
+                productDetails,
+            </if>
+            <if test="productStatus != null">
+                productStatus,
+            </if>
+            <if test="releaseTime != null">
+                releaseTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productType != null">
+                #{productType,jdbcType=VARCHAR},
+            </if>
+            <if test="productName != null">
+                #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productBanner != null">
+                #{productBanner,jdbcType=VARCHAR},
+            </if>
+            <if test="productDetails != null">
+                #{productDetails,jdbcType=VARCHAR},
+            </if>
+            <if test="productStatus != null">
+                #{productStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="releaseTime != null">
+                #{releaseTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectProductSaleByIndx" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.po.ProductSale">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_product_sale
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="productType != null">
+            AND productType = #{productType,jdbcType=VARCHAR}
+        </if>
+        <if test="productName != null">
+            AND productName = #{productName,jdbcType=VARCHAR}
+        </if>
+        <if test="productStatus != null">
+            AND productStatus = #{productStatus,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="selectProductSalePageList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_product_sale
+        where 1=1
+        <if test="productType != null and productType !='' ">
+            AND productType = #{productType}
+        </if>
+        <if test="productStatus != null and productStatus !='' ">
+            AND productStatus = #{productStatus}
+        </if>
+        order by releaseTime DESC
+        limit #{startIndex},#{pageCount}
+    </select>
+
+    <select id="selectProductSaleTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_product_sale
+        where 1=1
+        <if test="productType != null and productType !='' ">
+            AND productType = #{productType}
+        </if>
+        <if test="productStatus != null and productStatus !='' ">
+            AND productStatus = #{productStatus}
+        </if>
+    </select>
+
+    <!--修改合约状态-->
+    <update id="updateProductInfoById" parameterType="cn.inbs.blockchain.dao.po.ProductSale">
+        update t_product_sale
+        <set>
+            <if test="productName != null">
+                productName=#{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productBanner != null">
+                productBanner=#{productBanner,jdbcType=VARCHAR},
+            </if>
+            <if test="productDetails != null">
+                productDetails=#{productDetails,jdbcType=VARCHAR},
+            </if>
+            <if test="productStatus != null">
+                productStatus=#{productStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                updateTime=#{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

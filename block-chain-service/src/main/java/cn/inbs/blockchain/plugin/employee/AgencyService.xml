@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/DataService.xsd">
+
+	<!-- 查询机构列表 -->
+	<SQLTrans TransFlag="1" TransName="listAgency" DataGroupId="writeCompany">
+		<SelectRecordSet OutputId="{cdosAgency}">
+			<OutputSQL>
+				SELECT
+				t.id,t.companyName,t.companyType,t.companyLinkman,t.companyLinkmanPhone,t.updateTime,t.companyStatus,
+				t.employeeId
+				FROM t_company t WHERE 1=1 and t.companyStatus NOT in
+				(0)
+			</OutputSQL>
+			<SQLIf Value1="{companyType}" Type="String" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL> and t.companyType={companyType}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			<SQLIf Value1="{status}" Type="String" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL> and t.companyStatus={status}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			<OutputSQL>
+				order by t.id desc limit {nPageCount},{nPageSize}
+			</OutputSQL>
+		</SelectRecordSet>
+
+		<SelectField OutputId="{nRecordCount}">
+			<OutputSQL>
+				SELECT COUNT(1) FROM t_company t WHERE 1=1 and
+				t.companyStatus NOT in (0)
+			</OutputSQL>
+			<SQLIf Value1="{companyType}" Type="String" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL> and t.companyType={companyType}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			<SQLIf Value1="{status}" Type="String" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL> and t.companyStatus={status}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+		</SelectField>
+		<OnException>
+			<Return Info="AgencyService.listAgency.Error" Code="-1" Text="数据库错误" />
+		</OnException>
+		<Return Code="0" Info="AgencyService.listAgency.OK" Text="查询公司列表成功">
+			<ReturnItem FieldId="{nRecordCount}" ValueId="{nRecordCount}" />
+			<ReturnItem FieldId="{cdosAgency}" ValueId="{cdosAgency}" />
+		</Return>
+	</SQLTrans>
+
+	<!-- 根据机构编号获取机构信息 -->
+	<SQLTrans TransFlag="0" TransName="getCompanyByID"
+		DataGroupId="writeCompany">
+		<SelectRecord OutputId="{cdoCompany}" RecordCountId="{nCount}">
+			<OutputSQL>
+				SELECT
+				t.id,t.companyName,t.companyType,t.companyLinkman,t.companyLinkmanPhone,
+				t.updateTime,t.companyStatus,t.companyAddress,tc.url
+				FROM t_company t
+				LEFT JOIN
+				t_company_photo tc ON (t.id = tc.companyId)
+				WHERE t.id={id}
+			</OutputSQL>
+		</SelectRecord>
+		<If Type="Integer" Value1="{nCount}" Operator="!=" Value2="1">
+			<Then>
+				<Return Code="1" Text="机构不存在"
+					Info="AgencyService.getCompanyByID.CompanyNotExist" />
+			</Then>
+		</If>
+		<OnException>
+			<Return Info="AgencyService.getCompanyByID.Error" Code="-1"
+				Text="数据库操作发生异常">
+			</Return>
+		</OnException>
+		<Return Info="OK" Code="0" Text="OK">
+			<ReturnItem FieldId="{cdoCompany}" ValueId="{cdoCompany}"></ReturnItem>
+			<ReturnItem FieldId="{nCount}" ValueId="{nCount}"></ReturnItem>
+		</Return>
+	</SQLTrans>
+
+	<!-- 更新机构状态信息 -->
+	<SQLTrans TransFlag="1" TransName="updateCompanyStatus"
+		DataGroupId="writeCompany">
+		<Update>
+			<OutputSQL>
+				UPDATE t_company t,tb_employee tb SET
+				t.updateTime=NOW(),t.companyStatus={status}
+			</OutputSQL>
+			<SQLIf Value1="{companyName}" Type="String" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL>,tb.strName={companyName}</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+			<OutputSQL>
+				WHERE t.id={companyID}
+			</OutputSQL>
+			<SQLIf Value1="{employeeId}" Type="String" Operator="EXIST">
+				<SQLThen>
+					<OutputSQL> AND tb.lId={employeeId};</OutputSQL>
+				</SQLThen>
+			</SQLIf>
+		</Update>
+		<OnException>
+			<Return Info="AgencyService.updateCompanyStatus.Error" Code="-1"
+				Text="数据库错误" />
+		</OnException>
+		<Return Code="0" Info="AgencyService.updateCompanyStatus.OK"
+			Text="操作成功">
+		</Return>
+	</SQLTrans>
+</DataService>

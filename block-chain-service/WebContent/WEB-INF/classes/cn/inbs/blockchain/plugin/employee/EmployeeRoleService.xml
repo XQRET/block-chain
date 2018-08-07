@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/DataService.xsd">
+
+	<!-- 根据ID查询当前系统可选角色与已选角色 -->
+	<SQLTrans TransName="queryRoleList" TransFlag="0" DataGroupId="writeCompany">
+		<SelectRecordSet OutputId="{cdoRightList}">
+			<OutputSQL>
+            	SELECT e.lRoleId nId,r.strName FROM tb_employee_role e LEFT JOIN tb_role r ON e.lRoleId=r.nId WHERE e.lEmployeeId={lEmployeeId}
+            </OutputSQL>
+		</SelectRecordSet>
+		<SelectRecordSet OutputId="{cdoLeftList}">
+			<OutputSQL>
+				SELECT r.nId,r.strName FROM tb_role r WHERE r.isDisplay=0 and r.nId NOT IN (SELECT lRoleId FROM tb_employee_role WHERE lEmployeeId = {lEmployeeId})
+			</OutputSQL>
+			<OutputSQL> order by dtCreateTime  </OutputSQL>
+		</SelectRecordSet>
+		<OnException>
+			<Return Code="-1" Info="EmployeeRoleService.queryRoleList.Error" Text="数据库异常"/>
+		</OnException>
+		<Return Code="0" Info="EmployeeRoleService.queryRoleList.OK" Text="OK">
+			<ReturnItem FieldId="{cdoRightList}" ValueId="{cdoRightList}"/>
+			<ReturnItem FieldId="{cdoLeftList}" ValueId="{cdoLeftList}"/>
+		</Return>
+	</SQLTrans>
+
+	<!-- 添加角色 -->
+	<SQLTrans TransFlag="0" TransName="inserttbEmployeeRole" DataGroupId="writeCompany">
+		<Delete>
+			<OutputSQL>DELETE FROM tb_employee_role WHERE lEmployeeId = {lEmployeeId}</OutputSQL>
+		</Delete>
+		<For IndexId="{i}" FromIndex="0" Count="{nTotalLen}">
+			<Insert>
+				<OutputSQL>
+					INSERT INTO tb_employee_role (lEmployeeId,lRoleId) VALUES ({lEmployeeId},{arRoleList[i]})
+				</OutputSQL>
+			</Insert>
+		</For>
+		<OnException>
+			<Return Info="EmployeeRoleService.inserttbEmployeeRole.Error" Text="数据库异常" Code="-1"/>
+		</OnException>
+		<Return Info="EmployeeRoleService.inserttbEmployeeRole.OK" Code="0"/>
+	</SQLTrans>
+
+	<!-- 获取指定角色信息 -->
+	<SQLTrans TransFlag="0" TransName="getRoleBylEmployeeId" DataGroupId="writeCompany">
+		<SelectRecordSet OutputId="{cdosRole}" RecordCountId="{nCount}">
+			<OutputSQL>
+				SELECT r.nId, r.strName, r.strPermission FROM tb_employee_role er LEFT JOIN tb_role r ON er.lRoleId=r.nId WHERE er.lEmployeeId={lEmployeeId}
+			</OutputSQL>
+		</SelectRecordSet>
+		<OnException>
+			<Return Info="RoleService.getRoleBylEmployeeId.Error" Code="-1" Text="数据库操作发生异常"/>
+		</OnException>
+		<Return Info="RoleService.getRoleBylEmployeeId.OK" Code="0" Text="获取员工指定角色信息成功">
+			<ReturnItem FieldId="{cdosRole}" ValueId="{cdosRole}"/>
+			<ReturnItem FieldId="{nCount}" ValueId="{nCount}"/>
+		</Return>
+	</SQLTrans>
+
+</DataService>

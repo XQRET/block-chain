@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.contract.BlockContractSaleMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.po.BlockContractSale">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="contractId" property="contractId" jdbcType="VARCHAR"/>
+        <result column="contractProductType" property="contractProductType" jdbcType="VARCHAR"/>
+        <result column="contractServings" property="contractServings" jdbcType="INTEGER"/>
+        <result column="contractAmount" property="contractAmount" jdbcType="DECIMAL"/>
+        <result column="yearOfRate" property="yearOfRate" jdbcType="DECIMAL"/>
+        <result column="contractTerm" property="contractTerm" jdbcType="INTEGER"/>
+        <result column="releaseTime" property="releaseTime" jdbcType="TIMESTAMP"/>
+        <result column="raiseStatus" property="raiseStatus" jdbcType="VARCHAR"/>
+        <result column="contractCurrentProgress" property="contractCurrentProgress" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        contractId,
+        contractProductType,
+        contractServings,
+        contractAmount,
+        yearOfRate,
+        contractTerm,
+        releaseTime,
+        raiseStatus,
+        contractCurrentProgress,
+        createTime,
+        updateTime
+    </sql>
+
+    <!--插入语句-->
+    <insert id="insertBlockContractSale" parameterType="cn.inbs.blockchain.dao.po.BlockContractSale">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_block_contract_sale
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">
+                contractId,
+            </if>
+            <if test="contractProductType != null">
+                contractProductType,
+            </if>
+            <if test="contractServings != null">
+                contractServings,
+            </if>
+            <if test="contractAmount != null">
+                contractAmount,
+            </if>
+            <if test="yearOfRate != null">
+                yearOfRate,
+            </if>
+            <if test="contractTerm != null">
+                contractTerm,
+            </if>
+            <if test="releaseTime != null">
+                releaseTime,
+            </if>
+            <if test="raiseStatus != null">
+                raiseStatus,
+            </if>
+            <if test="contractCurrentProgress != null">
+                contractCurrentProgress,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">
+                #{contractId,jdbcType=VARCHAR},
+            </if>
+            <if test="contractProductType != null">
+                #{contractProductType,jdbcType=VARCHAR},
+            </if>
+            <if test="contractServings != null">
+                #{contractServings,jdbcType=INTEGER},
+            </if>
+            <if test="contractAmount != null">
+                #{contractAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="yearOfRate != null">
+                #{yearOfRate,jdbcType=DECIMAL},
+            </if>
+            <if test="contractTerm != null">
+                #{contractTerm,jdbcType=INTEGER},
+            </if>
+            <if test="releaseTime != null">
+                #{releaseTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="raiseStatus != null">
+                #{raiseStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="contractCurrentProgress != null">
+                #{contractCurrentProgress,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectBlockContractSaleByIndex" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.po.BlockContractSale">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_block_contract_sale
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="contractId != null">
+            AND contractId = #{contractId,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="selectBlockContractSalePageList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_block_contract_sale
+        where 1=1
+        <if test="raiseStatus != null and raiseStatus!=''">
+            AND raiseStatus = #{raiseStatus}
+        </if>
+        <if test="contractProductType != null and contractProductType!=''">
+            AND contractProductType = #{contractProductType}
+        </if>
+        order by releaseTime DESC
+        limit #{startIndex},#{pageCount}
+    </select>
+
+    <select id="selectBlockContractSaleTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_block_contract_sale
+        where 1=1
+        <if test="raiseStatus != null and raiseStatus!=''">
+            AND raiseStatus = #{raiseStatus}
+        </if>
+        <if test="contractProductType != null and contractProductType!=''">
+            AND contractProductType = #{contractProductType}
+        </if>
+    </select>
+
+    <!--修改合约状态-->
+    <update id="updateBlockContractSaleByIndex" parameterType="cn.inbs.blockchain.dao.po.BlockContractSale">
+        update t_block_contract_sale
+        <set>
+            <if test="raiseStatus != null">
+                raiseStatus=#{raiseStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="contractCurrentProgress != null">
+                contractCurrentProgress=#{contractCurrentProgress,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                updateTime=#{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="contractId != null">
+            AND contractId = #{contractId,jdbcType=VARCHAR}
+        </if>
+    </update>
+</mapper>

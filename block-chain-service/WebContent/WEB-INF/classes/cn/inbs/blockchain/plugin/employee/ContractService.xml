@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/DataService.xsd">
+	<!-- 根据机构编号获取机构信息 -->
+	<SQLTrans TransFlag="0" TransName="getPersonByContractID"
+		DataGroupId="writeCompany">
+		<SelectRecord OutputId="{cdoPerson}" RecordCountId="{nCount}">
+			<OutputSQL>
+				SELECT t.contractSigner,t.idNo,t.term,t.registDate,t.phoneNumber,tt.img
+				FROM t_block_contract t
+				LEFT JOIN (SELECT t.contractId, GROUP_CONCAT(CONCAT_WS(',', fileType, fileUrl)) AS img
+				FROM t_contract_file_url t WHERE t.contractId = {ContractID} AND t.fileMode = "person"
+				GROUP BY t.contractId ) tt ON t.contractId = tt.contractId WHERE t.contractId = {ContractID}
+			</OutputSQL>
+		</SelectRecord>
+		<If Type="Integer" Value1="{nCount}" Operator="!=" Value2="1">
+			<Then>
+				<Return Code="1" Text="个人信息不存在"
+					Info="ContractService.getPersonByContractID.PersonNotExist" />
+			</Then>
+		</If>
+		<OnException>
+			<Return Info="ContractService.getPersonByContractID.Error"
+				Code="-1" Text="数据库操作发生异常">
+			</Return>
+		</OnException>
+		<Return Info="OK" Code="0" Text="OK">
+			<ReturnItem FieldId="{cdoPerson}" ValueId="{cdoPerson}"></ReturnItem>
+			<ReturnItem FieldId="{nCount}" ValueId="{nCount}"></ReturnItem>
+		</Return>
+	</SQLTrans>
+
+	<!-- 根据合同编号获取房屋信息 -->
+	<SQLTrans TransFlag="0" TransName="getHouseByContractID"
+		DataGroupId="writeCompany">
+		<SelectRecord OutputId="{cdoHouse}" RecordCountId="{nCount}">
+			<OutputSQL>
+				SELECT t.contractId,GROUP_CONCAT(CONCAT_WS(',',fileType,fileUrl)) as img 
+				FROM t_contract_file_url t WHERE t.contractId={ContractID} and fileMode="house" 
+				GROUP BY t.contractId;
+			</OutputSQL>
+		</SelectRecord>
+		<If Type="Integer" Value1="{nCount}" Operator="!=" Value2="1">
+			<Then>
+				<Return Code="1" Text="房屋信息不存在"
+					Info="ContractService.getHouseByContractID.HouseNotExist" />
+			</Then>
+		</If>
+		<OnException>
+			<Return Info="ContractService.getHouseByContractID.Error"
+				Code="-1" Text="数据库操作发生异常">
+			</Return>
+		</OnException>
+		<Return Info="OK" Code="0" Text="OK">
+			<ReturnItem FieldId="{cdoHouse}" ValueId="{cdoHouse}"></ReturnItem>
+			<ReturnItem FieldId="{nCount}" ValueId="{nCount}"></ReturnItem>
+		</Return>
+	</SQLTrans>
+</DataService>

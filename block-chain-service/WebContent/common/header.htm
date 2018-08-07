@@ -1,0 +1,116 @@
+﻿<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    #parse("/common/common.htm")
+</HEAD>
+<DIV class="topbg clearfix">
+    <DIV class="logo">
+        <a href="javascript:void(0)"
+           onclick="javascript:parent.rightFrame.location='${strRootPath}/welcome/index.htm'">
+           <img src="../images/logo.png"/>
+           </a>
+    </DIV>
+    <!-- <div class="top_nav">
+    <ul>
+    <li class="check"><a>首页</a></li>
+    <li><a>规则管理</a></li>
+    <li><a>合约管理</a></li>
+    <li><a>合约交易</a></li>
+    </ul>
+    </div> -->
+    <DIV class="topright clearfix">
+        #set($lEmployeeId = $cdoLoginer.getStringValue("lEmployeeId"))
+        <input id="lEmployeeId" value="$!{lEmployeeId}" style="display: none"/>
+        <img id="companyPhoto" style="border-radius:50%;" src="../images/photo.png" onclick="openUploadLogo()"/><span
+            class="cp">$cdoLoginer.getStringValue("strName")</span>
+        <!-- 当图片上传以后，这一段替换掉 end -->
+        <form id="imgLogoForm" style="display: none">
+            <input id="addLogoImg" type="file" onchange="uploadLogo()">
+        </form>
+        <b></b>
+        <A id="pwdlink" class="pwdlink"
+           onclick="javascript:parent.rightFrame.location='${strRootPath}/employeeManage/updatepwd.htm'"
+           href="javascript:void(0);">修改密码</A>&nbsp;&nbsp;
+        <A style="color: rgb(255, 255, 255);" title="退出系统" class="logout"
+           onClick="  if (confirm('确定要退出吗？')) onLogout(); else return false;" href="javascript:void(0);"
+           target="_top"></A>
+        <span class="changess pointer">English</span>
+        <!-- <a style="color: rgb(255, 255, 255);" class="logout" onclick="layer.confirm('确定要退出吗?', {btn: ['确定','取消'],icon:3 }, function(index){onLogout();}, function(index){layer.close(index);});" href="javascript:void(0);" target="_top"></a>-->
+    </DIV>
+</DIV>
+<input id="loads" type="hidden" value="1" />
+<script type="text/javascript">
+    $(function () {
+		$(".layui-layer-shade").hide();
+		$(".layui-layer-loading").hide();
+    	$(".logo img").attr("src","../"+sessionStorage.getItem('all_logoimg'));
+        var lEmployeeId = $("#lEmployeeId").val();
+        $.ajax({
+            type: "POST",
+            url: strRootPath + "/company/queryCertifiedInfo.do",
+            data: {"lEmployeeId": lEmployeeId},
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    if (data.resultCode == 0) {
+                        if(data.resultDate.companyLogoFile!=null){
+                            $("#companyPhoto").attr("src", data.resultDate.companyLogoFile);
+                        }
+                    }
+                }
+            }
+        });
+    })
+
+    function clearAllCookies() {
+        var cookeDomain = document.domain;
+        setDomainCookie("userId", getCookie("userId"), cookeDomain);
+        setDomainCookie("token", getCookie("token"), cookeDomain);
+        setDomainCookie("lastVisitTime", getCookie("lastVisitTime"), cookeDomain);
+        setDomainCookie("bossToken", getCookie("bossToken"), cookeDomain);
+    }
+
+    function onLogout() {
+        clearAllCookies();
+        var url = strRootPath + "/index.htm";
+        top.location.replace(url);
+    }
+
+    //打开上传文件
+    function openUploadLogo() {
+        $("#addLogoImg").click();
+    }
+
+    //点击打开以后开始上传
+    function uploadLogo() {
+        var formData = new FormData();
+        var companyLogo = $("#imgLogoForm").find("input")[0].files[0];
+        formData.append("companyLogo", companyLogo);
+        $.ajax({
+            type: "POST",
+            data: formData,
+            url: strRootPath + "/company/uploadCompanyLogo.do",
+            async: false, // 同步上传，默认(true)异步
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data != null) {
+                    if (data.resultCode != 0) {
+                        parent.frames['rightFrame'].layer.alert("上传照片失败！", {icon: 0});
+                    } else {
+                        parent.frames['rightFrame'].layer.msg('上传照片成功！', {
+                            icon: 0,
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        }, function () {
+                            //do something
+                            location.reload();
+                        });
+                    }
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,143 @@
+##查询条件回显
+#set($selOrgType = $request.getParameter("selOrgType"))
+#set($selAuditState = $request.getParameter("selAuditState"))
+
+##获取分页参数,用户分页组件
+#set($strPageIndex = $request.getParameter("pageindex"))
+#set($strPageSize = "10")
+
+##请求数据
+#set($cdoResponse = $agencyController.listAgency($request,$selOrgType,$selAuditState,$strPageIndex,$strPageSize))
+
+<!DOCTYPE html>
+<html>
+<head>
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+	#parse("/common/common.htm")
+</head>
+
+<body class="body-content">
+<!-- 隐藏域 -->
+<input type="hidden" id="hdCompanyType" value="$!{selOrgType}">
+<input type="hidden" id="hdCompanyStatus" value="$!{selAuditState}">
+    <!-- 当前位置开始 -->
+    <div class="alltitle">
+    <p>机构审核</p>
+	</div>
+    <!-- 当前位置结束 -->
+  <div class="Listzk">
+    <div class="loan_wallet searchInput">
+      <form id="agencyForm" class="layui-form">
+        <div class="loan_form">
+          <div class="clearfix">
+            <span class="layui-inline">
+              <label class="layui-form-label">机构类型：</label>
+              <div class="layui-input-inline">
+                <select id="selOrgType" lay-verify="required">
+                  <option value="0">---</option>
+                  <option value="1">资产端</option>
+                  <option value="2">资金端</option>
+                  <option value="3">背书端</option>
+              	</select>
+              </div>
+            </span>
+            <span class="layui-inline">
+              <label class="layui-form-label">状态：</label>
+              <div class="layui-input-inline">
+              	<select id="selAuditState" lay-verify="required">
+                	<option value="0">---</option>
+                  	<option value="1">待审核</option>
+                  	<option value="2">审核通过</option>
+                  	<option value="3">审核未通过</option>
+              	</select>
+              </div>
+            </span>
+            <div id="doSearch" pid="search_id" class="seach_btn newseach_btn FL ml80">查 找</div>
+            <div type="reset" class="seach_btn newseach_btn FL yellow-bg" style="margin-left:20px;">重 置</div>
+            </div>
+        </div>
+      </form>
+    </div>
+    <div class="loan_list">
+      <table class="loan_talbe newlt w tc into_pieces">
+        <thead>
+          <tr class="taHead">
+            <td>序号</td>
+            <td>机构名称</td>
+            <td>机构类型</td>
+            <td>联系人</td>
+            <td>联系方式</td>
+            <td>认证时间</td>
+            <td>状态</td>
+          </tr>
+        </thead>
+        <tbody id="checkApplys">
+        #set($cdoAgencys = $cdoResponse.getCDOArrayValue("cdosAgency"))
+        #foreach($agency in $cdoAgencys)
+        	#set($id=$agency.getLongValue("id"))
+        	#set($employeeId=$agency.getLongValue("employeeId"))
+        	<tr>
+	            <td>$id</td>
+	            <td>
+	            	#if($agency.exists("companyName"))
+	            	#set($name=$agency.getStringValue('companyName'))
+	            		$name
+	            	#end
+	            </td>
+	            <td>
+	            	#if($agency.exists("companyType"))
+		       		#set ($companyType = $agency.getIntegerValue('companyType'))
+		            	#if($companyType==0)
+		                	资产端
+		                #elseif($companyType==1)
+		                	资金端
+		                #else
+		                	待验证
+		                #end
+					#end
+	            </td>
+	            <td>
+	            	#if($agency.exists("companyLinkman"))
+	            	#set($linkman=$agency.getStringValue('companyLinkman'))
+	            		$linkman
+	            	#end
+	            </td>
+	            <td>
+	            	#if($agency.exists("companyLinkmanPhone"))
+	            	#set($phone=$agency.getStringValue('companyLinkmanPhone'))
+	            		$phone
+	            	#end
+	            </td>
+	            <td>
+	            	#if($agency.exists("updateTime"))
+	            	#set($updateTime=$agency.getStringValue('updateTime'))
+	            		$updateTime
+	            	#end
+	            </td>
+	          	#if($agency.exists("companyStatus"))
+		    	#set ($companyStatus = $agency.getIntegerValue('companyStatus'))
+		        	#if($companyStatus==1)
+						<td><a onclick="window.location.href='agencyAudit.htm?id=$id&employeeId=$employeeId'" class="bluebtn">待审核</a></td>
+		            #elseif($companyStatus==2)
+						<td class="c4a">审核通过</td>
+					#elseif($companyStatus==3)
+						<td class="cf2">审核未通过</td>
+		            #else
+						<td class="cff">状态异常</td>
+		            #end
+				#end
+          	</tr>
+        	#end
+        </tbody>
+      </table>
+      <!-- 分页组件 -->
+      #set ($nRecordCount = $cdoResponse.getIntegerValue("nRecordCount")) 
+      #set ($nPageCount = $cdoResponse.getIntegerValue("nPageCount")) 
+      #parse("/common/pagecontrol.htm")
+      </div>
+     </div>
+</body>
+</html>
+<script type="text/javascript" src="./js/agencyList.js"></script>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>资金端top5</title>
+    #parse("/common/common.htm")
+</head>
+<body>
+<div class="allcenter">
+    <div class="w90b mb1d5 wrapper">
+        <div id="capital" class="myechars"></div>
+        <table id="capitalTable" class="all_table mt20 copit_tb">
+            <thead>
+            <tr>
+                <td>资金方名称</td>
+                <td>合约金额（万元）</td>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="ass_btn mt20 mb20" onclick="loadCapital(this)">更多资金方</div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../js/echarts/echarts.min.js" type="text/javascript"></script>
+<script src="../js/echarts/china.js" type="text/javascript"></script>
+<script src="../js/echarts/shine.js" type="text/javascript"></script>
+<script src="cockpit-echarts.js"></script>
+<script>
+    $(function () {
+        showCapital()//资金端top5
+    })
+</script>

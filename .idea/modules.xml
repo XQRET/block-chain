@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/block-chain.iml" filepath="$PROJECT_DIR$/block-chain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-chain-common/block-chain-common.iml" filepath="$PROJECT_DIR$/block-chain-common/block-chain-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-chain-dao/block-chain-dao.iml" filepath="$PROJECT_DIR$/block-chain-dao/block-chain-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-chain-purse/block-chain-purse.iml" filepath="$PROJECT_DIR$/block-chain-purse/block-chain-purse.iml" />
+      <module fileurl="file://$PROJECT_DIR$/block-chain-service/block-chain-service.iml" filepath="$PROJECT_DIR$/block-chain-service/block-chain-service.iml" />
+    </modules>
+  </component>
+</project>

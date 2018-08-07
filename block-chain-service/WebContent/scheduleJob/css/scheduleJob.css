@@ -1,0 +1,147 @@
+@charset "utf-8";
+body {
+    font-size: 12px;
+    background: #fff;
+    font-family: "微软雅黑";
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+body, table, p {
+    margin: 0px;
+    padding: 0;
+}
+
+.into_pieces {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 3px 3px 4px #e7e8f3;
+    margin: 0 auto;
+    text-align: center
+}
+
+.into_pieces input[type="text"] {
+    width: 90%;
+}
+
+.into_pieces input[type="button"] {
+    width: 60px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.taHead {
+    color: #4e5963;
+    font-weight: bold;
+    border-bottom: 2px solid #f2f3f9;
+    z-index: 1;
+}
+
+.loan_talbe tbody tr {
+    border-bottom: 1px solid #e7ecf1;
+}
+
+.loan_talbe tr td {
+    line-height: 45px;
+}
+
+.loan_talbe a {
+    color: #62a5f8;
+}
+
+.loan_talbe tbody tr:hover {
+    background-color: #f3f4f5;
+}
+
+.body-content {
+    box-shadow: 3px 3px 4px #f3f4fd inset;
+    background: #f8f9fe;
+    overflow-x: hidden;
+}
+
+.Listzk {
+    width: 94%;
+    margin: 0 auto;
+}
+
+.pb20 {
+    padding-bottom: 20px;
+}
+
+.pt15 {
+    padding-top: 15px;
+}
+
+.colorb4 {
+    color: #b4b4b4;
+}
+
+.bbc8 {
+    border-bottom: 1px dashed #c8c8c8;
+}
+
+img {
+    border: 0px currentColor;
+    border-image: none;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.inc_right_center {
+    margin-bottom: 10px;
+}
+
+.save_btn {
+    display: inline-block;
+    border: none;
+    background-color: #62a5f8;
+    width: 38px;
+    height: 25px;
+    line-height: 25px;
+    color: #fff;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.del_btn {
+    display: inline-block;
+    border: none;
+    background-color: #f82624;
+    width: 38px;
+    height: 25px;
+    line-height: 25px;
+    color: #3e3e3e;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.stop_btn {
+    display: inline-block;
+    border: none;
+    background-color: #c1ae46;
+    width: 38px;
+    height: 18px;
+    line-height: 25px;
+    color: #20272c;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.start_btn {
+    display: inline-block;
+    border: none;
+    background-color: #499149;
+    width: 38px;
+    height: 18px;
+    line-height: 25px;
+    color: #20272c;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+}

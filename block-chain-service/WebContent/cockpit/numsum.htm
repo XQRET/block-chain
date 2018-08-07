@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>合约数量及金额</title>
+    #parse("/common/common.htm")
+    <Style>
+    .ns_btn{top:4%;}
+    </Style>
+</head>
+<body>
+<div class="allcenter">
+    <div class="numsum w90b mb1d5 wrapper">
+        <div class="ns_btn">
+            <a class="nscheck" onclick="showNumSum(1)">新增</a><a onclick="showNumSum(2)">总量</a>
+        </div>
+        <div id="conNumsum" class="myechars"></div>
+        <table id="numsumTable" class="all_table mt20 copit_tb">
+            <thead>
+            <tr>
+                <td>时间</td>
+                <td>合约数量（个）</td>
+                <td>合约金额（万元）</td>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+<script src="../js/echarts/echarts.min.js" type="text/javascript"></script>
+<script src="../js/echarts/china.js" type="text/javascript"></script>
+<script src="../js/echarts/shine.js" type="text/javascript"></script>
+<script src="cockpit-echarts.js"></script>
+<script>
+    $(function () {
+        showNumSum(1);//合约数量及金额
+    })
+</script>

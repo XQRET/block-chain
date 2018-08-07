@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
+	<META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	#parse("/common/common.htm")
+</head>
+<body class="body-content">
+   <!-- 当前位置开始 -->
+    <div class="alltitle">
+    <p>角色详情</p>
+	</div>
+    <!-- 当前位置结束 -->
+
+  <div class="Listzk">
+	<div class="ManagerForm" style="margin-left:20px 0 0 8px;width:580px">
+	<table class="add-role" width="580" border="0" height="240" cellspacing="0" cellpadding="0" style="margin-top:10px; margin-bottom:10px;">
+		#set ($permission=${roleController.getPermissionJSON()})
+	    #set ($strRoleId=${request.getParameter("id")})
+	    #set ($role=${roleController.getRole($strRoleId)})
+	  <input type="hidden" name="id" id="id" value=  "${request.getParameter("id")}" />
+	  <input type="hidden" name="strPermission" id="rolePermission" value=  "${role.getStringValue("strPermission")}" />
+
+	  <tr height="40" >
+	    <td height="32"  align="center" width="20%" class="table-title">角色名称：</td>
+	    <td height="35" ><input type="text" id="roleName" name="roleName" maxlength="30" size="61" readonly="readonly" value="${role.getStringValue("strName")}" /></td>
+	  </tr>
+	  <tr height="40" >
+	    <td height="32"  align="center" width="20%" class="table-title">角色编码：</td>
+	    <td height="35" ><input type="text" id="roleCode" name="roleCode" maxlength="30" size="61" readonly="readonly" value="${role.getStringValue("strRoleCode")}" /></td>
+	  </tr>
+	  <tr height="200" valign="top">
+	    <td height="32" align="center" width="20%" class="table-title">角色权限：</td>
+	    <td height="200" >
+
+			<script>
+				var mjsonData=$permission;
+				mjsonData=mjsonData.cdosItemList;
+				var selectPermission=document.getElementById("rolePermission").value;
+				var arrSelected=selectPermission.split("|");
+				var mtree=new MultiChoiceTree("idMultiChoiceTree",mjsonData);
+				mtree.setSelectedNodeIds(arrSelected);
+				mtree.setVarName("strId","strName","cdosItemList");
+				mtree.setIconPath(strRootPath+"\/cdojs/Icon\/");
+				mtree.show(false,400,0,false,true);
+			</script>
+			<br/>
+		 </td>
+		</tr>
+	</table>
+	</div>
+	<div class="back_btn">
+  <input class="seach_btn yellow-bg" type="button" value="返回" onclick="location.replace('list.htm')"/>
+  </div>
+  </div>
+  
+	
+</body>
+</html>

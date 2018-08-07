@@ -1,0 +1,249 @@
+body {
+	font-size: 9pt;
+}
+.search-userArea {
+	width: 100%;
+	height: 70px;
+	border: 1px solid silver;
+	background-color: RGB(227, 239, 251);
+	margin-left: 2px;
+	padding-left: 5px;
+	padding-top: 5px;
+}
+
+.search-userArea table {
+	width: 100%;
+	border: 0;
+}
+
+.search-userArea table input {
+	width: 100px;
+	height: 22px;
+	border: 1px solid silver;
+}
+
+.search-userArea table select {
+	width: 102px;
+	height: 25px;
+	border: 1px solid silver;
+}
+.deptree {
+	overflow: auto;
+	border: 1px solid silver;
+	height: 450px;
+	width: 255px;
+}
+.datePermissionTree {
+    overflow: auto;
+    border: 1px solid silver;
+    height: 450px;
+    width: 255px;
+    display:none;
+}
+
+.emplist {
+	overflow: auto;
+	overflow-x:hidden;
+	border: 1px solid silver;
+	min-height: 450px;
+	height: 450px;
+	display:none;
+}
+
+.emplist-pad{
+	padding-right: 15px;
+}
+
+.grid-userTable {
+	border: 1px solid silver;
+	margin: 3px 3px 3px 3px;
+	width: 730px;
+}
+.grid-userTable {
+	border: 1px solid silver;
+	margin: 3px 3px 3px 3px;
+	width: 100%;
+}
+
+.grid-roleTable {
+	border:1px solid silver;
+	margin-top: 0px;
+	text-align: top;
+	width: 450px;
+}
+.grid-smallTable {
+    border:1px solid silver; 
+    text-align: top;
+}
+
+.grid-title {
+	width: 85px;
+	background-color: #E0EDFE;
+	white-space: nowrap;
+	height: 30px;
+	font-weight: bold;
+	text-align: center;
+	border-right: 1px solid silver;
+	border-top: 1px solid silver;
+}
+
+.grid-title-ber {
+    width: 135px;
+    background-color: #E0EDFE;
+    white-space: nowrap;
+    height: 30px;
+    font-weight: bold;
+    text-align: center;
+    border-right: 1px solid silver;
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+}
+
+.grid-line {
+	background-color: transparent;
+	font-weight: normal;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.grid-no {
+	border-top: 0px solid silver;
+}
+
+.last-right {
+	border-right: 0px solid silver;
+}
+
+.grid-table {
+	border: 1px solid silver;
+}
+
+.select-row {
+	background-color: #33CCFF;
+}
+
+.lb-fl {
+    width:100px;
+    height:35px;
+    padding-right:10px;
+    text-align: right; 
+    border-right:1px solid silver; 
+    border-bottom:1px solid silver;
+    background-color: #E0EDFE;
+    font-weight: bold;
+}
+
+.lb-fl-chg {
+    width:130px;
+    height:35px;
+    padding-right:10px;
+    text-align: right; 
+    border-right:1px solid silver; 
+    border-bottom:1px solid silver;
+    background-color: #E0EDFE;
+    font-weight: bold;
+}
+
+.lb-move {
+    width:200px;
+    height:35px;
+    padding-right:10px;
+    text-align: center; 
+    border-left:1px solid silver;
+    border-right:1px solid silver;
+    border-top:1px solid silver; 
+    border-bottom:1px solid silver;
+    background-color: #E0EDFE;
+    font-weight: bold;
+}
+
+.ipt-fl {
+    width:240px;
+    height:30px;
+    padding-left:10px;
+    border-right:1px solid silver; 
+    border-bottom:1px solid silver;
+}
+
+.ipt-fl-btn {
+    width:240px;
+    height:30px;
+    border-right:1px solid silver; 
+    border-bottom:1px solid silver;
+}
+
+.ipt-move {
+    width:220px;
+    height:20px;
+    border-left:1px solid silver;
+    border-right:1px solid silver; 
+    border-top:1px solid silver;
+    border-bottom:1px solid silver;
+    text-align:center;
+}
+
+.td-topTable {
+    border-right:1px solid silver; 
+    vertical-align: top;
+}
+
+.td-top {
+   vertical-align: top;
+}
+
+.td-moveTable {
+	width:70px;
+	text-align: center; 
+   vertical-align: top;
+}
+.tr-buttonTable {
+	height:150px;
+    text-align: center; 
+   vertical-align: top;
+}
+
+.grid-buttonTable {
+    width:70px;
+    heigh:150px;
+    text-align: center; 
+   vertical-align: middle;
+}
+
+.td-moveButtonTable {
+    heigh:100px;
+    text-align: center; 
+   vertical-align: middle;
+}
+
+.mst-r {
+    border-right:0px solid silver;
+}
+
+.mst-rt {
+    border-right:1px solid silver;
+}
+
+.mst-lt {
+    border-left:1px solid silver;
+}
+
+
+.mst-btm {
+    border-bottom:0px solid silver;
+}
+
+.brk-input {
+    width:180px;
+    height:18px;
+}
+
+.brk-select {
+	width: 184px;
+	height: 25px
+}
+
+.panel-table {
+	border: 1px solid grey;
+	margin-top: 5px;
+}
+

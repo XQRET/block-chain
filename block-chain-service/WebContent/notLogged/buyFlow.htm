@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <link rel="shortcut icon" href="../images/bitbug_favicon.ico" />
+  <title>购买示范</title>
+  <link href="all.css" rel="stylesheet" type="text/css" />
+  #parse("/common/common.htm")
+  </head>
+
+
+<body>
+<!-- 头部导航栏 -->
+<div class="header clearfix"></div>
+<!-- 中间部分 -->
+<div class="index_center buy_center">
+<div class="buy_icon">
+<img src="../images/notlogged/bf_1.jpg"/>
+<img class="dn" src="../images/notlogged/bf_2.jpg"/>
+<img class="dn" src="../images/notlogged/bf_3.jpg"/>
+<img class="dn" src="../images/notlogged/bf_4.jpg"/>
+</div>
+ <div class="layui-carousel" id="buyflow" lay-filter="buyflow">
+  <div carousel-item>
+    <div><img src="../images/notlogged/bf_11.jpg"/></div>
+    <div><img src="../images/notlogged/bf_22.jpg"/></div>
+    <div><img src="../images/notlogged/bf_33.jpg"/></div>
+    <div><img src="../images/notlogged/bf_44.jpg"/></div>
+  </div>
+</div>
+</div>
+<!-- 底部导航栏 -->
+<div class="footer"></div>
+</body>
+</html>
+<script type="text/javascript" src="./js/common.js"></script>
+<script>
+layui.use('carousel', function(){
+  var carousel = layui.carousel;
+  //建造实例
+  carousel.render({
+    elem: '#buyflow'
+    ,width: '100%' //设置容器宽度
+    ,arrow: 'always' //始终显示箭头
+    ,autoplay: false
+    //,anim: 'updown' //切换动画方式
+  });
+   $(".layui-carousel").find(".layui-carousel-ind").remove(); 
+  var carousel = layui.carousel;
+//监听轮播切换事件
+carousel.on('change(buyflow)', function(obj){ //buyflow来源于对应HTML容器的 lay-filter="buyflow" 属性值
+console.log(obj.index-1); //当前条目的索引
+$(".buy_icon img").eq(obj.index).removeClass("dn").siblings().addClass("dn");
+});
+});
+     
+</script>

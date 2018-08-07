@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.company.CompanyPhotoMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.po.CompanyPhoto">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="companyId" property="companyId" jdbcType="BIGINT"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="orderCode" property="orderCode" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        companyId,
+        type,
+        url,
+        orderCode,
+        createTime,
+        updateTime
+    </sql>
+
+    <!--根据索引字段查询公司信息-->
+    <select id="selectCompanyPhotoByIndex" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.po.CompanyPhoto">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_company_photo
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="companyId != null">
+            AND companyId = #{companyId,jdbcType=VARCHAR}
+        </if>
+        <if test="type != null">
+            AND type = #{type,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <!--插入-->
+    <insert id="insertCompanyPhoto" parameterType="cn.inbs.blockchain.dao.po.CompanyPhoto">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_company_photo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">
+                companyId,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="orderCode != null">
+                orderCode,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">
+                #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="orderCode != null">
+                #{orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!--修改-->
+    <update id="updateCompanyPhotoByIndex" parameterType="cn.inbs.blockchain.dao.po.CompanyPhoto">
+        update t_company_photo
+        <set>
+            <if test="companyId != null">
+                companyId = #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="orderCode != null">
+                orderCode = #{orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="companyId != null">
+            AND companyId = #{companyId,jdbcType=VARCHAR}
+        </if>
+        <if test="type != null">
+            AND type = #{type,jdbcType=VARCHAR}
+        </if>
+    </update>
+</mapper>

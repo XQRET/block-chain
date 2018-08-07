@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    #parse("/common/common.htm")
+<body class="body-content">
+<div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+<div class="alltitle">
+    <p>认证信息</p>
+</div>
+<div class="allcenter">
+    <div class="allinfo">
+        <div class="F16">当前状态
+            <span class="auth_icon icon_no">未认证</span></div>
+        <div class="auth_info">
+            <ul>
+                <!--       <li class="auth_corp">
+                         <label>公司类型：</label>
+                         <span class="ac_check">信贷机构端</span>
+                         <span>资金提供端</span>
+                       </li>-->
+                <!--参数cdo名称-->
+                <li>
+                    <label>公司名称：</label>
+                    <input id="companyName" placeholder=""/>
+                </li>
+                <li id="interview">
+                    <label>公司地址：</label>
+                    <select class="prov" name="province"></select>
+                    <select id="city" class="city ml20" name="city"></select>
+                </li>
+                <li>
+                    <label>营业执照：</label>
+                    <div class="app_logo img-border">
+                        <!-- 当图片上传以后，这一段替换掉 -->
+                        <div id="uploadBusLicenseImg" class="upload">
+                            <img src="../images/userCenter/pic_jiah.png"/>
+                            <p>点击上传</p>
+                        </div>
+                        <!-- 当图片上传以后，这一段替换掉 end -->
+                        <form id="imgBusLicenseForm" style="display: none">
+                            <input id="addBusLicenseImg" type="file" class="addBorder">
+                        </form>
+                        <img id="busLicenseImg" class="thumbnail" style="display: none;">
+                        <button id="busLicense" onclick="busLicense()"></button>
+                    </div>
+                    <div class="fr">
+                        <label>示例规范：</label>
+                        <div class="app_logo img-border">
+                            <img class="thumbnail" src="../images/userCenter/demo1.png"/>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <label>联系人姓名：</label>
+                    #set($lEmployeeId = $cdoLoginer.getStringValue("lEmployeeId"))
+                    <input id="lEmployeeId" value="$!{lEmployeeId}" style="display: none"/>
+                    <input id="linkman" placeholder=""/>
+                </li>
+                <li>
+                    <label>联系方式：</label>
+                    <input id="phone" placeholder=""/>
+                </li>
+                <li>
+                    <label>&nbsp;</label>
+                    <div class="auth_btn mt20 active8" onclick="submitAuth()">提交</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<!-- 图片查看大图 -->
+<div class="mask"></div>
+<div class="big-img">
+    <img src="" />
+</div>
+</html>
+<script src="../js/city/jquery.cityselect.js"></script>
+<script type="text/javascript" src="./js/authinfo.js"></script>

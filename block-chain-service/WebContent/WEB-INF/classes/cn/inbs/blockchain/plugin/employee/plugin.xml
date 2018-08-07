@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServicePlugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/ServiceBus.xsd">
+
+    <!-- 员工服务 -->
+    <ServiceConfig Name="EmployeeService">
+        <TransService ClassPath="cn.inbs.blockchain.plugin.employee.EmployeeService"/>
+        <DataService Resource="cn/inbs/blockchain/plugin/employee/EmployeeService.xml" Encoding="utf-8"/>
+    </ServiceConfig>
+
+    <!-- 角色服务 -->
+    <ServiceConfig Name="RoleService">
+        <DataService Resource="cn/inbs/blockchain/plugin/employee/RoleService.xml" Encoding="utf-8"/>
+    </ServiceConfig>
+
+    <!-- 用户角色服务 -->
+    <ServiceConfig Name="EmployeeRoleService">
+        <DataService Resource="cn/inbs/blockchain/plugin/employee/EmployeeRoleService.xml" Encoding="utf-8"/>
+    </ServiceConfig>
+
+    <!-- 机构服务 -->
+    <ServiceConfig Name="AgencyService">
+        <DataService Resource="cn/inbs/blockchain/plugin/employee/AgencyService.xml" Encoding="utf-8"/>
+    </ServiceConfig>
+
+    <ServiceConfig Name="ContractService">
+        <DataService Resource="cn/inbs/blockchain/plugin/employee/ContractService.xml" Encoding="utf-8"/>
+    </ServiceConfig>
+
+</ServicePlugin>

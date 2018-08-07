@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServicePlugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/ServiceBus.xsd">
+    <!--用户注册服务-->
+    <ServiceConfig Name="UserRegisterService">
+        <TransService ClassPath="cn.inbs.blockchain.service.cdo.user.UserRegisterService"/>
+        <DataService Resource="cn/inbs/blockchain/service/cdo/user/UserRegisterService.xml" Encoding="utf-8"/>
+    </ServiceConfig>
+
+    <!--用户修改密码-->
+    <ServiceConfig Name="UserPasswordService">
+        <TransService ClassPath="cn.inbs.blockchain.service.cdo.user.UserPasswordService"/>
+        <DataService Resource="cn/inbs/blockchain/service/cdo/user/UserPasswordService.xml" Encoding="utf-8"/>
+    </ServiceConfig>
+
+</ServicePlugin>

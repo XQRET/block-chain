@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.chart.ChartMapper">
+
+    <!--查询合约个数-->
+    <select id="selectContractCountByCondition" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(*) FROM
+        t_block_contract
+        WHERE
+        1=1
+        <if test="registStartDate != null">
+            AND registDate <![CDATA[ >= ]]>#{registStartDate}
+        </if>
+        <if test="registEndDate != null">
+            AND registDate <![CDATA[ < ]]> #{registEndDate}
+        </if>
+        <if test="contractStatusList != null">
+            AND contractStatus IN
+            <foreach collection="contractStatusList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <!--查询合约金额-->
+    <select id="selectContractAmountByCondition" parameterType="java.util.Map" resultType="java.math.BigDecimal">
+        SELECT SUM(amount) FROM
+        t_block_contract
+        WHERE
+        1=1
+        <if test="registStartDate != null">
+            AND registDate <![CDATA[ >= ]]>#{registStartDate}
+        </if>
+        <if test="registEndDate != null">
+            AND registDate <![CDATA[ < ]]> #{registEndDate}
+        </if>
+        <if test="contractStatusList != null">
+            AND contractStatus IN
+            <foreach collection="contractStatusList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <!--根据公司类型查询公司总个数-->
+    <select id="selectCompanyTotalCountByType" resultType="int">
+        SELECT COUNT(*) FROM
+        t_company
+        WHERE
+        companyType=#{companyType}
+    </select>
+
+    <!--资产top-->
+    <select id="selectZcTop" parameterType="java.lang.Integer" resultType="java.util.Map">
+        SELECT
+        tb.companyName AS companyName,
+        SUM(ta.amount) AS topAmount
+        FROM
+        t_block_contract ta,
+        t_company tb
+        WHERE
+        ta.registCompanyBlockId=tb.companyBlockId
+        GROUP BY
+        ta.registCompanyBlockId
+        ORDER BY
+        topAmount DESC
+        <if test="topCount!=null">
+            LIMIT 0,#{topCount}
+        </if>
+    </select>
+
+    <!--资金top-->
+    <select id="selectZjTop" parameterType="java.lang.Integer" resultType="java.util.Map">
+        SELECT
+        tb.companyName AS companyName,
+        SUM(ta.amount) AS topAmount
+        FROM
+        t_block_contract ta,
+        t_company tb
+        WHERE
+        ta.triggerCompanyBlockId=tb.companyBlockId
+        GROUP BY
+        ta.triggerCompanyBlockId
+        ORDER BY
+        topAmount DESC
+        <if test="topCount!=null">
+            LIMIT 0,#{topCount}
+        </if>
+    </select>
+
+    <!--根据省份统计合约数量-->
+    <select id="selectContractNumGroupByProvince" resultType="java.util.Map">
+    SELECT
+    ta.provinceName           AS province,
+    COUNT(tb.contractBlockId) AS contractTotalCount
+    FROM
+    t_company ta,
+    t_block_contract tb
+    WHERE
+    ta.id=tb.companyId
+    GROUP BY
+    province
+    </select>
+
+</mapper>

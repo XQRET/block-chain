@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.schedulejob.ScheduleJobMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.po.ScheduleJobConfigBean">
+        <id column="jobId" property="jobId" jdbcType="BIGINT"/>
+        <result column="jobGroup" property="jobGroup" jdbcType="VARCHAR"/>
+        <result column="jobName" property="jobName" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="jobStatus" property="jobStatus" jdbcType="VARCHAR"/>
+        <result column="cronExpression" property="cronExpression" jdbcType="VARCHAR"/>
+        <result column="isConcurrent" property="isConcurrent" jdbcType="VARCHAR"/>
+        <result column="springId" property="springId" jdbcType="VARCHAR"/>
+        <result column="count" property="count" jdbcType="BIGINT"/>
+        <result column="startTime" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="stopTime" property="stopTime" jdbcType="TIMESTAMP"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+      jobId,
+      jobGroup,
+      jobName,
+      description,
+      jobStatus,
+      cronExpression,
+      isConcurrent,
+      springId,
+      count,
+      startTime,
+      stopTime,
+      createTime,
+      updateTime
+    </sql>
+
+    <select id="selectScheduleJob" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.po.ScheduleJobConfigBean">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        task_schedule_job
+        where
+        1=1
+        <if test="jobId != null">
+            AND jobId=#{jobId}
+        </if>
+        <if test="jobGroup != null">
+            AND jobGroup=#{jobGroup}
+        </if>
+        <if test="jobName != null">
+            AND jobName=#{jobName}
+        </if>
+        <if test="description != null">
+            AND description=#{description}
+        </if>
+        <if test="jobStatus != null">
+            AND jobStatus=#{jobStatus}
+        </if>
+        <if test="cronExpression != null">
+            AND cronExpression=#{cronExpression}
+        </if>
+        <if test="isConcurrent != null">
+            AND isConcurrent=#{isConcurrent}
+        </if>
+        <if test="springId != null">
+            AND springId=#{springId}
+        </if>
+        <if test="startTime != null">
+            AND startTime=#{startTime}
+        </if>
+        <if test="stopTime != null">
+            AND stopTime=#{stopTime}
+        </if>
+        <if test="createTime != null">
+            AND createTime=#{createTime}
+        </if>
+        <if test="updateTime != null">
+            AND updateTime=#{updateTime}
+        </if>
+    </select>
+
+    <insert id="insertScheduleJob" parameterType="cn.inbs.blockchain.dao.po.ScheduleJobConfigBean">
+        insert into task_schedule_job
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="jobId != null">
+                jobId,
+            </if>
+            <if test="jobGroup != null">
+                jobGroup,
+            </if>
+            <if test="jobName != null">
+                jobName,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="jobStatus != null">
+                jobStatus,
+            </if>
+            <if test="cronExpression != null">
+                cronExpression,
+            </if>
+            <if test="isConcurrent != null">
+                isConcurrent,
+            </if>
+            <if test="springId != null">
+                springId,
+            </if>
+            <if test="count != null">
+                count,
+            </if>
+            <if test="startTime != null">
+                startTime,
+            </if>
+            <if test="stopTime != null">
+                stopTime,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="jobId != null">
+                #{jobId,jdbcType=BIGINT},
+            </if>
+            <if test="jobGroup != null">
+                #{jobGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="jobName != null">
+                #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="jobStatus != null">
+                #{jobStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="cronExpression != null">
+                #{cronExpression,jdbcType=VARCHAR},
+            </if>
+            <if test="isConcurrent != null">
+                #{isConcurrent,jdbcType=VARCHAR},
+            </if>
+            <if test="springId != null">
+                #{springId,jdbcType=VARCHAR},
+            </if>
+            <if test="count != null">
+                #{count,jdbcType=BIGINT},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stopTime != null">
+                #{stopTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectPageList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from task_schedule_job
+        WHERE
+        1=1
+        limit #{startIndex},#{pageCount}
+    </select>
+
+    <select id="selectTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select
+        COUNT(*)
+        from task_schedule_job
+        WHERE
+        1=1
+    </select>
+
+    <!--修改合约状态-->
+    <update id="updateScheduleJobConfigBean"
+            parameterType="cn.inbs.blockchain.dao.po.ScheduleJobConfigBean">
+        update task_schedule_job
+        <set>
+            <if test="jobStatus != null">
+                jobStatus=#{jobStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="count != null">
+                count=#{count,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                updateTime=#{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cronExpression != null">
+                cronExpression=#{cronExpression,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                startTime=#{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stopTime != null">
+                stopTime=#{stopTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where jobId = #{jobId,jdbcType=BIGINT}
+    </update>
+
+</mapper>

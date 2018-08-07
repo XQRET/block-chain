@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.cockpit.CockpitMapper">
+    <select id="getCurrentNewAdd" resultType="int">
+        SELECT
+        COUNT(t.contractId) AS new_add
+        FROM
+        t_block_contract t,t_company tc
+        WHERE
+        t.companyId=tc.id AND tc.companyType=0 AND
+        date_format(t.registDate, '%Y %m') = date_format(DATE_SUB(curdate(), INTERVAL 0 MONTH),'%Y %m')
+    </select>
+
+    <select id="getCurrentNewMoney" resultType="float">
+        SELECT
+        SUM(t.amount)/10000 as new_add_amount
+        FROM
+        t_block_contract t,t_company tc
+        WHERE
+        t.companyId=tc.id AND tc.companyType=0 AND
+        date_format(t.registDate, '%Y %m') = date_format(DATE_SUB(curdate(), INTERVAL 0 MONTH),'%Y %m')
+    </select>
+
+    <select id="getAsserNumber" resultType="int">
+        SELECT COUNT(*) FROM t_company t WHERE t.companyType='0'
+    </select>
+
+    <select id="getCapitalNumber" resultType="int">
+        SELECT COUNT(*) FROM t_company t WHERE t.companyType='1'
+    </select>
+
+    <select id="getPropertContractNumber" resultType="int">
+        SELECT COUNT(t.contractId) FROM t_block_contract t,t_company tc
+        WHERE t.companyId=tc.id AND tc.companyType=0 AND t.contractStatus NOT IN ('40')
+    </select>
+
+    <select id="getPropertContractMoney" resultType="float">
+        SELECT SUM(t.amount)/10000 as new_add_amount FROM t_block_contract t,t_company tc
+        WHERE t.companyId=tc.id AND tc.companyType=0 AND t.contractStatus NOT IN ('40')
+    </select>
+
+    <select id="getContractNumber" resultType="int">
+        SELECT COUNT(t.contractId) FROM t_block_contract t
+    </select>
+
+    <select id="getContractMoney" resultType="float">
+        SELECT SUM(t.amount)/10000 FROM t_block_contract t
+    </select>
+
+    <select id="getNew" parameterType="int" resultType="cn.inbs.blockchain.dao.vo.cockpit.BarDO">
+        SELECT date_format(DATE_SUB(curdate(), INTERVAL #{month} MONTH),'%Y%m') as currentMonth,
+        COUNT(t.contractId) as newAdd,SUM(t.amount)/10000 as newAddAmount
+        FROM
+        t_block_contract t,t_company tc
+        WHERE
+        t.companyId=tc.id AND tc.companyType=0 AND t.contractStatus IN ('10') AND
+        date_format(t.registDate, '%Y%m') = date_format(DATE_SUB(curdate(), INTERVAL #{month} MONTH),'%Y%m')
+    </select>
+
+    <select id="getSum" parameterType="int" resultType="cn.inbs.blockchain.dao.vo.cockpit.BarDO">
+        SELECT date_format(DATE_SUB(curdate(), INTERVAL #{month} MONTH),'%Y%m') as currentMonth,
+        COUNT(t.contractId) as newAdd,SUM(t.amount)/10000 as newAddAmount
+        FROM
+        t_block_contract t,t_company tc
+        WHERE
+        t.companyId=tc.id AND tc.companyType=0 AND
+        date_format(t.registDate, '%Y%m') = date_format(DATE_SUB(curdate(), INTERVAL #{month} MONTH),'%Y%m')
+    </select>
+    
+    <select id="listCapitalTop5" resultType="cn.inbs.blockchain.dao.vo.cockpit.BarDO">
+        SELECT
+        SUM(t.amount)/10000 as newAddAmount,tc.companyName
+        FROM
+        t_block_contract t,t_company tc
+        WHERE
+        t.triggerCompanyBlockId=tc.companyBlockId AND tc.companyType=1 AND t.contractStatus=20
+        GROUP BY t.contractRegister
+        ORDER BY newAddAmount desc LIMIT 5
+    </select>
+
+    <select id="listAssetTop5" resultType="cn.inbs.blockchain.dao.vo.cockpit.BarDO">
+        SELECT
+        SUM(t.amount)/10000 as newAddAmount,tc.companyName
+        FROM
+        t_block_contract t,t_company tc
+        WHERE
+        t.triggerCompanyBlockId=tc.companyBlockId AND tc.companyType=0 AND t.contractStatus=20
+        GROUP BY t.contractRegister
+        ORDER BY newAddAmount DESC LIMIT 5
+    </select>
+
+    <select id="listCapital" resultType="cn.inbs.blockchain.dao.vo.cockpit.BarDO">
+        SELECT
+        SUM(t.amount)/10000 as newAddAmount,tc.companyName
+        FROM
+        t_block_contract t,t_company tc
+        WHERE
+        t.triggerCompanyBlockId=tc.companyBlockId AND tc.companyType=1 AND t.contractStatus=20
+        GROUP BY t.contractRegister
+        ORDER BY newAddAmount DESC
+    </select>
+
+    <select id="listAsset" resultType="cn.inbs.blockchain.dao.vo.cockpit.BarDO">
+        SELECT
+        SUM(t.amount)/10000 as newAddAmount,tc.companyName
+        FROM
+        t_block_contract t,t_company tc
+        WHERE
+        t.triggerCompanyBlockId=tc.companyBlockId AND tc.companyType=0 AND t.contractStatus=20
+        GROUP BY t.contractRegister
+        ORDER BY newAddAmount DESC
+    </select>
+
+    <select id="getForecast" resultType="cn.inbs.blockchain.dao.vo.cockpit.BarDO">
+        SELECT date_format(DATE_SUB(curdate(), INTERVAL #{month} MONTH),'%Y%m') as currentMonth,
+        SUM(t.amount)/10000*#{rate} as newAddAmount
+        FROM
+        t_block_contract t,t_company tc
+        WHERE
+        t.triggerCompanyBlockId=tc.companyBlockId AND tc.companyType=1 AND t.contractStatus=20  AND
+        date_format(t.registDate, '%Y%m') = date_format(DATE_SUB(curdate(), INTERVAL #{month} MONTH),'%Y%m')
+    </select>
+
+    <select id="listDistrict" resultType="cn.inbs.blockchain.dao.vo.cockpit.BarDO">
+        SELECT COUNT(t.contractId) as newAdd,tc.provinceName
+        FROM
+        t_block_contract t,t_company tc
+        WHERE
+        t.companyId=tc.id AND tc.companyType=0
+        GROUP BY tc.provinceName
+    </select>
+</mapper>

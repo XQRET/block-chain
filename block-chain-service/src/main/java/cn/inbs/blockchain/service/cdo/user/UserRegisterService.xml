@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/DataService.xsd">
+    <!-- 新建员工 -->
+    <SQLTrans TransName="userRegister" TransFlag="1" DataGroupId="writeCompany">
+        <!--判断当前用户是否存在-->
+        <SelectField OutputId="{nExistCount}">
+            <OutputSQL>
+                SELECT COUNT(0) FROM tb_employee WHERE strMobile={strMobile}
+            </OutputSQL>
+        </SelectField>
+        <If Value1="{nExistCount}" Operator="&gt;" Type="Integer" Value2="0">
+            <Then>
+                <Return Code="-1" Info="EmployeeService.userRegister.Exists" Text="员工手机号已经被占用"/>
+            </Then>
+        </If>
+
+        <!-- 插入tb_employee表，初始密码手机号码后六位，盐随机生成 -->
+        <SelectField OutputId="{strSalt}">
+            <OutputSQL>
+                SELECT REPLACE(UUID(),'-','') strSalt
+            </OutputSQL>
+        </SelectField>
+
+        <!-- 密码扰码 -->
+        <SelectField OutputId="{strPassword}">
+            <OutputSQL>
+                SELECT MD5( CONCAT( {strSalt}, MD5({strPasswd}) ) ) strPassword
+            </OutputSQL>
+        </SelectField>
+
+        <!--根据用角色码查询用户拥有角色-->
+        <SelectField OutputId="{countStrPermission}">
+            <OutputSQL>
+                SELECT COUNT(0) FROM tb_role WHERE strRoleCode={strRoleCode}
+            </OutputSQL>
+        </SelectField>
+        <If Value1="{countStrPermission}" Operator="&lt;" Type="Integer" Value2="0">
+            <Then>
+                <Return Code="-1" Info="EmployeeService.userRegister.Exists" Text="用户注册异常"/>
+            </Then>
+        </If>
+        <SelectField OutputId="{queryNId}">
+            <OutputSQL>
+                SELECT nId FROM tb_role WHERE strRoleCode={strRoleCode}
+            </OutputSQL>
+        </SelectField>
+
+        <SelectField OutputId="{id}">
+            <OutputSQL>
+                select nextval("tb_employee")
+            </OutputSQL>
+        </SelectField>
+
+        <SelectField OutputId="{company_id}">
+            <OutputSQL>
+                select nextval("t_company")
+            </OutputSQL>
+        </SelectField>
+
+
+        <!--用户分配角色-->
+        <Insert>
+            <OutputSQL>
+                insert into tb_employee_role(lEmployeeId,lRoleId)
+                values({id},{queryNId})
+            </OutputSQL>
+        </Insert>
+
+        <!--记录用户公司信息-->
+        <Insert>
+            <OutputSQL>
+                insert into
+                t_company(id,companyType,companyEmail,employeeId,companyPrivateKey,companyPublicKey,companyBlockId,createTime,updateTime)
+                values({company_id},{strMechanism},{strMail},{id},{privateKey},{publicKey},{companyBlockId},now(),now())
+            </OutputSQL>
+        </Insert>
+
+        <!--记录用户信息-->
+        <Insert>
+            <OutputSQL>
+                insert into
+                tb_employee(lId,strMobile,strSalt,strName,strPassword,nWorkState,dtCreateTime,dtUpdateTime,employeeType)
+                values({id},{strMobile},{strSalt},{strName},{strPassword},{nWorkState|1},now(),now(),{employeeType})
+            </OutputSQL>
+        </Insert>
+        <OnException>
+            <Return Info="EmployeeService.createEmployee.Error" Code="-1" Text="数据库错误"/>
+        </OnException>
+        <Return Code="0" Info="EmployeeService.createEmployee.OK" Text="用户注册成功">
+        </Return>
+    </SQLTrans>
+
+</DataService>

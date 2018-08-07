@@ -1,0 +1,87 @@
+#set($strRoleName = $request.getParameter("strRoleName"))
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <link rel="stylesheet" href="../css/jquery/jquery-ui.css" />
+    <link rel="stylesheet" href="../css/jqgrid.css" />
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    
+	#parse("/common/common.htm")
+</head>
+
+<body class="body-content">
+	<!-- 当前位置开始 -->
+    <div class="alltitle">
+    <p>角色管理</p>
+	</div>
+    <!-- 当前位置结束 -->
+
+  <div class="Listzk">
+  <div class="loan_wallet searchInput">
+	  <form id="proLoanForm">
+	    <input type="hidden" id="currentpage" name="pageNum" value="1">
+	    <div class=" loan_form ">
+	      <div class="overauto clearfix">
+	        <span>角色名称：
+	          <input type="text"  placeholder=""  id="strRoleName" value="$!{strRoleName}" >
+	         </span>
+	           <div onclick="doSearch();" class="seach_btn newseach_btn" style="margin-left:30px;float:left;">查 找</div>
+	           <div class="seach_btn newseach_btn yellow-bg" style="margin-left:20px;float:left;" onclick="window.location.href='add.htm'">添加角色</div>
+	       </div>
+	    </div>
+	  </form>
+  </div>
+  <div class="loan_list">
+		<!-- <div class="newloan_nav">
+			<ul>
+				<li class="pl5 all newAll newCheck" onclick="pettyAll('0')">全部</li>
+			</ul>
+		</div> -->
+		<table class="loan_talbe newlt w tc into_pieces">
+			<thead>
+				<tr class="taHead">
+					<td>ID</td>
+					<td>角色名称</td>
+					<td>角色编码</td>
+					<td >创建时间</td>
+					<td >操作</td>
+				</tr>
+			</thead>
+			<tbody id="checkApplys">
+		      #set($roleResponse=${roleController.findRoleList($request)})
+		       #set($roleList = $roleResponse.getCDOArrayValue("cdosRoleList"))
+
+			   #if($roleList)
+				   #foreach($role in $roleList)
+					#set($nId=${role.getIntegerValue("nId")})
+					<tr>
+						<td >$nId</td>
+						<td ><a href="show.htm?id=$nId">${role.getStringValue("strName")}</a></td>
+						<td >${role.getStringValue("strRoleCode")}</td>
+						<td >${role.getDateTimeValue("dtCreateTime")}</td>
+						<td >
+							<a onclick="window.location.href='modify.htm?nId=$nId'" class="bluebtn" >修改</a>
+							<a onclick="window.location.href='javascript:deleteRole($nId);'" class="remind" >删除</a>
+						</td>
+					</tr>
+				   #end
+			   #end
+
+			</tbody>
+		</table>
+		<!-- 分页组件 -->
+		#set ($nRecordCount = $roleResponse.getIntegerValue("nRecordCount"))
+		#set ($nPageCount = $roleResponse.getIntegerValue("nPageCount"))
+		#parse("/common/pagecontrol.htm")
+	</div>
+
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../js/jqgrid.js"></script>
+<script type="text/javascript" src="list.js" ></script>

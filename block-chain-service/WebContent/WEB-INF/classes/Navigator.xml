@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Navigator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/NavigatorTree.xsd">
+
+    <Node Title="驾驶舱" Id="10000" TargetURL="" URLPath="" Permission="js">
+        <Node Title="合约概况" Id="10001" TargetURL="../cockpit/index.htm"
+              URLPath="../images/menu_icon/icon_jbxx.png" Permission="js.a"/>
+    </Node>
+
+
+    <Node Title="系统管理" Id="20000" TargetURL="" URLPath="" Permission="xt">
+        <Node Title="机构审核" Id="20001" TargetURL="../audit/agencyList.htm" URLPath="../images/menu_icon/icon_jgsh.png"
+              Permission="xt.f"/>
+        <Node Title="应用审核" Id="20002" TargetURL="../audit/applyList.htm" URLPath="../images/menu_icon/icon_yysh.png"
+              Permission="xt.g"/>
+        <Node Title="员工管理" Id="20003" TargetURL="../employeeManage/list.htm" URLPath="../images/menu_icon/icon_yggl.png"
+              Permission="xt.e"/>
+        <Node Title="角色管理" Id="20004" TargetURL="../role/list.htm" URLPath="../images/menu_icon/icon_jsgl.png"
+              Permission="xt.r"/>
+        <Node Title="定时任务管理" Id="20005" TargetURL="../scheduleJob/taskList.htm"
+              URLPath="../images/menu_icon/icon_jbxx.png" Permission="xt.s"/>
+    </Node>
+    <Node Title="用户中心" Id="30000" TargetURL="" URLPath="" Permission="yh">
+        <Node Title="基本信息" Id="30001" TargetURL="../userCenter/basicinfo.htm"
+              URLPath="../images/menu_icon/icon_jbxx.png" Permission="yh.a"/>
+        <Node Title="认证信息" Id="30002" TargetURL="../userCenter/authinfo.htm" URLPath="../images/menu_icon/icon_rzxx.png"
+              Permission="yh.b"/>
+        <Node Title="关联机构" Id="30003" TargetURL="../userCenter/affiliate.htm"
+              URLPath="../images/menu_icon/icon_rzxx.png" Permission="yh.e"/>
+        <Node Title="关联机构" Id="30003" TargetURL="../userCenter/affiliateAssets.htm"
+              URLPath="../images/menu_icon/icon_rzxx.png" Permission="yh.f"/>
+        <Node Title="我的应用" Id="30004" TargetURL="../userCenter/apply.htm" URLPath="../images/menu_icon/icon_wdyy.png"
+              Permission="yh.c"/>
+        <Node Title="我的节点" Id="30005" TargetURL="../userCenter/node.htm" URLPath="../images/menu_icon/icon_wdjd.png"
+              Permission="yh.d"/>
+    </Node>
+    <Node Title="合约管理" Id="40000" TargetURL="" URLPath="" Permission="hg">
+        <Node Title="合约注册" Id="40001" TargetURL="../contractManage/contractregister.htm"
+              URLPath="../images/menu_icon/icon_jkgs.png" Permission="hg.a"/>
+        <Node Title="合约触发" Id="40002" TargetURL="../contractManage/contracttrigger.htm"
+              URLPath="../images/menu_icon/icon_hycf.png" Permission="hg.b"/>
+        <Node Title="合约执行" Id="40003" TargetURL="../contractManage/contractexec.htm"
+              URLPath="../images/menu_icon/icon_hyzhix.png" Permission="hg.c"/>
+        <Node Title="合约注销" Id="40004" TargetURL="../contractManage/contractlogout.htm"
+              URLPath="../images/menu_icon/icon_hyzux.png" Permission="hg.d"/>
+        <Node Title="合约导入" Id="40005" TargetURL="../contractManage/contractImport.htm"
+              URLPath="../images/menu_icon/icon_hyzux.png" Permission="hg.e"/>
+    </Node>
+    <Node Title="合约交易" Id="50000" TargetURL="" URLPath="" Permission="hj">
+        <Node Title="合约触发" Id="50001" TargetURL="../contractDeal/contracttrigger.htm"
+              URLPath="../images/menu_icon/icon_hycf.png" Permission="hj.a"/>
+        <Node Title="合约执行" Id="50002" TargetURL="../contractDeal/contractexec.htm"
+              URLPath="../images/menu_icon/icon_hyzhix.png" Permission="hj.b"/>
+        <Node Title="合约注销" Id="50003" TargetURL="../contractDeal/contractlogout.htm"
+              URLPath="../images/menu_icon/icon_hyzux.png" Permission="hj.c"/>
+    </Node>
+
+    <Node Title="产品中心" Id="40000" TargetURL="" URLPath="" Permission="pc">
+        <Node Title="产品列表" Id="40001" TargetURL="../productCenter/productList.htm"
+              URLPath="../images/menu_icon/icon_jbxx.png" Permission="pc.a"/>
+        <Node Title="预售列表" Id="40002" TargetURL="../productCenter/saleList.htm"
+              URLPath="../images/menu_icon/icon_wdyy.png"
+              Permission="pc.b"/>
+    </Node>
+</Navigator>

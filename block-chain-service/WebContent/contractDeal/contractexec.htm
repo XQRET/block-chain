@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>合约管理</title>
+    <meta content="IE=11.0000" http-equiv="X-UA-Compatible"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="GENERATOR" content="MSHTML 11.00.9600.17344"/>
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    #parse("/common/common.htm")
+</head>
+
+<body class="body-content">
+<div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+<!-- 当前位置开始 -->
+    <div class="alltitle">
+    <p>合约执行</p>
+	</div>
+    <!-- 当前位置结束 -->
+
+  <div class="Listzk">
+    <div class="loan_wallet searchInput">
+        <form id="search_id">
+            <!--设置隐藏值-->
+            <!--合约状态-->
+            <input type="hidden" id="contractStatus" value="30">
+
+            <!--用户ID-->
+            #set($lEmployeeId = $cdoLoginer.getStringValue("lEmployeeId"))
+            <input id="lEmployeeId" value="$!{lEmployeeId}" style="display: none"/>
+            <div class="loan_form">
+                <p class="overauto">
+              <span>合同名称：
+                <input type="text" placeholder="" id="contractNameInput" value="">
+              </span>
+
+                    <span>登记人：
+                <input type="text" placeholder="" id="registerInput" value="">
+              </span>
+
+                    <span>签订人：
+                <input type="text" placeholder="" id="signerInput" value="">
+              </span>
+
+                <div class="layui-inline mt10">
+              <span>开始时间：
+                <div class="layui-input-inline">
+                  <input class="layui-input time" id="startTime" placeholder="yyyy-MM-dd HH:mm:ss" type="text"></div>
+             </span>
+                    <span>结束时间：
+                <div class="layui-input-inline">
+                  <input class="layui-input time" id="stopTime" placeholder="yyyy-MM-dd HH:mm:ss" type="text"></div>
+             </span>
+                    <div id="doSearch" pid="search_id" class="seach_btn newseach_btn ml117 FL" onclick="searchZXContract()">查 找</div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="loan_list">
+        <table class="loan_talbe w tc into_pieces" id="empDataTable">
+            <thead>
+            <tr class="taHead">
+                <td>登记人</td>
+                <td>签订人</td>
+                <td>合同ID</td>
+                <td>借款方案</td>
+                <td>金额</td>
+                <td>合约登记日期</td>
+                <td>执行状态</td>
+            </thead>
+            <tbody id="checkApplys" class="layui-form">
+            </tbody>
+        </table>
+        <div id="pageTool" style="text-align:center">
+
+        </div>
+    </div>
+</div>
+</body>
+<!-- 查看合约遮罩层 -->
+#parse("/common/contractDetail.htm")
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="./js/contractexec.js"></script>

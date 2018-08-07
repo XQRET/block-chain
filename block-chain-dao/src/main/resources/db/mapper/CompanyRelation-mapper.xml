@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.company.CompanyRelationMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.po.CompanyRelation">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="zcCompanyBlockId" property="zcCompanyBlockId" jdbcType="VARCHAR"/>
+        <result column="zjCompanyBlockId" property="zjCompanyBlockId" jdbcType="VARCHAR"/>
+        <result column="relationStatus" property="relationStatus" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        zcCompanyBlockId,
+        zjCompanyBlockId,
+        relationStatus,
+        createTime,
+        updateTime
+    </sql>
+
+    <!--查询-->
+    <select id="selectCompanyRelationByIndex" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.po.CompanyRelation">
+        select
+        <include refid="Base_Column_List"/>
+        from t_company_relation
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="zcCompanyBlockId != null">
+            AND zcCompanyBlockId = #{zcCompanyBlockId,jdbcType=VARCHAR}
+        </if>
+        <if test="zjCompanyBlockId != null">
+            AND zjCompanyBlockId = #{zjCompanyBlockId,jdbcType=SMALLINT}
+        </if>
+        <if test="relationStatus != null">
+            AND relationStatus = #{relationStatus,jdbcType=SMALLINT}
+        </if>
+    </select>
+
+    <!--查询-->
+    <select id="selectCompanyRelationPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_company_relation
+        where
+        zcCompanyBlockId = #{zcCompanyBlockId,jdbcType=VARCHAR}
+        limit #{startIndex},#{pageCount}
+    </select>
+
+    <!--查询-->
+    <select id="selectCompanyRelationPageCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*)
+        from t_company_relation
+        where
+        zcCompanyBlockId = #{zcCompanyBlockId,jdbcType=VARCHAR}
+    </select>
+
+    <!--查询-->
+    <select id="selectCompanyRequisitionRelationPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_company_relation
+        where
+        zjCompanyBlockId = #{zjCompanyBlockId,jdbcType=VARCHAR}
+        limit #{startIndex},#{pageCount}
+    </select>
+
+    <!--查询-->
+    <select id="selectCompanyRequisitionRelationPageCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*)
+        from t_company_relation
+        where
+        zjCompanyBlockId = #{zjCompanyBlockId,jdbcType=VARCHAR}
+    </select>
+
+    <!--修改-->
+    <update id="updateRelatedStatus" parameterType="cn.inbs.blockchain.dao.po.CompanyRelation">
+        update t_company_relation
+        <set>
+            relationStatus=#{relationStatus,jdbcType=VARCHAR},
+            <if test="updateTime != null">
+                updateTime=#{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where 1=1
+        AND zcCompanyBlockId = #{zcCompanyBlockId,jdbcType=VARCHAR}
+        AND zjCompanyBlockId = #{zjCompanyBlockId,jdbcType=VARCHAR}
+    </update>
+
+    <!--插入-->
+    <insert id="insertCompanyRelation" parameterType="cn.inbs.blockchain.dao.po.CompanyRelation">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_company_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="zcCompanyBlockId != null">
+                zcCompanyBlockId,
+            </if>
+            <if test="zjCompanyBlockId != null">
+                zjCompanyBlockId,
+            </if>
+            <if test="relationStatus != null">
+                relationStatus,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="zcCompanyBlockId != null">
+                #{zcCompanyBlockId,jdbcType=VARCHAR},
+            </if>
+            <if test="zjCompanyBlockId != null">
+                #{zjCompanyBlockId,jdbcType=VARCHAR},
+            </if>
+            <if test="relationStatus != null">
+                #{relationStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+</mapper>

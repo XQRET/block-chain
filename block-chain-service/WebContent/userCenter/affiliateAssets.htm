@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    #parse("/common/common.htm")
+<body class="body-content">
+<div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+#set($lEmployeeId = $cdoLoginer.getStringValue("lEmployeeId"))
+<input id="lEmployeeId" value="$!{lEmployeeId}" style="display: none"/>
+<!-- 认证提示 -->
+#parse("/common/authtips.htm")
+<div class="allcenter">
+    <div class="allinfo">
+        <div class="F16">关联机构</div>
+        <table class="all_table mt20">
+            <thead>
+            <tr>
+                <td>序号</td>
+                <td>资产端机构</td>
+                <td>协议日期</td>
+                <td>协议到期日期</td>
+                <td>关联结果</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody id="AffiliateAssetsTbody">
+            </tbody>
+        </table>
+        <div id="pageTool" style="text-align:center"></div>
+    </div>
+</div>
+</body>
+<!-- 查看状态遮罩层 -->
+<div class="e_st_dialog" id="publicKeyDialog">
+    <div class="dialog-header clearfix">
+        <span id="logoutDialogTitle">查看公钥</span>
+        <b class="close" onclick="closefbE()"></b>
+    </div>
+    <div class="see_prkay">
+        <textarea id="publicKeyDialogContent" rows="6" cols="45"></textarea>
+    </div>
+    <div class="dialog-footer">
+        <span class="active8" onclick="closefbE()">确认</span>
+    </div>
+</div>
+</html>
+<script type="text/javascript" src="./js/affiliateAssets.js"></script>

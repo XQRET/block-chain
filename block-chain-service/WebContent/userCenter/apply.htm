@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    #parse("/common/common.htm")
+  <body class="body-content">
+    <div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+    #set($lEmployeeId = $cdoLoginer.getStringValue("lEmployeeId"))
+    <input id="lEmployeeId" value="$!{lEmployeeId}" style="display: none"/>
+   	<!-- 认证提示 -->
+    #parse("/common/authtips.htm")
+    <div class="alltitle" style="display: none">
+        <p>我的应用</p>
+    </div>
+    <div class="allcenter">
+      <div class="allinfo">
+        <div class="F16">我的应用
+        <span class="operate-employee ma0 fr" onclick="showDialog('addApplyDialog')">添加应用</span>
+        </div>
+        <table class="all_table mt20 imgw30">
+        <thead>
+        <tr>
+        <td>应用名称</td>
+        <td>Appld</td>
+        <td>App私钥</td>
+        <td>类型</td>
+        <td>应用</td>
+        <td>服务属性</td>
+        <td>创建时间</td>
+        <td>审核结果</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>某某应用名称</td>
+        <td>894398sjlgjaigaanrg</td>
+        <td>8dhfa8f00weu9jd</td>
+        <td>租房合约</td>
+        <td><img src="../images/userCenter/logo.png"/></td>
+        <td>服务属性</td>
+        <td>2018-05-10 18:16</td>
+        <td class="true">审核成功</td>
+        </tr>
+        <tr>
+        <!-- 没有添加应用时显示这部分内容 -->
+        <!-- <td colspan="8">
+        <img class="pr5" src="../images/userCenter/icon_ts.png"/>若您需要使用接口服务，立刻
+         <a class="c1f" onclick="showDialog('addApplyDialog')">添加应用&gt;&gt;</a>
+        </td>  -->
+        <!-- 没有添加应用时显示这部分内容 -->
+        </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <!-- 添加应用遮罩层 -->
+  <div class="e_st_dialog" id="addApplyDialog">
+    <div class="dialog-header clearfix">
+      <span>添加应用</span>
+      <b class="close" onclick="closefbE()"></b>
+    </div>
+    <form class="layui-form">
+		<div class="add_apply">
+			<div class="add_group">
+				<label>名称：</label>
+				<input/>
+			</div>
+			<div class="layui-form-item">
+				<label>类型：</label>
+				<div class="layui-input-block">
+					<select name="city" lay-verify="required">
+						<option value="0">---</option>
+					</select>
+				</div>
+			</div>
+			<div class="add_group">
+				<label>标识logo：</label>
+				<div class="app_logo">
+				<!-- 当图片上传以后，这一段替换掉 -->
+                <div class="upload">
+				<img src="../images/userCenter/pic_jiah.png"/>
+				<p>点击上传</p>
+				</div>
+				<!-- 当图片上传以后，这一段替换掉 end -->
+				</div>
+			</div>
+			<div class="add_group add_service">
+				<label>属性：</label>
+				<span class="ser_check">测试</span>
+				<span>正式</span>
+			</div>
+		</div>
+	</form>
+    <div class="dialog-footer">
+      <span class="active8" id="">提交确认</span>
+    </div>
+  </div>
+</html>
+<script type="text/javascript" src="./js/apply.js"></script>
+<script type="text/javascript" >
+    $(function () {
+        var lEmployeeId = $("#lEmployeeId").val();
+        $.ajax({
+            type: "POST",
+            url: strRootPath + "/company/queryCertifiedInfo.do",
+            data: {"lEmployeeId":lEmployeeId},
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    if (data.resultCode == 0) {
+                        var status=data.resultDate.companyStatus;
+                        if(status!=0){
+                            $(".auth_tips").remove();
+                            $(".alltitle").css("display","block");
+                        }
+                    }
+                }
+            }
+        });
+    })
+
+</script>

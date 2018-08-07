@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Eclipse" />
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="block-chain-common" />
+        <module name="block-chain-dao" />
+        <module name="block-chain-purse" />
+        <module name="block-chain-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="block-chain" target="1.7" />
+      <module name="block-chain-common" target="1.7" />
+      <module name="block-chain-dao" target="1.7" />
+      <module name="block-chain-purse" target="1.7" />
+      <module name="block-chain-service" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

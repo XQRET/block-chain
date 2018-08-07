@@ -1,0 +1,117 @@
+##请求数据
+##Controller  - Method
+#set($cdoResponse = $userBasicInfoController.queryCompany($request))
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    #parse("/common/common.htm")
+
+<body class="body-content">
+<div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+#set($lEmployeeId = $cdoLoginer.getStringValue("lEmployeeId"))
+<input id="lEmployeeId" value="$!{lEmployeeId}" style="display: none"/>
+<!-- 认证提示 -->
+#parse("/common/authtips.htm")
+<div class="allcenter">
+    <div class="allinfo">
+        <div class="F16">基本信息</div>
+        <div class="basic_info" style="display: none;">
+            <!--参数cdo名称-->
+            #if($!cdoResponse.exists("cdoCompany"))
+            #set($cdoBasicInfo = $cdoResponse.getCDOValue("cdoCompany"))
+            #end
+            <p>
+                #if($!cdoBasicInfo.exists("id"))
+                <label>公司ID：</label>
+                <span> $!cdoBasicInfo.getStringValue("id")</span>
+                #else
+                <label>用户ID：</label>
+                <span>$cdoLoginer.getStringValue("lEmployeeId")</span>
+                #end
+            </p>
+            <p>
+                <label>手机号码：</label>
+                #set($strMobile = $cdoLoginer.getStringValue("strMobile"))
+                <input id="strMobile" value="$!{strMobile}" style="display: none"/>
+                <span>
+            $strMobile
+            </span></p>
+            <p>
+                <label>邮箱：</label>
+                <span>
+                    #if($!cdoBasicInfo.exists("companyEmail"))
+                    $!cdoBasicInfo.getStringValue("companyEmail")
+                    #end
+            </span></p>
+            <p>
+                <label>区块链地址：</label>
+                <span>
+                 #if($!cdoBasicInfo.exists("companyBlockId"))
+                $!cdoBasicInfo.getStringValue("companyBlockId")
+              #end
+              </span></p>
+            <!--update By zhangmingyang 需求暂时隐藏'节点地址'-->
+            <!--<p>-->
+                <!--<label>节点地址：</label>-->
+                <!--<span>-->
+                 <!--#if($!cdoBasicInfo.exists("nodeId"))-->
+                <!--$!cdoBasicInfo.getStringValue("nodeId")-->
+              <!--#end-->
+              <!--</span></p>-->
+            <p>
+                <label>查看私钥：</label>
+                <span>*********</span>
+                <span class="operate-employee ml30" onclick="onShowKey()">查看</span></p>
+            <p>
+                <label>注册时间：</label>
+                <span>
+                 #if($!cdoBasicInfo.exists("createTime"))
+                $!cdoBasicInfo.getStringValue("createTime")
+              #end
+              </span></p>
+        </div>
+    </div>
+</div>
+</body>
+<!-- 查看私钥遮罩层 -->
+<div class="e_st_dialog" id="prKeyDialog">
+    <div class="dialog-header clearfix">
+        <span>查看私钥</span>
+        <b class="close" onclick="closefbE()"></b>
+    </div>
+    <form>
+        <div class="see_prkay">
+            <input name="" id="idPasswd" placeholder="" type="password">
+        </div>
+    </form>
+    <div class="dialog-footer">
+        <span class="active8" onclick="idComfirm()">确认</span>
+    </div>
+</div>
+
+<!-- 显示私钥遮罩层 -->
+<div class="e_st_dialog" id="showPrKeyDialog">
+    <div class="dialog-header clearfix">
+        <span>私钥</span>
+        <b class="close" onclick="closefbE()"></b>
+    </div>
+    <form>
+        <div class="see_prkay">
+            #if($!cdoBasicInfo.exists("companyPrivateKey"))
+            #set($privateKey = $!cdoBasicInfo.getStringValue("companyPrivateKey"))
+            #end
+            <textarea rows="6" cols="45">$!{privateKey}</textarea>
+            <p>提示：请妥善保管您的私钥信息,切勿泄露,以防他人盗取您的资产！</p>
+        </div>
+    </form>
+    <div class="dialog-footer">
+        <span class="active8" onclick="closefbE()">确认</span>
+    </div>
+</div>
+</html>
+<script type="text/javascript" src="./js/basicInfo.js"></script>
+

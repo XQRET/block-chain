@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+	#parse("/common/common.htm")
+</head>
+
+<body class="body-content">
+	<!-- 当前位置开始 -->
+	<div class="alltitle">
+    <p>应用审核</p>
+	</div>
+	<!-- 当前位置结束 -->
+
+  <div class="Listzk">
+  <div class="loan_wallet searchInput">
+      <form id="" class="layui-form">
+        <div class="loan_form">
+          <div class="clearfix">
+            <span class="layui-inline">
+              <label class="layui-form-label">机构类型：</label>
+              <div class="layui-input-inline">
+                <select name="orderBy" lay-verify="required">
+                  <option value="1">---</option>
+                  <option value="2">资产端</option>
+                  <option value="3">资金端</option>
+                  <option value="4">背书端</option></select>
+              </div>
+            </span>
+            <span class="layui-inline">
+              <label class="layui-form-label">状态：</label>
+              <div class="layui-input-inline">
+                <select name="operateUser" lay-verify="required">
+                  <option value="1">---</option>
+                  <option value="2">待审核</option>
+                  <option value="3">审核通过</option>
+                  <option value="4">审核未通过</option>
+                  </select>
+              </div>
+            </span>
+            <div class="seach_btn newseach_btn FL ml80">查 找</div>
+            </div>
+        </div>	
+      </form>
+    </div>
+    <div class="loan_list">
+      <table class="loan_talbe newlt w tc into_pieces">
+        <thead>
+          <tr class="taHead">
+            <td>序号</td>
+            <td>机构名称</td>
+            <td>应用名称</td>
+            <td>应用类型</td>
+            <td>提交时间</td>
+            <td>状态</td>
+          </tr>
+        </thead>
+        <tbody id="checkApplys">
+        <tr>
+            <td>1</td>
+            <td>XXXXX公司</td>
+            <td>i租生活</td>
+            <td>租房合约</td>
+            <td>2018-03-01 11:08:47</td>
+            <td class="true">审核通过</td>
+          </tr>
+          <tr>
+          <td>2</td>
+            <td>XXXXX公司</td>
+            <td>壹贰卡宝</td>
+            <td>租房合约</td>
+            <td>2018-03-01 11:08:47</td>
+          <td><a onclick="window.location.href='applyAudit.htm'" class="bluebtn">待审核</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- 分页组件 -->
+      #set ($nRecordCount = $roleResponse.getIntegerValue("nRecordCount")) 
+      #set ($nPageCount = $roleResponse.getIntegerValue("nPageCount")) 
+      #parse("/common/pagecontrol.htm")
+      </div>
+     </div>
+</body>
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>

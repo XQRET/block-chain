@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.inbs.blockchain.dao.contract.ContractFileUrlMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.po.ContractFileUrl">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="contractId" jdbcType="VARCHAR" property="contractId"/>
+        <result column="fileMode" jdbcType="VARCHAR" property="fileMode"/>
+        <result column="fileType" jdbcType="VARCHAR" property="fileType"/>
+        <result column="fileUrl" jdbcType="VARCHAR" property="fileUrl"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        contractId,
+        fileMode,
+        fileType,
+        fileUrl,
+        createTime,
+        updateTime
+    </sql>
+
+    <insert id="insertSelective" parameterType="cn.inbs.blockchain.dao.po.ContractFileUrl">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_contract_file_url
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">
+                contractId,
+            </if>
+            <if test="fileMode != null">
+                fileMode,
+            </if>
+            <if test="fileType != null">
+                fileType,
+            </if>
+            <if test="fileUrl != null">
+                fileUrl,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">
+                #{contractId,jdbcType=VARCHAR},
+            </if>
+            <if test="fileMode != null">
+                #{fileMode,jdbcType=VARCHAR},
+            </if>
+            <if test="fileType != null">
+                #{fileType,jdbcType=VARCHAR},
+            </if>
+            <if test="fileUrl != null">
+                #{fileUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据索引字段查询合约信息-->
+    <select id="selectContractFileUrlList" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.po.ContractFileUrl">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_contract_file_url
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="contractId != null">
+            AND contractId = #{contractId,jdbcType=VARCHAR}
+        </if>
+        <if test="fileMode != null">
+            AND fileMode = #{fileMode,jdbcType=VARCHAR}
+        </if>
+        <if test="fileType != null">
+            AND fileType = #{fileType,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>

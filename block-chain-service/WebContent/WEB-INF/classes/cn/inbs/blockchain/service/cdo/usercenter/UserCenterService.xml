@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="http://www.cdoframework.com/xsd/DataService.xsd">
+
+    <!--查询用户基本信息-->
+    <SQLTrans TransName="userCenter" TransFlag="0" DataGroupId="writeCompany">
+        <SelectRecord OutputId="{cdoCompany}">
+            <OutputSQL>
+                SELECT
+                tc.id,tc.employeeId,tc.companyLinkmanPhone,te.strSalt,te.strPassword,tc.companyEmail,tc.companyBlockId,tc.nodeId,tc.companyPrivateKey,tc.createTime
+                FROM t_company tc
+                LEFT JOIN tb_employee te ON tc.employeeId=te.lId
+                WHERE te.strMobile={strMobile}
+            </OutputSQL>
+        </SelectRecord>
+        <OnException>
+            <Return Info="UserCenterService.queryCompany.Error" Code="-1" Text="数据库错误"/>
+        </OnException>
+        <Return Code="0" Info="UserCenterService.queryCompany.OK" Text="查询用户基本信息成功">
+            <ReturnItem FieldId="{cdoCompany}" ValueId="{cdoCompany}"/>
+        </Return>
+    </SQLTrans>
+
+</DataService>

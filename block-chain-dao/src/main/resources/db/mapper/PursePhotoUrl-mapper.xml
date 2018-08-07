@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.inbs.blockchain.dao.purse.photo.PursePhotoUrlMapper">
+    <resultMap id="BaseResultMap" type="cn.inbs.blockchain.dao.purse.po.PursePhotoUrl">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="purseUserId" property="purseUserId" jdbcType="BIGINT"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="orderCode" property="orderCode" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        purseUserId,
+        type,
+        url,
+        orderCode,
+        createTime,
+        updateTime
+    </sql>
+
+    <insert id="insertPursePhotoUrl" parameterType="cn.inbs.blockchain.dao.purse.po.PursePhotoUrl">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into purse_photo_url
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="purseUserId != null">
+                purseUserId,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="orderCode != null">
+                orderCode,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="purseUserId != null">
+                #{purseUserId,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="orderCode != null">
+                #{orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectPursePhotoUrlByIndex" resultMap="BaseResultMap"
+            parameterType="cn.inbs.blockchain.dao.purse.po.PursePhotoUrl">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        purse_photo_url
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="purseUserId != null">
+            AND purseUserId = #{purseUserId,jdbcType=VARCHAR}
+        </if>
+        <if test="type != null">
+            AND type = #{type,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+
+</mapper>

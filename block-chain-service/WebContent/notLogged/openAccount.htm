@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <link rel="shortcut icon" href="../images/bitbug_favicon.ico" />
+  <title>购买示范</title>
+  <link href="all.css" rel="stylesheet" type="text/css" />
+  #parse("/common/common.htm")
+  </head>
+
+
+<body>
+<!-- 头部导航栏 -->
+<div class="header clearfix"></div>
+<!-- 中间部分 -->
+<div class="index_center open_center">
+<div class="fullwidthbanner-container">
+		<div class="fullwidthbanner">
+			<ul>
+				<li data-transition="3dcurtain-horizontal" data-slotamount="15" data-masterspeed="300">
+					<img src="../images/notlogged/open_banner.png"/>	
+					<div class="banner_txt sft">
+				 	<p class="F58">线下申请购买示范</p>
+				    </div>								
+				</li>
+			</ul>
+		</div>
+	</div>
+ <div class="index_slogan t_c">
+      <h1>香港开户流程</h1>
+      <p>HK procedure</p>
+ </div>
+<div class="open_bank">
+<div class="open_flow">
+<ul>
+<li>
+<div><img src="../images/notlogged/open_account_icon1.png"/></div>
+<p>开户资料提交</p>
+</li>
+<b></b>
+<li>
+<div><img src="../images/notlogged/open_bank_icon2.png"/></div>
+<p>银行审核资料</p>
+</li>
+<b></b>
+<li>
+<div><img src="../images/notlogged/open_appoin_icon3.png"/></div>
+<p>预约开户时间</p>
+</li>
+<b></b>
+<li>
+<div><img src="../images/notlogged/open_interview_icon4.png"/></div>
+<p>赴香港开户</p>
+</li>
+<b></b>
+<li>
+<div><img src="../images/notlogged/open_card_icon5.png"/></div>
+<p>银行账户开通</p>
+</li>
+</ul>
+</div>
+<p class="F16 c18">请选择开户需要的开户银行</p>
+<div class="bank_icon clearfix">
+<ul>
+<li class="bankcheck">
+<img src="../images/notlogged/hfbc_logo_sc1.png"/>
+<em></em>
+</li>
+<li>
+<img src="../images/notlogged/hsbc_logo_sc2.png"/>
+<em></em>
+</li>
+<li>
+<img src="../images/notlogged/zdbc_logo_sc3.png"/>
+<em></em>
+</li>
+<li>
+<img src="../images/notlogged/zgbc_logo_sc4.png"/>
+<em></em>
+</li>
+<li>
+<img src="../images/notlogged/zsbc_logo_sc5.png"/>
+<em></em>
+</li>
+</ul>
+</div>
+ <div class="layui-carousel" id="open_flow" lay-filter="open_flow">
+  <div carousel-item>
+    <div><img src="../images/notlogged/hfbc_img1.png"/></div>
+    <div><img src="../images/notlogged/hsbc_img2.png"/></div>
+    <div><img src="../images/notlogged/zdbc_img3.png"/></div>
+    <div><img src="../images/notlogged/zgbc_img4.png"/></div>
+    <div><img src="../images/notlogged/zsbc_img5.png"/></div>
+  </div>
+</div>
+<a class="buypro_btn bg5fa" href="https://www.hsbc.com.hk/ways-to-bank/internet/" target="_blank">立即开户</a>
+</div>
+</div>
+<!-- 底部导航栏 -->
+<div class="footer"></div>
+</body>
+</html>
+<script type="text/javascript" src="./js/common.js"></script>
+<script>
+layui.use('carousel', function(){
+  var carousel = layui.carousel;
+  var allindex=0;
+  //建造实例
+  carousel.render({
+    elem: '#open_flow'
+    ,width: '100%' //设置容器宽度
+    ,arrow: 'none' //始终显示箭头
+    ,autoplay: false
+    ,indicator: 'none'
+  });
+  $(".bank_icon li").on('click',function(){
+	  $(this).addClass("bankcheck").siblings("li").removeClass("bankcheck");
+	  $(".layui-carousel div div").eq($(this).index()).addClass("layui-this").siblings("div").removeClass("layui-this");
+	//银行链接切换
+		var banklink=new Array("https://www.hsbc.com.hk/ways-to-bank/internet/","https://bank.hangseng.com/1/2/home","https://www.sc.com/hk/","https://www.bochk.com/en/home.html","http://hk.cmbchina.com/");
+		$(".buypro_btn").attr("href",banklink[$(this).index()]);
+  });
+  /*  //监听轮播切换事件
+	carousel.on('change(open_flow)', function(obj){ //open_flow来源于对应HTML容器的 lay-filter="open_flow" 属性值
+	//银行图标的选中样式
+	$(".bank_icon li").eq(obj.index).addClass("bankcheck").siblings("li").removeClass("bankcheck");
+	}); */
+	});
+	
+     
+</script>

@@ -1,0 +1,72 @@
+<div id="roleDialog_shade" class="e_st_fullbg" style="width: 100%; height: 100%; display: none;"></div>
+
+<div id="roleDialog" style="display:none;">
+	<!-- <table id="allRoleTable" class="grid-roleTable" border="0"
+		cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="td-topTable">
+				<div style="overflow: auto; height:336px;">
+					<table id="leftTable" class="grid-smallTable" border="0" cellpadding="0" cellspacing="0" >
+						<tr>
+							<td id="1l" class="lb-move">当前可选角色</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+			<td class="td-moveTable" border="0">
+				<table class="grid-buttonTable"  border="0">
+					<tr class="tr-buttonTable" >
+						<td class="td-moveButtonTable"><a href="#" id="rightButton">右移</a></td>
+					</tr>
+					<tr class="tr-buttonTable">
+						<td class="td-moveButtonTable"><a href="#" id="leftButton">左移</a></td>
+					</tr>
+				</table>
+			</td>
+			<td class="td-topTable">
+				<div style="overflow: auto; height:336px;">
+					<table id="rightTable" class="grid-smallTable" border="0" cellspacing="0" cellpadding="0">
+						<tr >
+							<td id="1r" class="lb-move">当前已选角色</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table> -->
+
+	<div id="roleDialog" >
+			<div class="dialog-header clearfix">
+				<span>设定角色</span>
+				<b class="close" onclick="_role.cancel()"></b>
+			</div>
+			<div class="dialog-content clearfix" id="role_main_id">
+				<div class="dialog-content-l fl">
+					<div class="title">可选角色</div>
+					<ul class="role-list" id="leftData_id">
+						<!--
+						<li class="clearfix">系统角色 <span></span></li>
+						<li class="clearfix active">系统角色 <span></span></li>
+						 -->
+					</ul>
+				</div>
+				<div class="dialog-content-m fl">
+					<button class="enter" onclick="_role.rightMove()"></button>
+					<button class="out" onclick="_role.leftMove()"></button>
+				</div>
+				<div class="dialog-content-r fr">
+					<div class="title">已选角色</div>
+					<ul class="role-list" id="rightData_id">
+						<!--
+						<li class="clearfix">系统角色 <span></span></li>
+						 -->
+					</ul>
+				</div>
+			</div>
+			<div class="dialog-footer">
+				<button class="save" id="setrole_save_id" onclick="_role.save()">保存</button>
+				<button class="cancel" id="setrole_cancel_id" onclick="_role.cancel()">取消</button>
+			</div>
+		</div>
+</div>
+<script type="text/javascript" src="./js/role.js"></script>

@@ -1,0 +1,9 @@
+body {font-size:9pt;}
+.grid-title {width:60px;background-color:#E0EDFE;white-space:nowrap;height:30px;font-weight:bold;text-align:center;border-right:1px solid silver;border-top:1px solid silver;}
+.grid-line {background-color:transparent;font-weight:normal;padding-left:5px;padding-right:5px;}
+.grid-no {border-top:0px solid silver;}
+.last-right {border-right:0px solid silver;}
+.grid-table {border:1px solid silver;}
+.select-row {background-color:#33CCFF;}
+.on-row {background-color:#CCFFFF;}
+.leave-row {background-color:transparent;}

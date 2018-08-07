@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
+	<META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	#parse("/common/common.htm")
+</head>
+
+<body class="body-content">
+	<!-- 当前位置开始 -->
+    <div class="alltitle">
+    <p>添加角色</p>
+	</div>
+    <!-- 当前位置结束 -->
+
+  <div class="Listzk">
+	
+	#set($permission=${roleController.getPermissionJSON()})
+   <div style="margin:20px 0 0 8px;width:580px">
+	<table width="580" class="add-role"  border="0" cellspacing="0" cellpadding="0" style="margin-top:10px; margin-bottom:10px;">
+	  <tr height="10%">
+	    <td height="32" align="center" width="20%" class="table-title">角色名称：</td>
+	    <td height="35"><input id="roleName" name="roleName" type="text" vtype="string" maxlength="15" class="brk-input" vname="角色名称" vminlength="2" vmaxlength="20" onblur="checkRegisterInfo(0)"/></td>
+	  </tr>
+	  <tr height="10%">
+	    <td height="32" align="center" width="20%" class="table-title">角色编码：</td>
+	    <td height="35"><input id="roleCode" name="roleCode" type="text" vtype="string" maxlength="15" class="brk-input" vname="角色编码" vminlength="2" vmaxlength="20" onblur="checkRegisterInfo(1)"/></td>
+	  </tr>
+	  <tr height="200" valign="top" >
+	    <td  align="center" width="20%" class="table-title">角色权限：</td>
+	    <td>
+			<script>
+				var mjsonData = $permission;
+				mjsonData = mjsonData.cdosItemList;
+				var mtree = new MultiChoiceTree("idMultiChoiceTree",mjsonData,null);
+				mtree.setVarName("strId","strName","cdosItemList");
+				mtree.setIconPath(strRootPath+"\/cdojs/Icon\/");
+				mtree.show(false,400,0,false,false);
+			</script>
+	    </td>
+	  </tr>
+	</table>
+	</div>
+
+	<table width="236" align="center" height="50">
+		<tr>
+			<td>
+				<div style="margin:3px 20px 3px 240px;" class="seach_btn newseach_btn FL"  onclick="addRole();">确 定</div>
+				<div class="seach_btn newseach_btn yellow-bg FL" onclick="location.replace('list.htm')"/>返回</div>
+			</td>
+		</tr>
+	</table>
+
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="add.js" ></script>

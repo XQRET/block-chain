@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  <head>
+    <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <META name="GENERATOR" content="MSHTML 11.00.9600.17344">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    #parse("/common/common.htm")
+    
+    <body class="body-content">
+      <div id="e_st_fullbg" class="e_st_fullbg" onclick="closefbE()"></div>
+      <div class="alltitle">
+        <p>合约导入</p>
+      </div>
+      <form class="layui-form con-down" id="form" method="post">#set($lEmployeeId = $cdoLoginer.getStringValue("lEmployeeId"))
+        <input id="employeeId" name="employeeId" value="$!{lEmployeeId}" style="display: none" />
+        <div class="allcenter">
+          <div class="allinfo">
+            <div class="F16">导入说明--excel列与数据字段对应说明：
+              <div class="layui-btn operate-employee fr pm0" onclick="downloadTemplate()">下载模板</div>
+              <div class="layui-btn operate-employee fr p0" id="upload">导入数据</div></div>
+            <table class="all_table mt20 inputw">
+              <thead id="contentThead"></thead>
+              <tbody id="contentBody"></tbody>
+            </table>
+            <div class="F16 mt30">底层数据关联说明 --下表为导入未关联底层数据的合约：</div>
+            <div class="loan_wallet searchInput" style="box-shadow:none;">
+              <div class="loan_form">
+                <div class="overauto">
+                  <span>导入唯一标示：
+                    <input type="text" placeholder="" id="importUniqueSignSearch" value=""></span>
+                  <div class="seach_btn newseach_btn ml117  FL" onclick="getRelationContract()">查 找</div>
+            </div>
+            <table class="all_table mt20 inputw mb1d5">
+              <thead>
+                <tr>
+                  <td>导入唯一标示</td>
+                  <td>姓名</td>
+                  <td>房产证编号</td>
+                  <td>借款金额</td>
+                  <td>借款利率</td>
+                  <td>借款期限</td>
+                  <td>登记日期</td>
+                  <td>操作</td></tr>
+              </thead>
+              <tbody id="contractContentBody"></tbody>
+            </table>
+            <div id="pageTool" style="text-align:center"></div>
+          </div>
+        </div>
+    </body>
+    <form id="form" method="post"></form>
+    <!-- 导入文件遮罩层 -->
+    <div class="e_st_dialog" id="importDialog">
+      <div class="dialog-header clearfix">
+        <span>底层数据关联</span>
+        <b class="close" onclick="closefbE()"></b>
+      </div>
+      <form class="layui-form">
+        <div class="add_apply relation_upload">
+          <div class="add_group">
+            <label>姓名：</label><span id="relationContractSigner"></span>
+          </div>
+          <div class="add_group">
+            <label>登记时间：</label><span id="relationRegistDate"></span>
+            <input type='hidden' id="relationContractId" />
+            <input type='hidden' id="relationHouseCode" />
+          </div>
+          <div class="add_group">
+            <label>关联文件：</label>
+            <a class="remind" onclick="selectFolder()">选择文件</a>
+            <input id="fileFolder" type='file' webkitdirectory style="display:none;" onchange="showSelectFolder()"/>
+          </div>
+        </div>
+      </form>
+      <div class="dialog-footer">
+        <span class="active8" onclick="uploadFolder()">导入文件</span></div>
+    </div>
+    <!-- 图片查看大图 -->
+    <div class="mask"></div>
+    <div class="big-img">
+      <img src="" /></div>
+
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="./js/contractImport.js"></script>

@@ -1,0 +1,152 @@
+html {min-height:100%;height:100%;}
+body {font-size:14px;background:#f0f2f5;font-family:"微软雅黑";width:100%;position:relative;height:100%;color:#333;}
+.pb20 {padding-bottom:20px;}
+.pt15 {padding-top:15px;}
+.colorb4 {color:#b4b4b4;}
+.bbc8 {border-bottom:1px dashed #c8c8c8;}
+  /* updatepwd.html---start */
+.updatepwd_center {padding-top:60px;background:#fff;box-shadow:3px 3px 4px #e7e8f3;}
+.updatepwd_center p ,.uppwd_btn{overflow:hidden;width:70%;margin:0 auto;padding-bottom:30px;color:#5f6b84;}
+.updatepwd_center input[type='password'] {width:283px;height:38px;line-height:42px;padding-left:14px;border:2px solid #e7ecf1;border-radius:4px;margin-right:10px;}
+.updatepwd_center label {padding-right:10px;display:block;line-height:42px;float:left;text-align:right;width:160px;}
+.uppwd_btn {width:433px;padding-top:10px;}
+.sure_btn,.cancel_btn {width:140px;height:42px;border-radius:4px;font-size:16px;border:none;color:#fff;cursor:pointer;text-align: center;line-height: 42px;}
+.sure_btn:active,.cancel_btn:active,.audit_btn span:active,.addpro_btn:active{opacity:0.6;}
+.sure_btn {background:#5fa1f7;}
+.cancel_btn {background:#d3d7e3;}
+.ml18 {margin-left:18px;}
+/* updatepwd.html---end */
+
+    
+div {margin:0px;padding:0px;}
+td {text-align:left;}
+table {width:100%;border-width:thin;border-style:solid;padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;border-collapse:collapse;border:none}
+.clearfix:after {content:" ";display:block;clear:both;height:0;}
+.fr {float:right !important;}
+.fl {float:left;}
+.ListTable {border:1px solid #B1CDE3;padding:0;margin:0 auto;border-collapse:collapse;}
+.ListTable td {border:1px solid #B1CDE3;background:#fff;font-size:12px;padding:3px 3px 3px 8px;color:#4f6b72;}
+.loan_pw_teb {width:70%;height:28px;}
+.loan_pw_teb label.irt_check {color:#1486c6;}
+.loan_pw_teb label {cursor:pointer;color:#666;}
+.left33 {left:33px !important;}
+.loan_pw_teb img {position:absolute;top:78px;/* display:none;*/left:96px;}
+.loan_pw_teb img.irt_check {display:block !important;}
+.index_right_title {font-size:20px;color:#1486c6;border-bottom:2px solid #1486c6;padding:40px 0 10px 0;margin-bottom:20px;position:relative;}
+.loan_pw_teb img {position:absolute;top:78px;z-index:2;left:96px;}
+.left33 {left:33px !important;}
+.yellow-bg {background:#ffab17 !important;}
+/*搜索框*/
+.searchInput {padding:30px 0;margin-top:20px;text-align:center;background:#fff;border-radius:8px;box-shadow:3px 3px 4px #e7e8f3;width:99%;margin:0 auto;margin-top:2%;}
+.searchInput span {color:#4e5963;font-weight:bold;}
+.searchInput span input,.searchInput span select {font-weight:normal;color:#4b4b4b;width:190px;resize:none;border-radius:5px;padding-left:10px;line-height:36px;height:36px;border:2px solid #e6ecef;box-sizing:border-box;}
+.searchInput span input::-webkit-input-placeholder {color:#666;font-size:14px;}
+.searchInput span.seach_btn {color:white;}
+.newseach_btn {margin:3px auto;padding-left:0 !important;}
+.seach_btn {background:#62a5f8;border-color:#62a5f8;width:96px;height:30px;line-height:30px;color:#fff;text-align:center;border-radius:8px;cursor:pointer;border:0px solid white;-moz-user-select: none;-khtml-user-select: none;user-select: none;}
+.seach_btn:active {opacity:0.8;background:#62a5f8;}
+/*列表样式*/
+.loan_list {margin-top:20px;}
+.newloan_nav {height:42px;border-bottom:2px solid #1486c6;}
+.newloan_nav li {height:42px;padding:0 20px;line-height:42px;float:left;font-size:16px;cursor:pointer;position:relative;}
+.newCheck {background-color:#1486c6;color:#fff;}
+.tc {text-align:center;}
+.w {width:100%;}
+.tc {text-align:center;}
+.pl15 {padding-left:15px !important;}
+.wb33 {width:33%;}
+.w40 {width:40px;}
+.w110 {width:110px;}
+.w90 {width:90px;}
+.loan_talbe td,.record_tb td {word-break:break-all;}
+.loan_talbe thead td {word-break: keep-all;padding:0 5px;line-height:20px;height:60px;font-size:14px;text-align:center;}
+.loan_talbe tbody td {padding:0 2px;height:57px;line-height:20px;font-size:14px;text-align:center;}
+.loan_talbe tbody tr {border-bottom:1px solid #e7ecf1;}
+.loan_talbe tbody tr:hover {background-color:#f3f4f5;}
+.loan_talbe img {vertical-align:middle;}
+table {border-collapse:collapse;border-spacing:0;}
+.taHead {color:#4e5963;font-weight:bold;border-bottom:2px solid #e7ecf1;z-index:1;}
+.bluebtn,.orangebtn {display:inline-block;border: none;background-color:#62a5f8;padding:0 10px;height:25px;line-height:25px;color:#fff;border-radius:4px;text-align:center;cursor:pointer;}
+.orangebtn{background-color:#FFC801;}
+.bluebtn:hover,.orangebtn:hover {color:white;}
+.remind:hover,.the_blue:hover,.the_false:hover,.the_true:hover,.the_certificate:hover,.black_list:hover {color:#fff !important;}
+.remind,.the_false,.the_true,.the_blue,.the_certificate {padding:2px 10px;background-color:#FFC801;color:#fff;border-radius:5px;border:0;cursor:pointer;width:auto !important;display:inline-block;}
+.the_true {background-color: #21caae;}
+.the_false {background: #fe5a4c;}
+.the_blue{background:#62a5f8;}
+.loan_form span {padding:0 0 10px 18px;float:left;}
+.operate-employee {display:inline-block;background-color:#62a5f8;margin-right:15px;color:#fff;border-radius:4px;text-align:center;cursor:pointer;min-width:90px;padding: 0 10px;height:30px;line-height:30px;font-size:14px;-moz-user-select: none;-khtml-user-select: none;user-select: none;}
+.operate-employee:hover {color:white;}
+.e_st_dialog {background-color:#fff;left:50%;margin-left:-265px;padding:1px;position:fixed;box-shadow:4px 4px 8px #5b5b5b;width:530px;z-index:5;display:none;top:30%;margin-top:-165px;}
+.e_st_dialog img {margin:14px 15px;}
+.e_st_dialog p.close {width:50px;height:50px;float:right;text-align:right;}
+.e_st_dialog p {margin:0 0 12px;height:24px;line-height:24px;background:#ffffff;}
+.record_top {font-size:24px;color:#333;margin:40px 0 !important;text-align:center;}
+.money {width:370px;margin:0 auto;}
+.m-group {margin-bottom:29px;position:relative;}
+.m-group .operation,.m-group select,.m-group input {width:240px;float:right;display:inline-block;height:32px;line-height:32px;}
+.m-group select,.m-group input {border:1px solid #d2d2d2;padding-left:10px;}
+.m-group .operation,.m-group select,.m-group input {width:240px;float:right;display:inline-block;height:32px;line-height:32px;}
+.m-group select {width:252px;}
+.dialog-footer {background:#ececee !important;width:100%;height:80px;text-align:center;}
+.dialog-footer a,.dialog-footer span {width:160px;height:40px;line-height:40px;display:inline-block;background-color:#279df5;color:white;border-radius:5px;margin-top:20px;cursor:pointer;}
+
+/* layui样式重新定义 */
+.layui-laypage-count {background-color:transparent !important;}
+.layui-laypage-skip {background-color:transparent !important;}
+.layui-form-label{text-align: right !important;}
+/*修改表单和表格样式*/
+.loan_talbe {width:99%;margin:0 auto;}
+/*添加角色样式 开始*/
+.table-title {text-align:right;width:115px;float:left;padding:7px 10px 0 0;display:block;color:#666;margin-bottom:15px;}
+table.add-role tr {}
+table.add-role input {width:258px;height:34px;line-height:34px;background:#fff;border:1px solid #c8c8c8;margin-bottom:15px;padding:0px 7px;}
+.ManagerForm table tr td,#idMultiChoiceTree table tr td {font-size:14px;color:#333;font-family:"微软雅黑";}
+.ManagerForm table tr td nobr,#idMultiChoiceTree table tr td nobr {width: 200px;display: inline-block;margin-left:5px;color:#333;}
+/*添加角色样式结束 开始*/
+
+/*角色设置弹出框效果开始*/
+#roleDialog {width:620px;background-color:#fff;left:50%;margin-left:-310px;padding:1px;position:fixed;top:50%;margin-top:-255px;z-index:5;}
+.dialog-header {height:42px;padding:0 15px;border-bottom:1px solid #e7ecf0;/*line-height:42px;*/background:#f8f8f8;border-top-left-radius:4px;border-top-right-radius:4px;font-size:14px;}
+.dialog-header span {color:#424e68;font-weight:bold;display:inline-block;height:42px;line-height:42px;float:left;}
+.dialog-header .close {display:inline-block;float:right;width:12px;height:14px;background:url(../images/close.png) no-repeat;margin-top:14px;cursor:pointer;}
+.dialog-content {width:544px;padding:40px 38px;background:white;}
+#roleDialog .dialog-content-l,.dialog-content-r {width:180px;height:260px;overflow-y:auto;overflow-x:hidden;border:2px solid #e7ecf0;padding:20px 15px;}
+#roleDialog .dialog-content-l .title,.dialog-content-r .title {font-weight:bold;font-size:16px;color:#3e8aff;}
+#roleDialog ul.role-list li {margin:10px 0;width:160px;height:36px;line-height:36px;text-align:left;border:1px solid #e7ecf0;border-radius:4px;color:#434d66;font-size:14px;padding:0 10px;cursor:pointer;}
+#roleDialog ul.role-list li span {display:inline-block;height:10px;width:10px;border:1px solid #e7ecf0;float:right;margin-top:12px;background:#e8ebf0;}
+#roleDialog ul.role-list li.active {color:#3b8dfd;}
+#roleDialog ul.role-list li.active span {border:1px solid #5d9fff;background:#8bbcfe;}
+#roleDialog .dialog-footer {text-align:center;background:white;border-bottom-left-radius:4px;border-bottom-right-radius:4px;padding-bottom:40px;background:white !important;height:auto;}
+#roleDialog .dialog-footer .save,#roleDialog .dialog-footer .cancel {color:white;width:140px;height:40px;line-height:40px;border-radius:4px;text-align:center;border:none;cursor:pointer;}
+#roleDialog .dialog-footer .save {background:#5fa1f7;margin-left:20px;}
+#roleDialog .dialog-footer .cancel {background:#d3d7e3;}
+#roleDialog .dialog-content-m {margin:114px 0;text-align:center;}
+#roleDialog .dialog-content-m button {border:none;width:71px;height:33px;display:block;margin:0 22px;cursor:pointer;}
+#roleDialog .dialog-content-m button.enter {background:url(../images/enter.png) no-repeat;background-size:100%;display:block;}
+#roleDialog .dialog-content-m button.out {background:url(../images/out.png) no-repeat;background-size:100%;margin-top:10px;}
+/*角色设置弹出框效果结束*/
+
+/*遮罩层开始*/
+#st_fullbg,.e_st_fullbg {background-color:black;left:0;opacity:0.3;position:fixed;top:0;z-index:3;}
+/*遮罩层结束*/
+.into_pieces {background:#fff;border-radius:4px;box-shadow:3px 3px 4px #e7e8f3;width:99%;margin:0 auto;}
+/*layerui单选框样式开始*/
+.layui-input-block {margin-left:30px !important;min-height:36px;}
+.layui-form-radio>i:hover,.layui-form-radioed>i {color:#62a5f8;}
+/*layerui单选框样式结束*/
+.layui-laypage a.active {color:white;background-color:#62a5f8;border:1px solid #62a5f8;}
+.layui-laypage-em{background-color: #62a5f8 !important;}
+/* 角色详情样式 */
+.back_btn{margin-bottom:30px;width:580px;text-align:center;}
+/* 产品列表添加产品样式 */
+.addpro{margin:30px 0 0 110px;}
+.addpro input:focus{border-color: #C9C9C9 !important;}
+.addpro .layui-inline{width:100%;margin-bottom:20px;}
+.addpro .layui-inline span{margin-left:10px;color: #4492ff;}
+.addpro .layui-input-inline em{position: absolute;right: 15px;top: 10px;color: #4492ff;}
+.addpro .layui-form-label{padding:9px 25px;width: 85px;}
+.addpro input{border:1px solid #e7ecf1;box-sizing: border-box;padding-left: 10px;}
+.addpro .layui-form-select,.addpro input,.addpro_btn{width:300px;height:42px;line-height:42px;border-radius:5px;}
+.addpro_btn{text-align:center;color:#fff;background-color:#4492ff;cursor:pointer;margin-top:10px;}
+.addsale_logo{width:195px;height:145px;float:left;border-radius:5px;cursor:pointer;}

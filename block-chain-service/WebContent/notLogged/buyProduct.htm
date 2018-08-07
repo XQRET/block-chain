@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <link rel="shortcut icon" href="../images/bitbug_favicon.ico" />
+  <title>申请投资购买</title>
+  <link href="all.css" rel="stylesheet" type="text/css" />
+  #parse("/common/common.htm")
+  </head>
+
+
+<body>
+  <!-- 头部导航栏 -->
+  <div class="header clearfix"></div>
+  <!-- 中间部分 -->
+  <div class="index_center buypro_center">
+  <div class="fullwidthbanner-container">
+		<div class="fullwidthbanner">
+			<ul>
+				<li data-transition="3dcurtain-horizontal" data-slotamount="15" data-masterspeed="300">
+					<img src="../images/notlogged/about_bg.png"/>	
+					<div class="banner_txt tp-caption sft">
+				 	<div class="W786 t_c">
+				 	<p class="F58">申请投资购买</p>
+				    </div>
+				    </div>								
+				</li>
+			</ul>
+		</div>
+	</div>
+    <div class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+        <input type="text" placeholder=""/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证</label>
+        <div class="layui-input-block">
+        <input type="text"placeholder=""/>
+        </div>
+    </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">开户银行</label>
+        <div class="layui-input-block">
+          <select id="" name="" lay-verify="required">
+            <option value="0">---</option>
+            <option value="1">恒生银行</option></select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">银行账号</label>
+        <div class="layui-input-block">
+        <input type="text"placeholder=""/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">份数</label>
+        <div class="layui-input-block">
+        <input type="text"placeholder=""/>
+        </div>
+    </div>
+     <div class="layui-form-item FR"> 合约金额<span>10,000</span>元</div>
+     <div class="layui-form-item">
+     <label class="layui-form-label"></label>
+        <div class="layui-input-block c99">
+   	 		 注：请使用香港银行购买！
+   	  </div>
+   	 </div>
+     <div class="layui-form-item"><div class="buypro_btn bg5fa" onclick="buyProduct1()">购买</div></div>
+     <div class="layui-form-item"><a class="buypro_btn" href="openAccount.htm">立即开户</a></div>
+    </div>
+    <div class="buypro_tips">
+    <h3>温馨提示:</h3>
+    <p>1、为了您的账户安全，请在购买前进行身份认证，手机绑定以及交易密码设置</p>
+    <p>2、请注意您的银行卡充值限制，以免造成不便。</p>
+    <p>3、如果充值金额没有及时到账，请联系客服：400-9910-696</p>
+    </div>
+  </div>
+  <!-- 底部导航栏 -->
+  <div class="footer"></div>
+</body>
+</html>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script>
+function buyProduct1() {
+    //询问框
+    layer.confirm('购买完成前请不要关闭此窗口</br>' + '请在弹出的银行支付页面完成交易，如果支付提交成功，请点击“购买成功”按钮，如果支付提交失败，请点击“购买失败”按钮</br>' + '点击后系统将自动弹到业务相关下一步', {
+      btn: ['购买成功', '购买失败'],
+      //按钮
+      title: '购买完成前请不要关闭此窗口'
+    },
+    function() {
+      console.log("点击的是成功")
+    },
+    function() {
+      console.log("点击的是失败")
+    });
+  }
+</script>

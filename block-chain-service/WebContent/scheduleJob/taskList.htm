@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="js/jquery/jquery-1.9.1.min.js"></script>
+    <link href="../scheduleJob/css/scheduleJob.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    #parse("/common/common.htm")
+</head>
+
+<title>task</title>
+
+<body class="body-content">
+<div class="Listzk">
+    <div class="inc_right_center bbc8">
+        <p class="pt15 pb20 colorb4">
+            <span><img class="imgmid pr5" src="../scheduleJob/images/inc-right-place.png"></span>
+            <span> 您的位置：</span>
+            <span>定时调度管理</span> &gt;
+            <span>定时任务</span>
+            <span></span>
+        </p>
+    </div>
+
+    <!--<div class="loan_wallet searchInput">-->
+        <!--<form id="search_id">-->
+            <!--<div class="loan_form">-->
+                <!--<p class="overauto">-->
+                <!--<div class="layui-inline mt10">-->
+              <!--<span>组名：-->
+                <!--<div class="layui-input-inline">-->
+                  <!--<input class="layui-input time" id="startTime" placeholder="请输入组名" type="text">-->
+                <!--</div>-->
+              <!--</span>-->
+                    <!--<span>任务名：-->
+                <!--<div class="layui-input-inline">-->
+                  <!--<input class="layui-input time" id="stopTime" placeholder="请输入任务名" type="text">-->
+                <!--</div>-->
+             <!--</span>-->
+                    <!--<input type="button" id="doSearch" pid="search_id" class="seach_btn newseach_btn ml117" value="查找"-->
+                           <!--onclick="searchZXContract()">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+
+    <div class="loan_list">
+        <table class="loan_talbe w tc into_pieces">
+            <thead class="taHead">
+            <!--表头-->
+            <tr>
+                <td>编号&nbsp;&nbsp;&nbsp;</td>
+                <td>组名</td>
+                <td>任务名</td>
+                <td>状态&nbsp;&nbsp;</td>
+                <td>cron表达式</td>
+                <td>运行状态</td>
+                <td>描述</td>
+                <td>同步否</td>
+                <td>beanId</td>
+                <td>执行次数</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+
+            <!--数据插入体-->
+            <tr>
+                <td>
+                    *
+                </td>
+                <td>
+                    <input type="text" style="border:1px solid #369" name="jobGroup" id="jobGroup"/>
+                </td>
+                <td>
+                    <input type="text" style="border:1px solid #369" name="jobName" id="jobName"/>
+                </td>
+                <td style="padding:0 20px">
+                    0<input type="hidden" style="border:1px solid #369" name="jobStatus" value="0"/>
+                </td>
+                <td>
+                    <input type="text" style="border:1px solid #369" name="cronExpression" id="cronExpression"/>
+                </td>
+                <td style="padding:0 1%;">
+                    *
+                </td>
+                <td>
+                    <input type="text" style="border:1px solid #369" name="description" id="description"/>
+                </td>
+                <td>
+                    <select name="isConcurrent" id="isConcurrent" style="border:1px solid #369">
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" style="border:1px solid #369" name="springId" id="springId"/>
+                </td>
+                <td>
+                    *
+                </td>
+                <td>
+                    <div onclick="createScheduleJob()" class="bluebtn">添加</div>
+                </td>
+            </tr>
+
+            <!--数据体-->
+            <tbody class="layui-form" id="taskListTbody">
+            </tbody>
+        </table>
+
+        <!--分页插件-->
+        <div id="pageTool" style="text-align:center"/>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../scheduleJob/js/layui/lay/modules/layer.js"></script>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="../scheduleJob/scheduleJob.js"></script>

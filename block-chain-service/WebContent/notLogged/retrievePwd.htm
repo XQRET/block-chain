@@ -1,0 +1,54 @@
+#set($strRootPath = $baseController.getRootPath($request))
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="shortcut icon" href= "${strRootPath}/images/bitbug_favicon.ico"/>
+    <title>找回密码</title>
+    <link href="all.css" rel="stylesheet" type="text/css"/>
+    #parse("/common/common.htm")
+</head>
+
+<body>
+<!-- 头部导航栏 -->
+<div class="header clearfix"></div>
+<!-- 中间部分 -->
+<div class="retrieve_center">
+    <div class="reg_info">
+        <p class="reg_title t_c">找回密码</p>
+        <form class="retrieve_form">
+            <p class="phones">
+                <label>手机</label>
+                <b>+86</b>
+                <input id="idMobile" placeholder=""/>
+            </p>
+            <p class="reg_code">
+                <label>图片</label>
+                <input id="idGraphicVer" placeholder=""/>
+                <span class="loginimg">
+	            <img id="loginimg" height="20" width="60" src="../servlet/verifyCode.svl" onclick="changeCheckIMG();"/>
+	            </span>
+            <p class="reg_code">
+                <label>短信</label>
+                <input  id="idMessVer" placeholder="" />
+                <span class="bg1f active8" onclick="getVer()" id="btnSendCode">获取</span>
+           </p>
+            <p>
+                <label>新密码</label>
+                <input id="newPwd" type="password" placeholder=""/>
+            </p>
+            <p>
+                <label>确认</label>
+                <input id="firmPwd" type="password" placeholder=""/>
+            </p>
+            <div class="reg_btn" onclick="onRetrievePwd()">确认</div>
+        </form>
+    </div>
+</div>
+<!-- 底部导航栏 -->
+<div class="footer"></div>
+</body>
+</html>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/retrievePwd.js"></script>
+

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.cdoframework:cdoframework:7.3.4-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://D:/maven-jar/block-chain/com/cdoframework/cdoframework/7.3.4-SNAPSHOT/cdoframework-7.3.4-20180525.065814-13.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/maven-jar/block-chain/com/cdoframework/cdoframework/7.3.4-SNAPSHOT/cdoframework-7.3.4-20180525.065814-13-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/maven-jar/block-chain/com/cdoframework/cdoframework/7.3.4-SNAPSHOT/cdoframework-7.3.4-20180525.065814-13-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
