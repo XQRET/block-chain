@@ -13,7 +13,7 @@
 @-o-keyframes allheader {0%{top:-65px;}100% {top:0px;}} /* Opera */
 @-webkit-keyframes allheader {0%{top:-65px;}100% {top:0px;}}/* Safari and Chrome */
 
-.alltop_nav {overflow:auto;width:67% !important;float:left;color:#9b9b9b;}
+.alltop_nav {overflow:auto;width:65% !important;float:left;color:#9b9b9b;}
 .alltop_nav .check a {color:#fff;}
 .alltop_nav li {float:left;width:16%;}
 /* .alltop_nav li:hover{background:#495164;} */

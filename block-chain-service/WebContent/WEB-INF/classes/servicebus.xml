@@ -4,10 +4,10 @@
 	<DataServiceEngine>com.cdoframework.cdolib.database.BigDataEngine</DataServiceEngine>
 
 	<DataGroup Id="writeCompany" ClassPath="com.cdoframework.cdolib.database.DataEngine" Driver="com.mysql.jdbc.Driver">
-		<Database URI="jdbc:mysql://192.168.2.233:3306/blockChain_leijian?Unicode=true&amp;characterEncoding=utf8&amp;useSSL=false" LoadLevel="100">
-			<User UserName="root" Password="000000" />
-			<!--<Database URI="jdbc:mysql://rm-wz9k10wll9bc2m70j.mysql.rds.aliyuncs.com:3306/blockchain?Unicode=true&amp;characterEncoding=utf8&amp;useSSL=false" LoadLevel="100">-->
-			<!--<User UserName="credit" Password="eHEyMDE2" />-->
+		<!--<Database URI="jdbc:mysql://192.168.2.233:3306/blockChain_leijian?Unicode=true&amp;characterEncoding=utf8&amp;useSSL=false" LoadLevel="100">-->
+			<!--<User UserName="root" Password="000000" />-->
+			<Database URI="jdbc:mysql://rm-wz9k10wll9bc2m70j.mysql.rds.aliyuncs.com:3306/blockchain?Unicode=true&amp;characterEncoding=utf8&amp;useSSL=false" LoadLevel="100">
+			<User UserName="credit" Password="eHEyMDE2" />
 			<ConnectionPool>
 				<MinConnectionCount>1</MinConnectionCount>
 				<MaxConnectionCount>50</MaxConnectionCount>
